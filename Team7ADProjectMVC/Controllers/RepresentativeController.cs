@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Services;
 using Team7ADProjectMVC.Services.DepartmentService;
+using PagedList;
 
 namespace Team7ADProjectMVC.TestControllers
 {
@@ -27,22 +28,25 @@ namespace Team7ADProjectMVC.TestControllers
 
         //[AuthorisePermissions(Permission="")]
 
-        public ActionResult Viewdisbursements()
+        public ActionResult Viewdisbursements(int? page)
         {
 
             var id = ((Employee)Session["user"]).DepartmentId;
             var disbursementlist = disbursementSvc.GetDisbursementByDeptId(id);
             TempData["list"] = disbursementlist;
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
 
-            return View(disbursementlist);
+            return View(disbursementlist.ToPagedList(pageNumber,pageSize));
 
 
         }
-        public ActionResult Searchdisbursements(string date, string status)
+        public ActionResult Searchdisbursements(int? page,string date, string status)
         {
-
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
             var disbursementlist = (List<DisbursementList>)TempData.Peek("list");
-            return View("Viewdisbursements", disbursementSvc.FindDisbursementsBySearch(disbursementlist,date, status));
+            return View("Viewdisbursements", disbursementSvc.FindDisbursementsBySearch(disbursementlist,date, status).ToPagedList(pageNumber,pageSize));
         }
         public ActionResult ViewDisbursementDetail(int? id)
         {
