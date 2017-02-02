@@ -90,6 +90,10 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul id="nav" class="nav nav-sidebar">
+                    @if (Page.Employee.Role.Disbursement || Page.Employee.Role.InventoryManagement || Page.Employee.Role.MakePurchaseOrder || Page.Employee.Role.ApprovePurchaseOrder|| Page.Employee.Role.ViewReports|| Page.Employee.Role.MakeAdjustment|| Page.Employee.Role.ApproveAdjustment)
+                    {
+                        <li><u>Store</u></li>
+                    }                   
                     @if (Page.Employee.Role.Disbursement)
                     {
                         <li id="menu3"><a href="@baseurl/Store/ViewRequisitions">Requisitions & Retrievals</a></li>
@@ -105,7 +109,26 @@
                         <li id="menu2"><a href="@baseurl/Store/Inventory">View Inventory</a></li>
                         <li id="menu6"><a href="@baseurl/Store/SupplierList">Supplier List</a></li>
                     }
-                    <li><hr /></li>
+                    @if (Page.Employee.Role.ViewReports)
+                    {
+                        <li id="menu7"><a href="@baseurl/Rpt">Generate Reports</a></li>
+                    }
+                    @if (Page.Employee.Role.MakeAdjustment)
+                    {
+                        <li id="menu7"><a href="@baseurl/Adjustments/Create">Create Adjustment</a></li>
+                    }
+                    @if (Page.Employee.Role.ApproveAdjustment)
+                    {
+                        <li id="menu7"><a href="@baseurl/Adjustments/ViewAdjustment">Approve Adjustment</a></li>
+                    }
+
+                    <!--Department Functions-->
+
+                    @if (Page.Employee.Role.ViewRequisition|| Page.Employee.Role.ApproveRequisition|| Page.Employee.Role.MakeRequisition|| Page.Employee.Role.ChangeCollectionPoint|| Page.Employee.Role.ConfirmDisbursement|| Page.Employee.Role.DelegateRole)
+                    {
+                        <li><hr /></li>
+                        <li><u>Stationery Requisition</u></li>
+                    } 
                     @if (Page.Employee.Role.ViewRequisition)
                     {
                         <li id="menu2"><a href="@baseurl/Department/Index">View Requisition</a></li>
@@ -130,24 +153,12 @@
                     {
                         <li id="menu2"><a href="@baseurl/Head/show">Manage Delegation</a></li>
                     }
-                    <li><hr /></li>
-                    @if (Page.Employee.Role.ViewReports)
-                    {
-                        <li id="menu7"><a href="@baseurl/Rpt">Generate Reports</a></li>
-                    }
+                                      
                     @if (Page.Employee.Role.ChangeRepresentative)
                     {
                         <li id="menu7"><a href="@baseurl/Head/ChangeRepresentive">Change Department Representative</a></li>
                     }
-                    @if (Page.Employee.Role.MakeAdjustment)
-                    {
-                        <li id="menu7"><a href="@baseurl/Adjustments/Create">Create Adjustment</a></li>
-                    }
-                    @if (Page.Employee.Role.ApproveAdjustment)
-                    {
-                        <li id="menu7"><a href="@baseurl/Adjustments/ViewAdjustment">Approve Adjustment</a></li>
-                    }
-                    <li id="menu1"><a href="@baseurl/Store/Index">To Check: Main Menu</a></li>                   
+                                   
                     
                     
                     
