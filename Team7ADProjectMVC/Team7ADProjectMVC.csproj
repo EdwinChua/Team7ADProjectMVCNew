@@ -975,6 +975,7 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="Resources\dashboard.css" />
+    <Content Include="Resources\making.jpg" />
     <Content Include="Resources\mystyle.css" />
     <Content Include="Resources\print.css" />
     <Content Include="Resources\screen.css" />
