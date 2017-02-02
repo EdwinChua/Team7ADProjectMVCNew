@@ -120,9 +120,14 @@
                     @if (Page.Employee.Role.ApproveAdjustment)
                     {
                         <li id="menu7"><a href="@baseurl/Adjustments/ViewAdjustment">Approve Adjustment</a></li>
-                        <li><hr /></li>
+                        
                     }
 
+                    @if (Page.Employee.Role.Disbursement || Page.Employee.Role.InventoryManagement || Page.Employee.Role.MakePurchaseOrder || Page.Employee.Role.ApprovePurchaseOrder || Page.Employee.Role.ViewReports || Page.Employee.Role.MakeAdjustment || Page.Employee.Role.ApproveAdjustment)
+                    {
+                        <li><hr /></li>
+                    }   
+                 
                     <!--Department Functions-->
 
                     @if (Page.Employee.Role.ViewRequisition|| Page.Employee.Role.ApproveRequisition|| Page.Employee.Role.MakeRequisition|| Page.Employee.Role.ChangeCollectionPoint|| Page.Employee.Role.ConfirmDisbursement|| Page.Employee.Role.DelegateRole)
