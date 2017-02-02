@@ -53,7 +53,10 @@
             Approved By:
         </div>
         <div class="col-md-2">
-            @ViewBag.PurchaseOrder.Employee.EmployeeName
+            @if (@ViewBag.PurchaseOrder.Employee != null)
+            {
+                <p>@ViewBag.PurchaseOrder.Employee.EmployeeName </p>
+            }
         </div>
     </div>
     <div class="row">
@@ -61,7 +64,10 @@
             Approved On:
         </div>
         <div class="col-md-2">
+@if (@ViewBag.PurchaseOrder.Employee != null)
+{
             @ViewBag.PurchaseOrder.AuthorizedDate.ToString("dd MMM yyyy")
+}
         </div>
     </div>
 

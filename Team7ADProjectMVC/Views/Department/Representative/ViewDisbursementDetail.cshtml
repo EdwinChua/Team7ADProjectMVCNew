@@ -4,6 +4,8 @@
     ViewBag.Title = "ViewDisbursementDetail";
     Layout = "~/_Layout1.cshtml";
     Page.Title = "Disbursement List for " + @ViewBag.DisbursementList.Department.DepartmentName;
+    Employee currentEmployee = (Employee)Session["User"];
+    Page.Employee = currentEmployee;
 }
 
 <h3>Collection Point: @ViewBag.Cpname (@ViewBag.Cptime)</h3>
@@ -51,21 +53,27 @@
         @Html.AntiForgeryToken()
 
         <div class="form-group">
-            @if (@ViewBag.status != "Complete")
-            {
-                <div class="col-md-offset-4 col-md-8">
-                    <div class="form-actions no-color">
-                        <input type="submit" value="Confirm" class="btn btn-default" />
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+                @if (@ViewBag.status != "Completed")
+                {
+                    
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Confirm" class="btn btn-success" />
+                            <button type="button" class="btn btn-default" onclick="window.history.back()">Back</button>
+                        </div>
 
-                    </div>
-                </div>
-            }
-
+                }
+                else
+                {
+                    <button type="button" class="btn btn-default" onclick="window.history.back()">Back</button>
+                }
+            </div>
         </div>
     }
 
     <br />
     <br />
-    <h4>@Html.ActionLink("Back to List", null, null, null, new { href = Request.UrlReferrer })</h4>
+    
 
 </div>

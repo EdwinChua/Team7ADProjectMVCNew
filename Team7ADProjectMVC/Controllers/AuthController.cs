@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -17,36 +18,39 @@ namespace Team7ADProjectMVC.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                String redirectUrl="";             
                 int userId = Int32.Parse(User.Identity.Name);
-                Employee e= db.Employees.Find(userId);
-                Session["user"] = e;
-                if (deptSvc.IsDelegate(e))
+                Employee emp = db.Employees.Find(userId);
+                Session["user"] = emp;
+                if (deptSvc.IsDelegate(emp))
                 {
-                    deptSvc.SetDelegatePermissions(e);
-                    Session["user"] = e;
-                    return Redirect(Url.Content("~/Head/ApproveRequisition")); //If delegated, do not redirect to Make Requisition use case
+                    deptSvc.SetDelegatePermissions(emp);
+                    Session["user"] = emp;
+                    //return Redirect(Url.Content("~/Head/ApproveRequisition")); //If delegated, do not redirect to Make Requisition use case
+                    redirectUrl = "~/Head/ApproveRequisition";
                 }
 
-                
-
-
-                switch (e.Role.Name)
+                if (emp.Role.Name == "Store Clerk" || emp.Role.Name == "Store Representative" || emp.Role.Name == "Store Supervisor")
                 {
-                    case "Store Clerk":
-                    case "Store Representative":
-                    case "Store Supervisor":
-                        return Redirect(Url.Content("~/Store/ViewRequisitions"));
-                    case "Department Head":
-                    case "Store Manager":
-                        return Redirect(Url.Content("~/Head/ApproveRequisition"));
-                    case "Employee":
-                    case "Representative":
-                        return Redirect(Url.Content("~/Department/MakeRequisition"));
-                    default:
-                        return Redirect(Url.Content("~/Login.aspx"));
+                    redirectUrl="~/Store/ViewRequisitions";
                 }
+                if (emp.Role.Name == "Department Head" || emp.Role.Name == "Store Manager")
+                {
+                    redirectUrl="~/Head/ApproveRequisition";
+                }
+                if (emp.Role.Name == "Employee" || emp.Role.Name == "Representative")
+                {
+                    redirectUrl="~/Department/MakeRequisition";
+                }
+
+                if (Session["ReturnUrl"] != null)
+                {
+                    redirectUrl = "~" + Session["ReturnUrl"].ToString();
+                    Session.Remove("ReturnUrl");
+                }
+                return Redirect(Url.Content(redirectUrl));
             }
-            
+
             else return Redirect(Url.Content("~/Login.aspx"));
 
         }
@@ -56,6 +60,15 @@ namespace Team7ADProjectMVC.Controllers
             Session["user"] = new Employee();
             FormsAuthentication.SignOut();
             return Redirect(Url.Content("~/Login.aspx"));
+        }
+
+        public ActionResult Unauthorised()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized, "You are not authorised to view the page. Please click on the back button to continue using the application");
+            }
+            else return Redirect("~/Login.aspx");
         }
     }
 }
