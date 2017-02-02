@@ -15,7 +15,7 @@ namespace Team7ADProjectMVC.TestControllers
     {
         private IDisbursementService disbursementSvc;
         private IDepartmentService departmentSvc;
-        private ProjectEntities db = new ProjectEntities();
+       
 
 
         public RepresentativeController()
@@ -77,7 +77,7 @@ namespace Team7ADProjectMVC.TestControllers
 
             int id = (int)((Employee)Session["user"]).DepartmentId;
             Department department = departmentSvc.FindDeptById(id);
-            ViewBag.Message = db.CollectionPoints.ToList();
+            ViewBag.Message = departmentSvc .getAllCollectionPoint();
             return View("ChangeCollectionPoint", department);
 
         }
@@ -97,7 +97,7 @@ namespace Team7ADProjectMVC.TestControllers
 
                 return RedirectToAction("Viewdisbursements");
             }
-            ViewBag.Message = db.CollectionPoints.ToList();
+            ViewBag.Message = departmentSvc .getAllCollectionPoint();
             return View(department);
 
         }

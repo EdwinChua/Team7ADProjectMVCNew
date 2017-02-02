@@ -257,5 +257,9 @@ namespace Team7ADProjectMVC.Services.DepartmentService
             e.Role.MakeRequisition = false;
             return e;
         }
+        public List <CollectionPoint > getAllCollectionPoint()
+        {
+            return (db.CollectionPoints.ToList());
+        }
     }
 }
