@@ -120,5 +120,14 @@ namespace Team7ADProjectMVC.Models.ReportService
             return data;
         }
 
+
+        public DataView GetDataForStocklist()
+        {
+            DataSet1.StocklistDataTable dt = new DataSet1.StocklistDataTable();
+            DataSet1TableAdapters.StocklistTableAdapter da = new DataSet1TableAdapters.StocklistTableAdapter();
+            da.Fill(dt);
+            return dt.AsDataView();
+        }
+
     }
 }

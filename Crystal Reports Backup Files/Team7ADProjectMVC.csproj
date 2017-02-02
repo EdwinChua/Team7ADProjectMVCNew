@@ -961,8 +961,8 @@
     <Content Include="Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\ok.pubxml" />
-    <None Include="Properties\PublishProfiles\Team7Adproject.pubxml" />
+    <None Include="Properties\PublishProfiles\kannan.pubxml" />
+    <None Include="Properties\PublishProfiles\team7.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -975,6 +975,7 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="Resources\dashboard.css" />
+    <Content Include="Resources\making.jpg" />
     <Content Include="Resources\mystyle.css" />
     <Content Include="Resources\print.css" />
     <Content Include="Resources\screen.css" />
@@ -997,7 +998,7 @@
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\npm.js" />
-    <Content Include="Services\WCFService\Service.svc" />
+    <Content Include="Service.svc" />
     <Content Include="Views\Adjustments\EditorTemplates\Adjustment.cshtml" />
     <Content Include="Views\Adjustments\EditorTemplates\AdjustmentDetail.cshtml" />
     <Content Include="Web.config">
@@ -1069,7 +1070,7 @@
     <Compile Include="Inventory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Services\WCFService\IService.cs" />
+    <Compile Include="IService.cs" />
     <Compile Include="ItemCodeGenerator.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1156,7 +1157,7 @@
     <Compile Include="Services\UtilityService\IUtilityService.cs" />
     <Compile Include="Services\UtilityService\UtilityService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\WCFService\Service.svc.cs">
+    <Compile Include="Service.svc.cs">
       <DependentUpon>Service.svc</DependentUpon>
     </Compile>
     <Compile Include="Controllers\DepartmentController.cs" />
@@ -1273,6 +1274,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Services\WCFService\" />
     <Folder Include="Views\Auth\" />
     <Folder Include="Views\FCM\" />
   </ItemGroup>
