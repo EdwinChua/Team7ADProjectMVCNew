@@ -120,13 +120,14 @@
                     @if (Page.Employee.Role.ApproveAdjustment)
                     {
                         <li id="menu7"><a href="@baseurl/Adjustments/ViewAdjustment">Approve Adjustment</a></li>
+                        <li><hr /></li>
                     }
 
                     <!--Department Functions-->
 
                     @if (Page.Employee.Role.ViewRequisition|| Page.Employee.Role.ApproveRequisition|| Page.Employee.Role.MakeRequisition|| Page.Employee.Role.ChangeCollectionPoint|| Page.Employee.Role.ConfirmDisbursement|| Page.Employee.Role.DelegateRole)
                     {
-                        <li><hr /></li>
+                        
                         <li><u>Stationery Requisition</u></li>
                     } 
                     @if (Page.Employee.Role.ViewRequisition)
