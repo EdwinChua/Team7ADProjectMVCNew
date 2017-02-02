@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -26,9 +27,7 @@ namespace Team7ADProjectMVC.Controllers
                     Session["user"] = e;
                     return Redirect(Url.Content("~/Head/ApproveRequisition")); //If delegated, do not redirect to Make Requisition use case
                 }
-
                 
-
 
                 switch (e.Role.Name)
                 {
@@ -56,6 +55,15 @@ namespace Team7ADProjectMVC.Controllers
             Session["user"] = new Employee();
             FormsAuthentication.SignOut();
             return Redirect(Url.Content("~/Login.aspx"));
+        }
+
+        public ActionResult Unauthorised()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized, "You are not authorised to view the page. Please click on the back button to continue using the application");
+            }
+            else return Redirect("~/Login.aspx");
         }
     }
 }

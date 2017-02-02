@@ -68,7 +68,7 @@ VALUES
 ('Department Head', 'Head',1,1,1,0,1,0,0,1,0,0,0,0,0,0,0),
 ('Employee', 'Normal Staff',0,0,1,1,0,0,0,0,0,0,0,0,0,0,0),
 ('Representative', 'Department Representative',0,1,1,1,0,1,1,0,0,0,0,0,0,0,0),
-('Store Supervisor', 'Store sup',0,0,1,1,0,0,0,0,1,0,1,1,1,1,0),
+('Store Supervisor', 'Store sup',0,0,1,1,0,0,0,0,1,0,1,1,1,1,1),
 ('Store Manager', 'Store Manager',1,1,1,0,1,0,0,1,0,0,1,0,1,0,1),
 ('Store Representative','Store rep',0,1,1,1,0,0,1,0,1,1,0,1,1,1,0);
 
