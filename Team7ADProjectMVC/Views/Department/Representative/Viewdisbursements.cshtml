@@ -9,7 +9,7 @@
 <!-- Bootstrap Date-Picker Plugin -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
-@model IEnumerable<Team7ADProjectMVC.DisbursementList>
+@model PagedList.IPagedList<Team7ADProjectMVC.DisbursementList>
 
 @{
     ViewBag.Title = "View Disbursement";
@@ -19,13 +19,13 @@
     Page.Employee = currentEmployee;
 }
 
-
+@using PagedList.Mvc;
 
 <div class="container-fluid">
 
     <div class="navbar navbar-default">
         <form role="form" class="navbar-form row" action="SearchDisbursements">
-            <div class="form-group col-md-5">
+            <div class="form-group col-md-offset-1  col-md-4 ">
 
                 <div class="input-group">
                     <div class="input-group-addon">
@@ -47,7 +47,7 @@
                 </select>
             </div>
 
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-offset-1 col-md-2">
                 <button class="btn btn-success" type="submit">
                     Search
                 </button>
@@ -62,20 +62,20 @@
         <table class="table">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Department.DepartmentName)
+                    Department Name
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.DeliveryDate)
+                    Delivery Date
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Department.CollectionPoint.PlaceName)
+                    Collection Point
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Department.CollectionPoint.CollectTime)
+                    Collection Time 
                 </th>
 
                 <th>
-                    @Html.DisplayNameFor(model => model.Status)
+                    Disbursement Status
                 </th>
                 <th></th>
             </tr>
@@ -110,7 +110,12 @@
         </table>
     </div>
 </div>
-</div>
+<center>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Viewdisbursements",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</center>
 <script>
     $(document).ready(function ($) {
         $(".clickable-row").click(function () {

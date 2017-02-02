@@ -62,13 +62,5 @@ namespace Team7ADProjectMVC.Controllers
             return Redirect(Url.Content("~/Login.aspx"));
         }
 
-        public ActionResult Unauthorised()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized, "You are not authorised to view the page. Please click on the back button to continue using the application");
-            }
-            else return Redirect("~/Login.aspx");
-        }
     }
 }

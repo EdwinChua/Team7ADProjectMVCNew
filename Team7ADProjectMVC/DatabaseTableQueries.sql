@@ -960,6 +960,10 @@ select s.SupplierName,po.AuthorizedDate,c.CategoryName,i.Description,pd.Quantity
 from PurchaseOrder po, PurchaseDetail pd, Inventory i, supplier s, Category c
 where pd.PurchaseOrderId=po.PurchaseOrderId and po.SupplierId=s.SupplierId and pd.ItemNo=i.ItemNo and po.OrderStatus='Approved' and i.CategoryId=c.CategoryId
 
+-------------------------------------- CrystalReports Stocklist ----------------------------------------
+Create View Stocklist as
+select i.ItemNo,I.Description,I.BinNo,I.ReorderLevel,I.ReorderQuantity,I.Quantity,m.UnitOfMeasurement,i.HoldQuantity from inventory i, Category c, measurement m where i.CategoryId=c.CategoryId and m.MeasurementId=i.MeasurementId
+
 
 ---------------------------------------Utility query to list out employees and their roles---------------------------------
 select e.EmployeeId,e.EmployeeName,d.DepartmentName,r.Name from Employee e, role r, Department d
