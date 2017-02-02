@@ -85,6 +85,7 @@ namespace Team7ADProjectMVC.Services.SupplierService
                 tempPurchaseOrder.OrderDate = DateTime.Today;
                 tempPurchaseOrder.SupplierId = localSupplierId;
                 tempPurchaseOrder.EmployeeId = employee.EmployeeId;
+                tempPurchaseOrder.OrderStatus = "Pending";
                 db.PurchaseOrders.Add(tempPurchaseOrder);
                 db.SaveChanges();
 
