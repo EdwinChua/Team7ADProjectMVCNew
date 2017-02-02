@@ -77,7 +77,7 @@ namespace Team7ADProjectMVC.Controllers
             Employee user = ((Employee)Session["user"]);
 
             string role = ivadjustsvc.findRolebyUserID(user.EmployeeId);
-            List<Employee> empList = deptSvc.(user.DepartmentId);
+            List<Employee> empList = deptSvc.GetEverySingleEmployeeInDepartment(user.DepartmentId);
             ViewBag.employee = new SelectList(empList, "EmployeeId", "EmployeeName");
             int pageSize = 10;
             int pageNumber = (page ?? 1);
