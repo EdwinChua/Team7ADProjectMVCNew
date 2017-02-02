@@ -1,0 +1,73 @@
+﻿@model Team7ADProjectMVC.Department
+
+@{
+    Layout = "~/_Layout1.cshtml";
+    Page.Title = "Change Collection Point";
+    Employee currentEmployee = (Employee)Session["User"];
+    Page.Employee = currentEmployee;
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h3>Change Collection Point</h3>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.DepartmentId)
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentName, "Department Name", htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.DepartmentName, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
+                @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.CollectionPointId, "Current Collection Point", htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-4">
+                @Html.DisplayFor(model => model.CollectionPoint.PlaceName)  (@Html.DisplayFor(model => model.CollectionPoint.CollectTime)) 
+                @Html.ValidationMessageFor(model => model.CollectionPointId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3 text-right " >
+                       New Collection Point
+                </div>
+
+                <div class="col-md-5">
+                    @foreach (var item in ViewBag.Message)
+                    {
+                        <input type="radio"  name="radio" value="@item.CollectionPointId" > @item.PlaceName   <label>( @item.CollectTime )</label> <br />
+                    }
+
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+

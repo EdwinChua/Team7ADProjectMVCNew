@@ -1,0 +1,124 @@
+﻿@model Team7ADProjectMVC.Inventory
+
+@{
+    Layout = "~/_Layout1.cshtml";
+    Page.Title = "View Stationery Retrieval List";
+    Employee currentEmployee = (Employee)Session["User"];
+    Page.Employee = currentEmployee;
+}
+
+
+
+
+<div>
+    <br />
+</div>
+
+<h2>Items to collect</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Bin#
+            </th>
+            <th>
+                Stationery Description
+            </th>
+            <th>
+                Quantity Needed
+            </th>
+            <th>
+                Quantity Retrieved
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.RList.itemsToRetrieve)
+        {
+            if (!item.collectionStatus)
+            {
+
+                    <tr>
+                        <td>
+                            @item.binNo
+                        </td>
+                        <td>
+                            @item.itemNo - @item.description
+                        </td>
+                        <td>
+                            @item.requiredQuantity
+                        </td>
+                        <td>
+                            <form action="MarkAsCollected">
+                            <div class="col-md-4"><input type="number" 
+                                                         
+                                                         
+                                                         name="collectedQuantity" class="form-control" value="@item.requiredQuantity" width="30" /></div>
+                            <input type="hidden" value="@item.itemNo" name="itemNo" />
+                            <input type="submit" class="btn btn-info" value="Mark As Collected" /></form>
+                        </td>
+                    </tr>
+
+            }
+        }
+
+    </tbody>
+</table>
+
+<hr />
+<h2>Items collected</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Bin#
+            </th>
+            <th>
+                Stationery Description
+            </th>
+            <th>
+                Quantity Needed
+            </th>
+            <th>
+                Quantity Retrieved
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.RList.itemsToRetrieve)
+        {
+            if (item.collectionStatus)
+            {
+
+                <tr>
+                    <td>
+                        @item.binNo
+                    </td>
+                    <td>
+                        @item.itemNo - @item.description
+                    </td>
+                    <td>
+                        @item.requiredQuantity
+                    </td>
+                    <td>
+                        <form action="MarkAsCollected">
+                            <div class="col-md-4"><input type="number" name="collectedQuantity" class="form-control" value="@item.collectedQuantity" max="@item.collectedQuantity" width="30" /></div>
+                            <input type="hidden" value="@item.itemNo" name="itemNo" />
+                            <input type="submit" class="btn btn-info" value="Update" />
+                        </form>
+                    </td>
+                </tr>
+
+            }
+        }
+
+    </tbody>
+</table>
+
+
+
+<input type="button" class="btn btn-info pull-right" value="Generate Disbursements" onclick="window.location.href='DisburseItems'"/>

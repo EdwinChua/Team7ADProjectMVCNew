@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Team7ADProjectMVC.Delivery>
+
+@{
+    Layout = "~/_Layout1.cshtml";
+    Page.Title = "View Deliveries";
+    Employee currentEmployee = (Employee)Session["User"];
+    Page.Employee = currentEmployee;
+    string printLine = null;
+}
+
+
+<div class="container-fluid">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Supplier Name
+                </th>
+                <th>
+                    Order Date
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="clickable-row" data-href="DeliveryDetails/@item.DeliveryId">
+                    <td>
+                        @item.PurchaseOrder.Supplier.SupplierName
+                    </td>
+                    <td>
+                        @item.PurchaseOrder.OrderDate.Value.ToString("dd MMM yyyy")
+                    </td>
+                    <td>
+                        @item.DeliveredDate
+                        @if (item.DeliveredDate == null) { printLine = "Outstanding"; }
+                         @printLine
+                        @{ printLine = null;}
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
+<script>
+        $(document).ready(function ($) {
+        $(".clickable-row").click(function () {
+            window.document.location = $(this).data("href");
+        });
+    });
+
+</script>

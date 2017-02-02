@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Report Options";
+    Layout = "~/_Layout1.cshtml";
+}
+
+<h2>Generate Reports</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Employee</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class ="control-label col-md-2">
+                <label for="DepartmentId">Department</label>
+            </div>           
+            <div class="col-md-10">
+                @foreach (var item in ViewBag.Departments)
+                {
+                    <input type="checkbox" name="SelectedSources" value="@item.DepartmentName">@item.DepartmentName<br>
+                }
+            </div>
+        </div>
+    </div>
+ 
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

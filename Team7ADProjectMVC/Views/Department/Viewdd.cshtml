@@ -1,0 +1,210 @@
+﻿@model IEnumerable<Team7ADProjectMVC.Requisition>
+@{
+    ViewBag.Title = "Viewdd";
+  
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@Page.Title</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+    @*<meta name="description" content="Blur Menu with CSS3 Transitions" />
+    <meta name="keywords" content="css3, transitions, menu, blur, navigation, typography, font, letters, text-shadow" />
+    <meta name="author" content="Codrops" />*@
+    @*<link rel="shortcut icon" href="../favicon.ico">*@
+    @*<link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/style6.css" />*@
+    <!--[if IE]>
+        <link rel="stylesheet" type="text/css" href="css/styleIE.css" />
+    <![endif]-->
+    @*<link href='http://fonts.googleapis.com/css?family=Josefin+Slab' rel='stylesheet' type='text/css' />*@
+
+    <title>@Page.Title</title>
+   
+   
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- For dropdown select -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+
+
+    <!-- for DatePicker bootstrap-->
+    <script type="text/javascript" src="/scripts/moment.min.js"></script>
+    <script type="text/javascript" src="/scripts/bootstrap-datetimepicker.js"></script>
+    <link rel="stylesheet" href="/Content/bootstrap-datetimepicker.css" />
+    <!-- include your less or built css files  -->
+    <!--
+    bootstrap-datetimepicker-build.less will pull in "../bootstrap/variables.less" and "bootstrap-datetimepicker.less";
+    or
+    <link rel="stylesheet" href="/Content/bootstrap-datetimepicker.css" />
+    -->
+    <!--  additional custom styles
+    <link rel="stylesheet"
+        href="${pageContext.request.contextPath}/resources/mystyle.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="${pageContext.request.contextPath}/resources/dashboard.css"
+        rel="stylesheet">-->
+
+
+    <style>
+
+        /*.content{
+	margin: 0 20px;
+}*/
+.bmenu{
+    padding: 0px;
+    margin: 0 0 10px 0;
+    position: relative;
+}
+.bmenu li{
+    font-size: 50px;
+    display: block;
+}
+.bmenu li a{
+	white-space: nowrap;
+	display: block;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 2px rgba(71,80,23,0.3);
+	color: #fff;
+	padding: 5px 20px;
+	margin: 2px;
+	background: rgba(255,255,255,0.2);
+	letter-spacing: 1px;
+	-webkit-transition: all 0.4s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	-o-transition: all 0.4s ease-in-out;
+	-ms-transition: all 0.4s ease-in-out;
+
+	transition: all 0.4s ease-in-out;
+}
+.bmenu li:first-child a{
+	-webkit-border-radius: 15px 15px 0px 0px;
+	-moz-border-radius: 15px 15px 0px 0px;
+	border-radius: 15px 15px 0px 0px;
+}
+.bmenu li:last-child a{
+	-webkit-border-radius: 0px 0px 15px 15px;
+	-moz-border-radius: 0px 0px 15px 15px;
+	border-radius: 0px 0px 15px 15px;
+}
+.bmenu:hover li a{
+	text-shadow: 0px 0px 10px #fff;
+	color: transparent;
+}
+.bmenu li a:hover{
+	background: transparent;
+	text-shadow: 1px 1px 10px rgba(71,80,23,0.6);
+	color: #c4d85a;
+}
+        body {
+            background-image: url('../../images/6.jpg');
+            background-repeat:no-repeat;
+            background-size: cover;
+        }
+
+
+    </style>
+
+  
+</head>
+@*<body style="background-image: url('../../images/6.jpg'); ">*@
+   
+    
+    
+     <nav class="navbar navbar-inverse">
+        <div class="container-fluid" style="height: 100%">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Logo</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+
+  
+
+                        <div>
+                            <ul class="bmenu">
+
+                                <li id="menu1"><a href="/Department/Index">Main Menu</a></li>
+                                <li id="menu2"><a href="/Department/MakeRequisition">Make Requisition</a></li>
+                                <li id="menu3" class="active"><a href="/Department/ViewRequisitionDetails">View Requisition Details</a></li>
+                            </ul>
+
+                        </div>
+                    @*<div class="col-sm-9 col-md-10 main">*@
+                        @*<h1 class="page-header">
+                            @Page.Title
+                        </h1>*@
+
+                        @*<h2 class="sub-header" id="sectiontitle"></h2>*@
+
+                        @*<div id="mainbody" style="width: 100%">
+
+                   @RenderBody()
+
+                        @*</div>
+                    @*</div>
+                @*</div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                </div>*@
+          
+
+            ////////////
+
+
+
+       
+
+                <footer class="container-fluid text-center">
+                    <p>Footer</p>
+                </footer>
+
+
+
+                <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+
+
+
+@*</body>*@
+</html>
+

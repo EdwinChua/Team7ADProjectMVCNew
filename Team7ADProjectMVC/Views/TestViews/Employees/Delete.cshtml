@@ -1,0 +1,73 @@
+﻿@model Team7ADProjectMVC.Employee
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/_Layout1.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.DepartmentCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.DepartmentCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Permission.PermissionId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Permission.PermissionId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Role.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

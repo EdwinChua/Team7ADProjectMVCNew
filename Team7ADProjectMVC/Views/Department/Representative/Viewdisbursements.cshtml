@@ -1,0 +1,138 @@
+﻿<!--  jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+<!-- Bootstrap Date-Picker Plugin -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+@model IEnumerable<Team7ADProjectMVC.DisbursementList>
+
+@{
+    ViewBag.Title = "View Disbursement";
+    Layout = "~/_Layout1.cshtml";
+    Page.Title = "View Disbursement Lists";
+    Employee currentEmployee = (Employee)Session["User"];
+    Page.Employee = currentEmployee;
+}
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron row">
+                <form role="form" class="form-horizontal" action="SearchDisbursements">
+                    <div class="form-group ">
+                        <label class="control-label col-md-2 " for="date">
+                            Delivery Date
+                        </label>
+                        <div class="col-sm-10 col-md-4">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar">
+                                    </i>
+                                </div>
+                                <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text" />
+                            </div>
+                        </div>
+                        <label class="control-label col-md-2 " for="status">
+                            Status
+                        </label>
+
+                        <div class="col-md-4">
+                            <select id="statusPicker" name="status"
+                                    class="selectpicker show-tick form-control"
+                                    data-live-search="true" title="Status">
+                                <option>Processing</option>
+                                <option>Completed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10 col-md-offset-2 col-md-2">
+                            <button class="btn btn-default" type="submit">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Department.DepartmentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DeliveryDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Department.CollectionPoint.PlaceName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Department.CollectionPoint.CollectTime)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+
+                    <tr class='clickable-row' data-href="ViewDisbursementDetail/@item.DisbursementListId">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+                        </td>
+
+                        <td>
+
+                            @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.DeliveryDate))
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Department.CollectionPoint.PlaceName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Department.CollectionPoint.CollectTime)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                    </tr>
+
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function ($) {
+        $(".clickable-row").click(function () {
+            window.document.location = $(this).data("href");
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        var date_input = $('input[name="date"]'); //our date input has the name "date"
+        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+        var options = {
+            format: 'dd/mm/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+            clearBtn: true,
+        };
+        date_input.datepicker(options);
+    })
+
+</script>

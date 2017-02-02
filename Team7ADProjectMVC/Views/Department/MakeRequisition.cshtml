@@ -1,0 +1,1303 @@
+﻿@model Team7ADProjectMVC.Requisition
+@{
+    Page.Title = "Make Requisition";
+    Layout = "~/_Layout1.cshtml";
+    Employee currentEmployee = (Employee)Session["User"];
+    Page.Employee = currentEmployee;
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-8">
+                        @*<form role="form">*@
+                        <div class="form-group">
+                            <div class="page-header">
+
+
+                                Department:  @currentEmployee.Department.DepartmentName
+                               
+
+                                Employee Name:  @currentEmployee.EmployeeName
+
+
+                                <div>
+                                    <span>OrderedDate:</span> <span id="demo">@Convert.ToDateTime(ViewBag.time).ToString("dd/MM/yyyy")</span>
+                                    
+                                    <script>
+                                        var d = new Date();
+                                        
+                                        document.getElementById("demo").innerHTML = $.date(d);
+
+                                       
+
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*@Html.TextBox("StudentName", null, new { @class = "form-control" })*@
+
+
+
+                        <div class="form-group">
+
+                            <label for="exampleInputPassword1">
+                                item option:
+                            </label>
+
+                            @*<select class="input-lg" name="PrerequisiteMembershipId" id="PrerequisiteMembershipId">
+                                    <option value="" style="color:#ccc !important;"> Please select the membership name to be searched for </option>
+                                    @foreach (var item in ViewBag.MembershipList.Items)
+                                    {
+                                        <option value="@item.Id" @(Model.RequisitionDetails. == item.Id ? "selected" : "")>@item.Name</option>
+                                    }
+                                </select>*@
+
+
+                            <select id="lecturerId" name="lecturerId"
+                                    class="selectpicker show-tick form-control droptarget"
+                                    data-live-search="true" required>
+                                <optgroup label="all">
+
+                                    @foreach (var item in ViewBag.MembershipList)
+                                    {
+                                        <option data-subtext="all">@item.Description</option>
+                                    }
+                                </optgroup>
+
+                                <optgroup label="clips">
+                                    @foreach (var item in ViewBag.clips)
+                                    {
+                                        <option data-subtext="clip">@item.Description</option>
+                                    }
+                                </optgroup>
+                            </select>
+
+                        </div>
+                        <div class="form-group">
+
+                            <label for="exampleInputPassword1">
+                                Quantity:
+                            </label>
+                            <input type="number" value="0" min="1" max="500" class="form-control" id="QTY" required/>
+                            
+                           
+                        </div>
+                        <div class="form-group">
+
+                            <button type="button" class="btn btn-default" id="addNew">
+                                Add items to requistion list>>>
+                            </button>
+
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="col-md-4">
+                            <table class="table col-md-4" id="taskTable">
+                                <thead>
+
+                                    <tr>
+                                        <th>
+                                            Item
+                                        </th>
+                                        <th>
+                                            Quantity
+                                        </th>
+
+                                    </tr>
+
+
+                                </thead>
+                                <tbody>
+
+                                            @*@foreach (var item in ViewBag.rel)
+                                                        {
+                                                              <tr>
+                                                                <td>
+                                                                    @item.ItemNo
+                                                                </td>
+                                                                <td>
+                                                                    @item.Quantity
+                                                                </td>
+                           
+
+                                                            </tr>
+                                                        }*@
+
+                                </tbody>
+
+
+                            </table>
+
+
+
+
+
+
+                            <span><button id="cl" type="submit" class="btn btn-default">
+                                Submit
+                            </button></span>
+
+                            <span>
+                                <button type="button" class="btn btn-default" id="addNew">
+                                    @*Add items to requistion list>>>*@
+                                    @Html.ActionLink("Back to List>>>", "/Index")
+                                </button>
+                                @*@Html.ActionLink("Back to List", "Index")*@
+                            </span>
+                        </div>
+                        
+
+                       
+                        @*</form>*@
+
+
+                    </div>
+
+
+
+
+
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+
+                            @*//hahaha*@
+
+                           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="panel-heading">
+                                Category List
+                            </div>
+
+
+
+
+
+
+                          
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="panel panel-group" id="main">
+                                            <div class="panel-body">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#main" href="#accordion"><span class="glyphicon glyphicon-folder-close"></span> Make Selection</a>
+                                                    </h4>
+                                                </div>
+                                                
+                                                <div class="panel-collapse collapse panel-scroll" id="accordion">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-paperclip"></span><span draggable="true" ondrop="drop(event)" ondragover="allowDrop(event)"><span ondragstart="dragStart(event)" draggable="true" id="dragtarget">Clips</span></span></a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseOne" class="panel-collapse collapse">
+                                                            <div class="panel-body">
+                                                                <table class="table">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                
+                                                                              
+                                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-paperclip"></span><span draggable="true" ondrop="drop(event)" ondragover="allowDrop(event)"><span ondragstart="dragStart(event)" draggable="true" id="dragtarget">Clips Double 1</span></span></a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-paperclip"></span><span draggable="true" ondrop="drop(event)" ondragover="allowDrop(event)"><span ondragstart="dragStart(event)" draggable="true" id="dragtarget">Clips Double 2</span></span></a>
+                                                                           </td>
+                                                                        </tr>
+                                                                        @*<tr>
+                                                                            <td>
+                                                                                <a href="#"><span class="glyphicon glyphicon-file text-info"></span> Envelope Brown (3"x6")</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#"><span class="glyphicon glyphicon-comment text-success"></span> Comments</a> <span class="badge">42</span>
+                                                                            </td>
+                                                                        </tr>*@
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                              
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="glyphicon glyphicon-pencil"></span><span draggable="true" ondrop="drop(event)" ondragover="allowDrop(event)"><span ondragstart="dragStart(event)" draggable="true" id="dragtarget">Pen</span></span></a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseThree" class="panel-collapse collapse ">
+                                                            <div class="panel-body">
+                                                                <table class="table">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <div draggable="true" ondrop="drop(event)" ondragover="allowDrop(event)"><p ondragstart="dragStart(event)" draggable="true" id="dragtarget">Pen Ballpoint Black</p> @*<a href="#Pen Ballpoint Black">Pen Ballpoint Black</a>*@</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <div draggable="true" ondrop="drop(event)" ondragover="allowDrop(event)"><p ondragstart="dragStart(event)" draggable="true" id="dragtarget">Pen Ballpoint Blue</p> @*<a href="#Pen Ballpoint Black">Pen Ballpoint Black</a>*@</div>
+                                                                               
+                                                                            </td>
+                                                                        </tr>
+                                                                        @*<tr>
+                                                                            <td>
+                                                                                <a href="#">Import</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#" class="text-danger"><span class="glyphicon glyphicon-trash text-danger"></span> Delete Account</a>
+                                                                            </td>
+                                                                        </tr>*@
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-text-background"></span><span draggable="true" ondrop="drop(event)" ondragover="allowDrop(event)"><span ondragstart="dragStart(event)" draggable="true" id="dragtarget">Paper</span></span></a>
+                                                               
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseFour" class="panel-collapse collapse ">
+                                                            <div class="panel-body">
+                                                                <table class="table">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">Paper Photostat A3</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        @*<tr>
+                                                                            <td>
+                                                                                <a href="#">Notifications</a> <span class="label label-info">9</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">Import</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#" class="text-danger"><span class="glyphicon glyphicon-trash text-danger"></span> Delete Account</a>
+                                                                            </td>
+                                                                        </tr>*@
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span class="glyphicon glyphicon-scissors"></span><span draggable="true" ondrop="drop(event)" ondragover="allowDrop(event)"><span ondragstart="dragStart(event)" draggable="true" id="dragtarget">Scissors</span></span></a>
+                                                                
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseFive" class="panel-collapse collapse ">
+                                                            <div class="panel-body">
+                                                                <table class="table">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">Scissors</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        @*<tr>
+                                                                            <td>
+                                                                                <a href="#">Notifications</a> <span class="label label-info">9</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">Import</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#" class="text-danger"><span class="glyphicon glyphicon-trash text-danger"></span> Delete Account</a>
+                                                                            </td>
+                                                                        </tr>*@
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix"><span class="glyphicon glyphicon glyphicon-stop"></span><span draggable="true" ondrop="drop(event)" ondragover="allowDrop(event)"><span ondragstart="dragStart(event)" draggable="true" id="dragtarget">Tape</span></span></a>
+                                                               
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseSix" class="panel-collapse collapse ">
+                                                            <div class="panel-body">
+                                                                <table class="table">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">Scotch Tape</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">Notifications</a> <span class="label label-info">9</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">Import</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#" class="text-danger"><span class="glyphicon glyphicon-trash text-danger"></span> Delete Account</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven"><span class="glyphicon glyphicon-file"></span><span draggable="true" ondrop="drop(event)" ondragover="allowDrop(event)"><span ondragstart="dragStart(event)" draggable="true" id="dragtarget">File</span></span></a>
+
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseSeven" class="panel-collapse collapse ">
+                                                            <div class="panel-body">
+                                                                <table class="table">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">File Separator</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        @*<tr>
+                                                                            <td>
+                                                                                <a href="#">Notifications</a> <span class="label label-info">9</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">Import</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#" class="text-danger"><span class="glyphicon glyphicon-trash text-danger"></span> Delete Account</a>
+                                                                            </td>
+                                                                        </tr>*@
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                   
+
+
+
+                                                    
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseNine"><span class="glyphicon glyphicon-object-align-left"></span><span draggable="true" ondrop="drop(event)" ondragover="allowDrop(event)"><span ondragstart="dragStart(event)" draggable="true" id="dragtarget">Puncher</span></span></a>
+                                                               
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseNine" class="panel-collapse collapse ">
+                                                            <div class="panel-body">
+                                                                <table class="table">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">Hole Puncher 2 holes</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        @*<tr>
+                                                                            <td>
+                                                                                <a href="#">Notifications</a> <span class="label label-info">9</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">Import</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#" class="text-danger"><span class="glyphicon glyphicon-trash text-danger"></span> Delete Account</a>
+                                                                            </td>
+                                                                        </tr>*@
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTen"><span class="glyphicon glyphicon-unchecked"></span><span draggable="true" ondrop="drop(event)" ondragover="allowDrop(event)"><span ondragstart="dragStart(event)" draggable="true" id="dragtarget">Pad</span></span></a>
+                                                                
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseTen" class="panel-collapse collapse ">
+                                                            <div class="panel-body">
+                                                                <table class="table">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">Pad Postit Memo 1"X2"</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        @*<tr>
+                                                                            <td>
+                                                                                <a href="#">Notifications</a> <span class="label label-info">9</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">Import</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#" class="text-danger"><span class="glyphicon glyphicon-trash text-danger"></span> Delete Account</a>
+                                                                            </td>
+                                                                        </tr>*@
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTen"><span class="glyphicon glyphicon-envelope"></span><span draggable="true" ondrop="drop(event)" ondragover="allowDrop(event)"><span ondragstart="dragStart(event)" draggable="true" id="dragtarget">Envelope</span></span></a>
+                                                               
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapseTwo" class="panel-collapse collapse ">
+                                                            <div class="panel-body">
+                                                                <table class="table">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">Envelope Brown (3"x6")</a> <span class="label label-success">$ 42</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                        @*<tr>
+                                                                            <td>
+                                                                                <a href="#">Invoices</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">Shipments</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#">Logging</a>
+                                                                            </td>
+                                                                        </tr>*@
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                
+                                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse12"><span class="glyphicon glyphicon-erase"></span><span draggable="true" ondrop="drop(event)" ondragover="allowDrop(event)"><span ondragstart="dragStart(event)" draggable="true" id="dragtarget">Eraser</span></span></a>
+                                                                    
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse12" class="panel-collapse collapse">
+                                                            <div class="panel-body">
+                                                                <table class="table">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#"><span class="glyphicon glyphicon-usd"></span> Eraser(hard)</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        @*<tr>
+                                                                            <td>
+                                                                                <a href="#"><span class="glyphicon glyphicon-user"></span> Customers</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#"><span class="glyphicon glyphicon-tasks"></span> Products</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</a>
+                                                                            </td>
+                                                                        </tr>*@
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div id="push"></div>
+
+
+
+                            @*<ul id="accordion">
+                                <li>
+                                    <a href="#">Item 1</a>
+                                    <ul>
+                                        <li>WordPress Themes</li>
+                                        <li><p>This is a paragraph with some text</p></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">My Skills</a>
+                                    <ul>
+                                        <li>HTML / XHTML, CSS</li>
+                                        <li>Adobe Photoshop, Fireworks</li>
+                                        <li>PHP, jQuery, Ruby on rails</li>
+                                        <li>And a whole lot more</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Resources</a>
+                                    <ul>
+                                        <li>Another link</li>
+                                        <li>Another link</li>
+                                    </ul>
+                                </li>
+                            </ul>*@
+
+
+
+                            @*<div class="panel-body">*@
+                               @* <p>Mun Kew received his PhD from Stanford University. He has more than 25 years of R&D and commercial experience in IT. He was Chair and Editor of the ISO/JTC1/WG2/24800 JPSearch international standard, editor or past editor of the Journal of Information Retrieval, Information Processing and Management Journal, member of the advisory board for the School of IIT at Temasek Polytechnic, the IRAL and AIRS symposium series, and formerly Adjunct Assoc. Prof at the National Institute of Education.</p>*@
+                           
+                            
+                                @*<ul id="accordion">
+                                    <li>
+                                        <a href="#">Item 1</a>
+                                        <ul>
+                                            <li>WordPress Themes</li>
+                                            <li><p>This is a paragraph with some text</p></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">My Skills</a>
+                                        <ul>
+                                            <li>HTML / XHTML, CSS</li>
+                                            <li>Adobe Photoshop, Fireworks</li>
+                                            <li>PHP, jQuery, Ruby on rails</li>
+                                            <li>And a whole lot more</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Resources</a>
+                                        <ul>
+                                            <li>Another link</li>
+                                            <li>Another link</li>
+                                        </ul>
+                                    </li>
+                                </ul>*@
+
+                            
+                            
+                            
+                             @*</div>*@
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                @*<div class="col-md-4">
+                    <table class="table col-md-4" id="taskTable">
+                        <thead>
+
+                            <tr>
+                                <th>
+                                    Item
+                                </th>
+                                <th>
+                                    Quantity
+                                </th>
+                               
+                            </tr>
+
+
+                        </thead>
+                        <tbody>*@
+
+                            @*@foreach (var item in ViewBag.rel)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.ItemNo
+                                        </td>
+                                        <td>
+                                            @item.Quantity
+                                        </td>
+                                        @*<td>
+                                            @item.OutstandingQuantity
+                                        </td>
+                                        <td>
+                                            @item.DeliveryStatus
+                                        </td>
+
+                                    </tr>
+                                }*@
+
+                        @*</tbody>
+
+
+                    </table>
+                </div>*@
+            </div>
+
+            @*<button id="cl" type="submit" class="btn btn-default" >
+                Submit
+            </button>*@
+        </div>
+
+    </div>
+
+}
+
+@*</form>*@
+
+
+
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $.date = function (dateObject) {
+        var d = new Date(dateObject);
+        var day = d.getDate();
+        var month = d.getMonth() + 1;
+        var year = d.getFullYear();
+        if (day < 10) {
+            day = "0" + day;
+        }
+        if (month < 10) {
+            month = "0" + month;
+        }
+        var date = day + "/" + month + "/" + year;
+
+        return date;
+    };
+
+    ////////////////////////////validate for number
+    //function validate(evt) {
+    //    var theEvent = evt || window.event;
+    //    var key = theEvent.keyCode || theEvent.which;
+    //    key = String.fromCharCode(key);
+    //    var regex = /[0-9]|\./;
+    //    if (!regex.test(key)) {
+    //        theEvent.returnValue = false;
+    //        if (theEvent.preventDefault) theEvent.preventDefault();
+    //    }
+    //}
+
+
+    //validate
+    $('#addNew').on('click', function () {
+        var value = $('#QTY').text();
+
+
+        return $.isNumeric(value);
+    });
+
+
+
+////////ok///////////////////////
+    var da = $('#demo').val();
+    var TableData = new Array();
+    var myObject = new Object();
+    myObject.dname = "Science";
+    myObject.ename = "joe";
+    myObject.date = da;
+
+    //json = myObjectd.toJSONString();
+    //alert(json);
+    //var json = JSON.stringify(myObject);
+    //alert(json);//////////////show the big json for debug
+
+    var myObjt = {};
+//////////////////////////////////////
+
+    var data = {
+        items: [
+           // <== The new item
+
+        ]
+    };
+   // alert(data.items);
+
+
+
+
+
+$(document).ready(function(){
+    // Add button click event
+
+
+
+
+  $("#addNew").click(function(){
+
+      //var value = $('#QTY').text();
+
+      var value = $('input[type = number]').val();
+
+      //alert("please choose a quantity" + value);
+      if (value==null||value==0) {
+          alert("please choose a quantity");
+          return false;
+      } else {
+          addNewRow();
+      }
+     
+
+     
+
+
+
+      ///////////////////////////
+      TableData = new Array();
+
+      $('#taskTable tr').each(function (row, tr) {
+          TableData[row] = {
+              "Item": $(tr).find('td:eq(0)').text()
+            , "Quantity": $(tr).find('td:eq(1)').children().val()
+
+          }
+      });
+      TableData.shift();
+      TableData = $.toJSON(TableData);
+      TableData = $.makeArray(TableData);
+      ///////////////////////////
+
+
+      //var myRows = [];
+      //var $headers = $("th");
+      //var $rows = $("tbody tr").each(function (index) {
+      //    $cells = $(this).find(".hihi");
+      //    myRows[index] = {};
+      //    $cells.each(function (cellIndex) {
+
+
+      //        if ($(this).html() == "" && $(this).html() != 'Delete') {
+
+      //            myRows[index][$($headers[cellIndex]).html()] = $(this).val();
+
+      //        } else { myRows[index][$($headers[cellIndex]).html()] = $(this).html(); }
+
+
+
+
+      //    });
+      //});
+
+      //items = [];
+
+      //myObjt.myrows = myRows;
+
+      //myRows.forEach(function (item,index) {
+
+
+      //    $(item).html();
+          
+
+
+      //});
+
+      //myObjt.myrows = myRows;
+      //console.log(myObjt);
+
+      var option = $('#lecturerId').val();
+      var qty = $('#QTY').val();
+
+
+  });
+
+});
+
+
+// Add a new row when Add Task button is clicked
+function addNewRow() {
+
+    var value = $('input[type = number]').val();
+
+
+    //var value = $('#QTY').text();
+    //alert("please choose a quantity" + value);
+
+
+    var qty = $('#QTY').val();
+    var option = $('#lecturerId').val();
+    ///////////////////////////////////////
+    var numRows = $('#taskTable tr').length;
+    $('#taskTable').append('<tr id="myTableRow">\
+           <td class="hihi" value="' + option + '">' + option + '</td>\
+           <td><input type="number" id="description-' + numRows + '" class="hihi" placeholder="Task Description" value="' + parseInt(value) + '" required min="1" max="500"/></td>\
+           <td><button type="button" id="' + numRows + '" class="removebutton" title="Remove this row">Delete</button></td>\
+           </tr>\
+   ');
+
+
+
+}
+
+    ///////////////////////////////////////////////////////////
+
+$(document).on('change', function () {
+//$("input[type=number]").bind('keyup mouseup', function () {
+    // handle event
+
+    //alert('changed');
+    TableData = new Array();
+
+    $('#taskTable tr').each(function (row, tr) {
+        TableData[row] = {
+            "Item": $(tr).find('td:eq(0)').text()
+            , "Quantity": $(tr).find('td:eq(1)').children().val()
+
+        }
+    });
+    TableData.shift();
+    TableData = $.toJSON(TableData);
+    TableData = $.makeArray(TableData);
+                });
+                //var n = document.getElementById("numPeople"),
+               
+
+
+
+                //n.addEventListener("change", function (e) {
+                //    r.innerHTML += "change event triggered <br/>";
+                //}, false);
+
+    /////////////////////////////////////////////////////////////
+
+$(document).on('click', 'button.removebutton', function () {
+
+    var clickedBtnID = $(this).attr('id'); // or var clickedBtnID = this.id
+    //alert('you clicked on button #' + clickedBtnID);
+    //var item = { id: 45, option: option, qty: qty };
+    //data.items.pop(this.Object);
+
+    //data.items.forEach(function (item, index) {
+
+
+    parseInt("10")
+    //alert('you clicked on button #' +  $(this).toArray());
+    var index =parseInt(clickedBtnID)-1 ;
+    //alert(index);
+    //});
+
+
+    if (index > -1) {
+        data.items.splice(index, 1);
+    }
+
+    data.items.forEach(function (item, index) {
+        console.log(item);
+    });
+
+
+    $(this).closest('tr').remove();
+
+
+
+    ///////////////////////////
+    TableData = new Array();
+
+    $('#taskTable tr').each(function (row, tr) {
+        TableData[row] = {
+            "Item": $(tr).find('td:eq(0)').text()
+            , "Quantity": $(tr).find('td:eq(1)').children().val()
+            
+        }
+    });
+    TableData.shift();
+    TableData = $.toJSON(TableData);
+    TableData = $.makeArray(TableData);
+    ///////////////////////////
+
+
+
+
+    //var myRows = [];
+    //var $headers = $("th");
+    //var $rows = $("tbody tr").each(function (index) {
+    //    $cells = $(this).find(".hihi");
+    //    myRows[index] = {};
+    //    $cells.each(function (cellIndex) {
+
+
+    //        if ($(this).html() == "" && $(this).html() != 'Delete') {
+
+    //            myRows[index][$($headers[cellIndex]).html()] = $(this).val();
+
+    //        } else { myRows[index][$($headers[cellIndex]).html()] = $(this).html(); }
+
+
+
+
+
+
+
+
+
+    //    });
+    //});
+
+    //items = [];
+    
+    
+    //myObjt.myrows = myRows;
+   
+    //items.forEach(function (index) {
+
+
+
+
+    //});
+
+    console.log(myObjt);
+    return false;
+
+});
+@*$(document).ready(submitForm);
+
+function submitForm() {
+    var roles = myObjt;
+
+    jQuery.ajax({
+        type: "POST",
+        url: "@Url.Action("AddUser")",
+        dataType: "json",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(roles),
+    success: function (data) { alert(data); },
+    failure: function (errMsg) {
+        alert(errMsg);
+    }
+})
+}*@
+
+
+
+    $(function () {
+        $('#cl').click(function (e) {
+
+            if (TableData.length == 0) {
+                //alert("you have not chosen any item "+TableData.length);
+                alert("you have not chosen any item ");
+                return false;
+            }
+            var jsonObject = {
+                "Name": "Rami",
+                
+                "Depart": "Science",
+                
+                "Roles": [{ "RoleName": "Admin", "Description" : "Admin Role"}, { "RoleName": "User", "Description" : "User Role"}],
+                //"Items": [{ "Item": "clips", "Quantity": "1" }, { "Item": "pen", "Quantity": "2" }]
+              
+                "Items": TableData
+            };
+
+            //var jsonObject = myObjt;
+
+            $.ajax({
+                url: "@Url.Action("AddUser")",
+                type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert(response.responseText);
+            },
+            success: function (response) {
+                //alert(response);
+            }
+        });
+
+    });
+    });
+
+
+
+
+
+
+
+    function Accordion() {
+        $('#accordion ul').hide(); // hide all unordered lists inside the accordion list
+        $('#accordion ul:first').show(); //show the first unordered list inside the accordion
+        $('#accordion li a').click(
+            function () {
+                var checkElement = $(this).next();
+                if ((checkElement.is('ul')) && (checkElement.is(':visible'))) { //if you click on an unordered list and this list is opened (visible)
+                    return false; //nothing happens
+                }
+                if ((checkElement.is('ul')) && (!checkElement.is(':visible'))) { //if you click on an unordered list and this list is not opened (visible)
+                    $('#accordion ul:visible').slideUp('normal'); // the list that is visible will close (slideUp)
+                    checkElement.slideDown('normal'); //the list you clicked will open (slideDown)
+                    return false;
+                }
+            }
+        );
+    }
+    $(document).ready(function () { Accordion(); }); //when the document is ready to load the script it iniciates the function
+
+
+    $(document).ready(function () {
+        $("#main a").dblclick(function () {
+            alert($(this).text());
+            
+            
+            $('.selectpicker').selectpicker('val', $(this).text());
+            
+        });
+    });
+
+
+
+
+
+    function dragStart(event) {
+        event.dataTransfer.setData("Text", event.target.innerHTML);
+       
+    }
+
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drop(event) {
+        event.preventDefault();
+        var data = event.dataTransfer.getData("Text");
+        event.target.appendChild(document.getElementById(data));
+        document.getElementById("demo").innerHTML = "The p element was dropped";
+    }
+
+
+
+    //$(document).ready(function () {
+    //    $("#main a").on("dragover", function (e) {
+    //        e.preventDefault();
+    //    });
+    //    $("#drag1").on("dragstart", function (e) {
+    //        e.originalEvent.dataTransfer.setData("Text", e.target.id);
+    //        $(this).dragble();
+           
+
+
+    //    });
+    //    $("#main a").on("drop", function (e) {
+    //        e.preventDefault();
+    //        var data = e.originalEvent.dataTransfer.getData("Text");
+    //        e.target.appendChild(document.getElementById(data));
+    //    });
+    //});
+
+
+</script>
+
+
+
+@*<script>
+    $(function () {
+        $('#cl,#addNew,.removebutton').click(function (e) {
+
+            var jsonObject = {
+                "Name": "Rami",
+                
+                "Depart": "Science",
+                
+                "Roles": [{ "RoleName": "Admin", "Description" : "Admin Role"}, { "RoleName": "User", "Description" : "User Role"}],
+                //"Items": [{ "Item": "clips", "Quantity": "1" }, { "Item": "pen", "Quantity": "2" }]
+              
+                "Items": TableData
+            };
+
+            //var jsonObject = myObjt;
+
+            $.ajax({
+                url: "@Url.Action("AddUser")",
+                type: "POST",
+                data: JSON.stringify(jsonObject),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                error: function (response) {
+                    alert(response.responseText);
+            },
+                success: function (response) {
+                    alert(response);
+                }
+            });
+
+        });
+    });
+</script>*@
+<style>
+
+/*$(document).ready(function(){
+    $("p").dblclick(function(){
+        alert("The paragraph was double-clicked.");
+    });
+});*/
+
+
+    /*the first*/
+    /*body {
+  font:0.8em Verdana, Arial, Helvetica, sans-serif;
+}*/
+/*ul#accordion {
+  padding:0;
+  border:1px solid #ececec;
+  width:450px;
+  }
+ul#accordion li a {
+  background:#222;
+  padding:0.5em;
+  display:block;
+  color:#ececec;
+  font-weight:bold;
+
+  text-decoration:none;
+  }
+ul > li {
+  list-style:none;
+  padding:0;
+  margin:0;
+  }
+ul#accordion li ul {
+  margin:0;
+  padding:0;
+  }
+ul#accordion li ul li {
+  padding:2px;
+  margin:0;
+  border-bottom:1px dashed #ccc;
+  }
+ul#accordion li ul li a {
+  padding:5px 0;
+  color:#222;
+  background:none;
+}
+ul#accordion li ul li a:hover {
+  color:#C90;
+  }*/
+</style>

@@ -1,0 +1,75 @@
+﻿@model Team7ADProjectMVC.DisbursementList
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/_Layout1.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DisbursementList</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveryDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeliveryDate1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeliveryDate1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CollectionPoint.PlaceName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CollectionPoint.PlaceName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.DepartmentCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.DepartmentCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Retrieval.RetrievalId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Retrieval.RetrievalId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.DisbursementListId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
