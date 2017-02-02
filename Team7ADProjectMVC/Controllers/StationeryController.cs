@@ -32,7 +32,7 @@ namespace Team7ADProjectMVC.Controllers
         public ActionResult DepartmentRequisitions(int? page, int? employeeId, string dateOrderedString)
         {
             Employee currentEmployee = (Employee)Session["User"];
-            ViewBag.Employees = deptService.GetAllEmployeebyDepId(currentEmployee.DepartmentId);
+            ViewBag.Employees = deptService.GetEverySingleEmployeeInDepartment(currentEmployee.DepartmentId);
             
 
             List<Requisition> resultList = reqService.GetAllRequisition(currentEmployee.DepartmentId);
