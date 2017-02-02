@@ -976,6 +976,7 @@
     </Content>
     <Content Include="Resources\bbb.jpg" />
     <Content Include="Resources\dashboard.css" />
+    <Content Include="Resources\finallogo.jpg" />
     <Content Include="Resources\making.jpg" />
     <Content Include="Resources\mystyle.css" />
     <Content Include="Resources\print.css" />

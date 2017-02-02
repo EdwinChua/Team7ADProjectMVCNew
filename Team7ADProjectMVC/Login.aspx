@@ -5,104 +5,66 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-     <link rel="stylesheet" href="~/Resources/mystyle.css">
+    <link rel="stylesheet" href="~/Resources/mystyle.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <style type="text/css">
-        body{
-             background-image:url("Resources/bbb.jpg");
-               background-size: 100% 160%;
-        }
-    
-    </style>
 </head>
 <body>
-     
- <div class="row">
-  <%--<div class="t7-red col-xs-4 col-sm-2 col-md-1" align="center">
-   Col1
-  </div>
-  <div class="t7-blue col-xs-4 col-sm-2" align="center">
-   Col2
-  </div>--%>
-  <div class="t7-green hidden-xs col-sm-6 col-md-7" align="center">
-   Col3
-  </div>
-  <%--<div class="t7-black visible-md col-md-3 " align="center">
-   Col4
-  </div>--%>
-  <div class="t7-gray col-xs-12 col-sm-6 col-md-5" align="center">
-   Col5
-  </div>
-     </div>
-       
     <form id="form1" runat="server">
-    <div class="t7-right">
-    
-       
-        <br />
-        <h1 style="font-size:60px" class="w3-text-shadow t7-white t7-text-indigo t7-center">&nbsp;Logic University <br />SSIS</h1><br />
-        <br />
-         <br />
-        <br />
-        <br />
-          <br />
-        <br />
-         
-         <br />
-        <br />              
-            <asp:Login ID="Login1" runat="server"  DestinationPageUrl="Auth" CssClass="t7-white" Height="286px" Width="579px">
-            <LayoutTemplate>
-                <center>
-                <table cellpadding="1" cellspacing="0" style="border-collapse:collapse;">
-                    <tr>
-                        <td>
-                            <table cellpadding="0" cellspacing="1">
-                               
-                                <tr>
-                                    <td align="Left" class="auto-style1">
-                                        <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName"  CssClass="t7-text-black t7-large" Width="122px">User ID:</asp:Label>
-                                    </td>
-                                    <td>
+        <div class="row">
 
-                                        <asp:TextBox ID="UserName" runat="server" Class="form-control" Width="400px"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" ErrorMessage="User Name is required." ToolTip="User Name is required." ValidationGroup="Login1">*</asp:RequiredFieldValidator>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="Left" class="auto-style1">
-                                        <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password" CssClass="t7-large">Password:</asp:Label>
-                                    </td>
-                                    <td>
-                                        <asp:TextBox ID="Password" runat="server" Class="form-control" TextMode="Password"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ErrorMessage="Password is required." ToolTip="Password is required." ValidationGroup="Login1">*</asp:RequiredFieldValidator>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                      
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center" colspan="2" style="color:Red;">
-                                        <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right" colspan="2">
-                                        <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Log In" CssClass="t7-btn  t7-blue" ValidationGroup="Login1" OnClick="LoginButton_Click" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </LayoutTemplate>
-        </asp:Login>
-          
+            <div id="pic" class=" hidden-xs col-sm-5 col-md-8 t7-container">
+                <asp:Image ID="Image1" runat="server" src="Resources/bbb.jpg" Style="width: 100%; height: 973px;" />
+            </div>
 
-        </center>
-    </div>
-    </form>
+
+            <div class="col-xs-12 col-sm-7 col-md-4 t7-container" align="center">
+                <br />
+                <br />
+                <br />
+                <br />
+                <img src="Resources/finallogo.jpg" style="height:250px;width:300px" />
+                <h1 style="font-size: 60px" class="w3-text-shadow t7-white t7-text-indigo t7-center">&nbsp;Logic University
+                    <br />
+                    SSIS</h1>
+                <br />
+                <br />
+                
+              
+                
+                <asp:Login ID="Login1" runat="server" DestinationPageUrl="Auth" CssClass="t7-white" Height="300px" Width="180px">
+
+                    <LayoutTemplate>
+                        <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName"  CssClass=" t7-left" Width="273px">Sign in with your user ID</asp:Label>
+                        <center style="height: 222px; width: 391px">
+                            <br />
+                            <br />
+                       <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <asp:TextBox ID="UserName" runat="server" Class="form-control" placeholder="Enter User ID"></asp:TextBox>
+                       </div> 
+                             <div  class="t7-text-red">     
+                       <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" ErrorMessage="User Id is required." ToolTip="User Id is required." ValidationGroup="Login1"></asp:RequiredFieldValidator>
+                            </div>    
+                       <%-- <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password" CssClass="t7-large">Password:</asp:Label>--%>
+
+                       <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <asp:TextBox ID="Password" runat="server" Class="form-control" TextMode="Password" placeholder="Enter password"></asp:TextBox>
+                       </div>
+                             <div  class="t7-text-red">   
+                       <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ErrorMessage="Password is required." ToolTip="Password is required." ValidationGroup="Login1"></asp:RequiredFieldValidator>
+                                 </div>
+                        <div  class="t7-text-red">
+                            <asp:Literal ID="FailureText" runat="server"  EnableViewState="False" ></asp:Literal>
+                        </div>
+                       
+                       <br />
+                       <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Log In" CssClass="t7-btn t7-left t7-blue" ValidationGroup="Login1" OnClick="LoginButton_Click" />
+                    </LayoutTemplate>
+                </asp:Login>
+            </div>
+        </div>
+ </form>
 
 </body>
 </html>
