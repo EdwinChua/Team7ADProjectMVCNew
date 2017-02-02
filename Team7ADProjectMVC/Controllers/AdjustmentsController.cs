@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -19,12 +20,15 @@ namespace Team7ADProjectMVC.Controllers
         }
 
         // GET: Adjustments
-        public ActionResult ViewAdjustment()
+        public ActionResult ViewAdjustment(int? page)
         {
             int userid = ((Employee)Session["user"]).EmployeeId;
 
             string role = ivadjustsvc.findRolebyUserID(userid);
             ViewBag.employee = new SelectList(db.Employees.Where(x => x.DepartmentId == 6), "EmployeeId", "EmployeeName");
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
 
             if (role == "Store Supervisor")
             {
@@ -38,7 +42,7 @@ namespace Team7ADProjectMVC.Controllers
                 ViewBag.status = statuslist;
                 var adjustmentlist = ivadjustsvc.findSupervisorAdjustmentList();
                 TempData["list"] = adjustmentlist;
-                return View(adjustmentlist);
+                return View(adjustmentlist.ToPagedList(pageNumber, pageSize));
             }
 
             if (role == "Store Manager")
@@ -53,7 +57,7 @@ namespace Team7ADProjectMVC.Controllers
                 ViewBag.status = statuslist;
                 var adjustmentlist = ivadjustsvc.findManagerAdjustmentList();
                 TempData["list"] = adjustmentlist;
-                return View(adjustmentlist);
+                return View(adjustmentlist.ToPagedList(pageNumber, pageSize));
             }
 
 

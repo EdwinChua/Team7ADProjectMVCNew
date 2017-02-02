@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<Team7ADProjectMVC.AdjustmentDetail>
-
 @{
     ViewBag.Title = "View Detail";
     Layout = "~/_Layout1.cshtml";
@@ -7,9 +6,7 @@
     Employee currentEmployee = (Employee)Session["User"];
     Page.Employee = currentEmployee;
 }
-
-<h3>Adjustment Status:@ViewBag.status</h3>
-
+<h3>Adjustment Status: @ViewBag.status</h3>
 <table class="table">
     <tr>
         <th>
@@ -25,9 +22,7 @@
             @Html.DisplayNameFor(model => model.Reason)
         </th>
         @Html.DisplayNameFor(model => model.Adjustment.AdjustmentId)
-
     </tr>
-
     @foreach (var item in Model)
     {
         <tr>
@@ -44,70 +39,38 @@
                 @Html.DisplayFor(modelItem => item.Reason)
             </td>
 
-            @*<td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.AdjustmentDetailId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.AdjustmentDetailId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.AdjustmentDetailId })
-                </td>*@
         </tr>
     }
-
 </table>
-
-<h3>Total Sum: $ @ViewBag.sum.</h3>
+<h3>Total Sum: <u>$ @ViewBag.sum </u></h3>
 <hr />
+<div class="row">
+    <div class="col-md-7"></div><div class="col-md-5 text-right">
+        @if (currentEmployee.Role.Name == "Store Supervisor" && @ViewBag.status == "Pending Approval")
+        {
+            if (@ViewBag.sum < 250)
+            {
+                <button class="btn btn-success" type="button" onclick="window.location.href='/Adjustments/SupervisorApprove/@ViewBag.Adjid'">Approve</button>
+                <button class="btn btn-danger" type="button" onclick="window.location.href='/Adjustments/SupervisorRejecct/@ViewBag.Adjid'">Reject</button>
+                
 
-@if (currentEmployee.Role.Name == "Store Supervisor"&& @ViewBag.status== "Pending Approval")
-{
-    if (@ViewBag.sum < 250)
-    {
-        <div class="row">
-            <form class="form" role="form" action="/Adjustments/SupervisorApprove/@ViewBag.Adjid" method="post">
-                <div class="col-md-offset-3 col-md-3">
-                    <div class="form-actions no-color">
-                        <input type="submit" value="Approve" class="btn btn-default" />
-                    </div>
-                </div>
-            </form>
-            <form class="form" role="form" action="/Adjustments/SupervisorRejecct/@ViewBag.Adjid" method="post" >
-                <div class="col-md-3">
-                    <div class="form-actions no-color">
-                        <input type="submit" value="Reject" class="btn btn-default" />
-                    </div>
-                </div>
-            </form>
-        </div>
-    }
-    else
-    {
-        <form class="form" role="form" action="/Adjustments/SupervisorPending/@ViewBag.Adjid" method="post">
-            <div class="form-actions no-color">
-                <input type="submit" value="Pending to Manager" class="btn btn-default" />
-            </div>
-        </form>
-    }
-}
-@if (currentEmployee.Role.Name == "Store Manager"&&@ViewBag.status == "Pending Final Approval")
-{
-    <div class="row">
-        <form class="form" role="form" action="/Adjustments/ManagerApprove/@ViewBag.Adjid" method="post" >
-            <div class="col-md-offset-3 col-md-3">
-                <div class="form-actions no-color">
-                    <input type="submit" value="Approve" class="btn btn-default" />
-                </div>
-            </div>
-        </form>
-        <form class="form" role="form" action="/Adjustments/ManagerRejecct/@ViewBag.Adjid" method="post">
-            <div class="col-md-3">
-                <div class="form-actions no-color">
-                    <input type="submit" value="Reject" class="btn btn-default" />
-                </div>
-            </div>
-        </form>
+            }
+            else
+            {
+
+                <button class="btn btn-danger" type="button" onclick="window.location.href='/Adjustments/SupervisorPending/@ViewBag.Adjid'">Forward To Manager</button>
+                
+
+            }
+        }
+        @if (currentEmployee.Role.Name == "Store Manager" && @ViewBag.status == "Pending Final Approval")
+        {
+            <button class="btn btn-success" type="button" onclick="window.location.href='/Adjustments/ManagerApprove/@ViewBag.Adjid'">Approve</button>
+            <button class="btn btn-danger" type="button" onclick="window.location.href='/Adjustments/ManagerRejecct/@ViewBag.Adjid'">Reject</button>
+         
+           
+        }
+                                    <button class="btn btn-default" type="button" onclick="window.history.back()">Back</button>                         
     </div>
-}
-
-
-
-
-@Html.ActionLink("Back to List", "ViewAdjustment")
+    
+</div>
