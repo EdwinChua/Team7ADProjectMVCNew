@@ -324,7 +324,7 @@ namespace Team7ADProjectMVC.Controllers
             Employee currentRep = depsvc.GetCurrentRep(depIdofLoginUser);
             Employee newRep = depsvc.GetEmpbyId(empId);//find new rep
             depsvc.ChangeRep(currentRep, newRep);
-            return RedirectToAction("ApproveRequisition");
+            return RedirectToAction("ChangeRepresentive");
 
         }
     }

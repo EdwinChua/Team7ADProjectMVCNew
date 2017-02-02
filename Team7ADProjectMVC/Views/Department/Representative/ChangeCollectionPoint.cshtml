@@ -45,7 +45,7 @@
                 <div class="col-md-5">
                     @foreach (var item in ViewBag.Message)
                     {
-                        <input type="radio"  name="radio" value="@item.CollectionPointId" > @item.PlaceName   <label>( @item.CollectTime )</label> <br />
+                        <input type="radio"  name="radio" value="@item.CollectionPointId" required> @item.PlaceName   <label>( @item.CollectTime )</label> <br />
                     }
 
                 </div>

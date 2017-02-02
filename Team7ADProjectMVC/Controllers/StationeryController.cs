@@ -7,7 +7,9 @@ using System.Web.Mvc;
 using Team7ADProjectMVC.Exceptions;
 using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Models.ListAllRequisitionService;
+using Team7ADProjectMVC.Models.UtilityService;
 using Team7ADProjectMVC.Services.DepartmentService;
+using Team7ADProjectMVC.Services.UtilityService;
 
 namespace Team7ADProjectMVC.Controllers
 {
@@ -16,6 +18,7 @@ namespace Team7ADProjectMVC.Controllers
         IInventoryService invService;
         IDepartmentService deptService;
         IRequisitionService reqService;
+        IUtilityService uSvc;
         ProjectEntities db;
         public StationeryController()
         {
@@ -23,19 +26,39 @@ namespace Team7ADProjectMVC.Controllers
             db = new ProjectEntities();
             deptService = new DepartmentService();
             reqService = new RequisitionService();
+            uSvc = new UtilityService();
         }
         // GET: Stationery
-        public ActionResult DepartmentRequisitions(int? page)
+        [AuthorisePermissions(Permission = "ViewRequisition")]
+        public ActionResult DepartmentRequisitions(int? page, int? employeeId, string dateOrderedString, string status)
         {
             Employee currentEmployee = (Employee)Session["User"];
+            ViewBag.Employees = deptService.GetEverySingleEmployeeInDepartment(currentEmployee.DepartmentId);
+            
+
+            List<Requisition> resultList = reqService.GetAllRequisition(currentEmployee.DepartmentId);
+
+            if(employeeId != null)
+            {
+                resultList.RemoveAll(x => x.EmployeeId != employeeId);
+            }
+            if (dateOrderedString != null && dateOrderedString.Length >1)
+            {
+                DateTime dateOrdered = uSvc.GetDateTimeFromPicker(dateOrderedString);
+                resultList.RemoveAll(x => x.OrderedDate != dateOrdered);
+            }
+            if (status != null)
+            {
+                resultList.RemoveAll(x => x.RequisitionStatus != status);
+            }
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            
 
-            return View(reqService.GetAllRequisition(currentEmployee.DepartmentId).ToPagedList(pageNumber, pageSize));
+            return View(resultList.ToPagedList(pageNumber, pageSize));
         }
 
+        [AuthorisePermissions(Permission = "MakeRequisition")]
         public ActionResult EmployeeRequisition()
         {
             Employee currentEmployee = (Employee)Session["User"];
@@ -53,6 +76,7 @@ namespace Team7ADProjectMVC.Controllers
             return View(requisition);
         }
 
+        [AuthorisePermissions(Permission = "MakeRequisition")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EmployeeRequisition([Bind] Requisition requisition)
@@ -94,6 +118,7 @@ namespace Team7ADProjectMVC.Controllers
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        [AuthorisePermissions(Permission = "MakeRequisition")]
         public ActionResult AddDetail()
         {
             Requisition currentRequisition = (Requisition)Session["requisition"];
@@ -104,6 +129,7 @@ namespace Team7ADProjectMVC.Controllers
             return View(currentRequisition);
         }
 
+        [AuthorisePermissions(Permission = "ViewRequisition")]
         public ActionResult Requisition(int id)
         {
             return View(reqService.FindById(id));

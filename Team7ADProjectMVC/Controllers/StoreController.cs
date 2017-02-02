@@ -38,6 +38,7 @@ namespace Team7ADProjectMVC.TestControllers
             //TODO: EDWIN - Create a nice dashboard or delete this
         }
         //Seq Diagram Done + Design Done
+        [AuthorisePermissions(Permission = "InventoryManagement")]
         public ActionResult Inventory(int? page, int? id) 
         {
             List<Inventory> inventories;
@@ -57,6 +58,7 @@ namespace Team7ADProjectMVC.TestControllers
             return View("ViewInventory",inventories.ToPagedList(pageNumber,pageSize));
         }
         //Seq Diagram Done  + Design Done
+        [AuthorisePermissions(Permission = "InventoryManagement")]
         public ActionResult InventoryItem(String id)
         {
             Inventory inventory = inventorySvc.FindInventoryItemById(id);
@@ -69,6 +71,7 @@ namespace Team7ADProjectMVC.TestControllers
             return View("ViewStockCard",inventory);
         }
         //Seq Diagram Done  + Design Done
+        [AuthorisePermissions(Permission = "Disbursement")]
         public ActionResult RetrievalList()
         {
             RetrievalList rList = inventorySvc.GetRetrievalList();
@@ -76,6 +79,7 @@ namespace Team7ADProjectMVC.TestControllers
             return View("ViewRetrievalList");
         }
         //Seq Diagram Done  + Design Done
+        [AuthorisePermissions(Permission = "Disbursement")]
         public ActionResult MarkAsCollected(int collectedQuantity, string itemNo)
         {
             RetrievalList rList = inventorySvc.GetRetrievalList();
@@ -84,6 +88,7 @@ namespace Team7ADProjectMVC.TestControllers
             return RedirectToAction("RetrievalList");
         }
         //Seq Diagram Done  + Design Done
+        [AuthorisePermissions(Permission = "InventoryManagement")]
         public ActionResult New()
         {
             ViewBag.CategoryId = new SelectList(inventorySvc.GetAllCategories(), "CategoryId", "CategoryName");
@@ -94,6 +99,7 @@ namespace Team7ADProjectMVC.TestControllers
             return View("NewStockCard");
         }
         //Seq Diagram Done  + Design Done
+        [AuthorisePermissions(Permission = "InventoryManagement")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult New([Bind(Include = "ItemNo,CategoryId,Description,ReorderLevel,ReorderQuantity,MeasurementId,Quantity,HoldQuantity,SupplierId1,Price1,SupplierId2,Price2,SupplierId3,Price3,BinNo")] Inventory inventory)
@@ -125,6 +131,7 @@ namespace Team7ADProjectMVC.TestControllers
         }
         //Seq Diagram Done  + Design Done
         // GET: Inventories/Edit/5
+        [AuthorisePermissions(Permission = "InventoryManagement")]
         public ActionResult Edit(string id) 
         {
             if (id == null)
@@ -145,6 +152,7 @@ namespace Team7ADProjectMVC.TestControllers
             return View("UpdateStockCard",inventory);
         }
         //Seq Diagram Done  + Design Done
+        [AuthorisePermissions(Permission = "InventoryManagement")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ItemNo,CategoryId,Description,ReorderLevel,ReorderQuantity,MeasurementId,Quantity,HoldQuantity,SupplierId1,Price1,SupplierId2,Price2,SupplierId3,Price3,BinNo")] Inventory inventory) 
@@ -175,6 +183,7 @@ namespace Team7ADProjectMVC.TestControllers
 
         //************** DISBURSEMENTS **************
         //Seq Diagram Done
+        [AuthorisePermissions(Permission = "Disbursement")]
         public ActionResult ViewDisbursements(int? page, int? id, String status)
         {
             List<DisbursementList> disbursementList;
@@ -193,6 +202,7 @@ namespace Team7ADProjectMVC.TestControllers
             return View(disbursementList.ToPagedList(pageNumber, pageSize));
         }
         //Seq Diagram Done
+        [AuthorisePermissions(Permission = "Disbursement")]
         public ActionResult ViewDisbursement(int id)
         {
             DisbursementList dl = disbursementSvc.GetDisbursementById(id);
@@ -208,6 +218,7 @@ namespace Team7ADProjectMVC.TestControllers
             return View("ViewDisbursements", disbursementSvc.GetDisbursementsBySearchCriteria(id, status));
         }
         //Seq Diagram Done
+        [AuthorisePermissions(Permission = "Disbursement")]
         public ActionResult UpdateDisbursement(int disbursementListId, string[] itemNo, int[] originalPreparedQty, int[] adjustedQuantity, string[] remarks)
         {
             inventorySvc.UpdateDisbursementListDetails(disbursementListId, itemNo, originalPreparedQty, adjustedQuantity, remarks);
@@ -216,11 +227,13 @@ namespace Team7ADProjectMVC.TestControllers
 
         // ********************* MAINTAIN *******************
         //Seq Diagram Done
+        [AuthorisePermissions(Permission = "InventoryManagement")]
         public ActionResult SupplierList()
         {
             return View(supplierAndPOSvc.GetAllSuppliers());
         }
         //Seq Diagram Done
+        [AuthorisePermissions(Permission = "InventoryManagement")]
         public ActionResult Supplier(int? id)
         {
             if (id == null)
@@ -238,6 +251,7 @@ namespace Team7ADProjectMVC.TestControllers
             return View(supplier);
         }
         //Seq Diagram Done
+        [AuthorisePermissions(Permission = "InventoryManagement")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Supplier([Bind(Include = "SupplierId,SupplierCode,SupplierName,ContactName,PhNo,FaxNo,Address,GstRegistrationNo")] Supplier supplier)
@@ -251,11 +265,13 @@ namespace Team7ADProjectMVC.TestControllers
             return View("Supplier",supplier);
         }
         //Seq Diagram Done
+        [AuthorisePermissions(Permission = "InventoryManagement")]
         public ActionResult AddSupplier()
         {
             return View("Supplier");
         }
         //Seq Diagram Done
+        [AuthorisePermissions(Permission = "InventoryManagement")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddSupplier([Bind(Include = "SupplierId,SupplierCode,SupplierName,ContactName,PhNo,FaxNo,Address,GstRegistrationNo")] Supplier supplier)
@@ -267,6 +283,7 @@ namespace Team7ADProjectMVC.TestControllers
 
         //****************** Outstanding Requisitions ***************
         //Seq Diagram Done  + Design Done
+        [AuthorisePermissions(Permission = "Disbursement")]
         public ActionResult ViewRequisitions()
         {
             RetrievalList rList = inventorySvc.GetRetrievalList();
@@ -274,6 +291,7 @@ namespace Team7ADProjectMVC.TestControllers
             return View(inventorySvc.GetOutStandingRequisitions());
         }
         //Seq Diagram Done  + Design Done
+        [AuthorisePermissions(Permission = "Disbursement")]
         public ActionResult GenerateRetrievalList()
         {   
             inventorySvc.PopulateRetrievalList();
@@ -281,18 +299,21 @@ namespace Team7ADProjectMVC.TestControllers
             return RedirectToAction("ViewRequisitions");
         }
         //Seq Diagram Done  + Design Done
+        [AuthorisePermissions(Permission = "Disbursement")]
         public ActionResult ClearRetrievalList()
         {
             inventorySvc.ClearRetrievalList();
             return RedirectToAction("ViewRequisitions");
         }
         //Seq Diagram Done
+        [AuthorisePermissions(Permission = "Disbursement")]
         public ActionResult DisburseItems()
         {
             inventorySvc.AutoAllocateDisbursementsByOrderOfRequisition();
             return RedirectToAction("ReallocateDisbursements");
         }
         //Seq Diagram Done
+        [AuthorisePermissions(Permission = "Disbursement")]
         public ActionResult ReallocateDisbursements()
         {
             List<DisbursementDetail> reallocationList = inventorySvc.GenerateListForManualAllocation();
@@ -309,6 +330,7 @@ namespace Team7ADProjectMVC.TestControllers
             return View(reallocationList);
         }
         //Seq Diagram Done
+        [AuthorisePermissions(Permission = "Disbursement")]
         public ActionResult Reallocate(int[] departmentId, int[] preparedQuantity,int [] disbursementListId, int[] disbursementDetailId, string[] itemNo, int[] adjustedQuantity)
         {
             try

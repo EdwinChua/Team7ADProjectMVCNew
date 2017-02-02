@@ -8,17 +8,15 @@
     Page.Employee = currentEmployee;
 }
 
-@*<script type="text/javascript">
-        $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
-    </script>*@
-
 <div class="row">
     <div class="col-lg-8 col-md-12">
-        <form role="form" action="/Head/ManageDelegation" onsubmit="return confirm('Are you sure you want to confirm?');">
+        <form role="form" action="/Head/ManageDelegation" onsubmit="return confirm('Are you sure to make delegation?');">
             <div class="row">
                 <div class="col-lg-4 col-xs-12">
-                    Choose Employee:
-                    <div>
+                    
+                    
+                        <h3> Choose an Employee:</h3> 
+                    
                         <select id="empListPicker" name="empId"
                                 class="selectpicker show-tick form-control"
                                 data-live-search="true" title="Select employee to delegate" required>
@@ -29,8 +27,6 @@
 
                         </select>
 
-                    </div>
-
                 </div>
             </div>
             <div class="row">
@@ -39,7 +35,7 @@
 
             <div class="row">
                 <div class="col-md-4">
-                    Start Date:
+                    <h3> Start Date: </h3>
                     <div style="overflow:hidden;">
                         <div class="form-group">
                             <div class="row">
@@ -49,11 +45,11 @@
                             </div>
                         </div>
                     </div>
-                    <div> Start Date:<label id="s1" name="s" value="startDate">  @ViewBag.autoStartdate</label></div>
+                    <div> Start Date:  <label id="s1" name="s" value="startDate">  @ViewBag.autoStartdate</label></div>
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-4">
-                    End Date:
+                    <h3> End Date: </h3> 
                     <div style="overflow:hidden;">
                         <div class="form-group">
                             <div class="row">
@@ -63,7 +59,7 @@
                             </div>
                         </div>
                     </div>
-                    <div> End Date::<label id="e1" name="e" value="endDate">@ViewBag.autoEnddate</label><br /></div>
+                    <div> End Date: <label id="e1" name="e" value="endDate">@ViewBag.autoEnddate</label><br /></div>
                 </div>
             </div>
            

@@ -166,6 +166,15 @@ namespace Team7ADProjectMVC.Services.DepartmentService
             return (queryBydepId.ToList());
         }
 
+        public List<Employee> GetEverySingleEmployeeInDepartment(int? depId)
+        {
+            var queryBydepId = from t in db.Employees
+                               where t.DepartmentId == depId
+                               orderby t.EmployeeId ascending
+                               select t;
+            return (queryBydepId.ToList());
+        }
+
         public Employee FindById(int? empid)
         {
             return db.Employees.Find(empid);
