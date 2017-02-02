@@ -14,6 +14,12 @@ namespace Team7ADProjectMVC.Services.DepartmentService
         ProjectEntities db = new ProjectEntities();
         PushNotification notify = new PushNotification();
 
+        public void UpdateEmployee(Employee e)
+        {
+            db.Entry(e).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
         public Department FindDeptById(int id)
         {
             return (db.Departments.Find(id));
@@ -155,6 +161,15 @@ namespace Team7ADProjectMVC.Services.DepartmentService
         {
             var queryBydepId = from t in db.Employees
                                where t.DepartmentId == depId && (t.RoleId != 2 && (t.RoleId != 6 && t.RoleId != 5))
+                               orderby t.EmployeeId ascending
+                               select t;
+            return (queryBydepId.ToList());
+        }
+
+        public List<Employee> GetEverySingleEmployeeInDepartment(int? depId)
+        {
+            var queryBydepId = from t in db.Employees
+                               where t.DepartmentId == depId
                                orderby t.EmployeeId ascending
                                select t;
             return (queryBydepId.ToList());

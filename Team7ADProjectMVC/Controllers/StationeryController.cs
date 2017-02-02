@@ -7,7 +7,9 @@ using System.Web.Mvc;
 using Team7ADProjectMVC.Exceptions;
 using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Models.ListAllRequisitionService;
+using Team7ADProjectMVC.Models.UtilityService;
 using Team7ADProjectMVC.Services.DepartmentService;
+using Team7ADProjectMVC.Services.UtilityService;
 
 namespace Team7ADProjectMVC.Controllers
 {
@@ -16,6 +18,7 @@ namespace Team7ADProjectMVC.Controllers
         IInventoryService invService;
         IDepartmentService deptService;
         IRequisitionService reqService;
+        IUtilityService uSvc;
         ProjectEntities db;
         public StationeryController()
         {
@@ -23,17 +26,31 @@ namespace Team7ADProjectMVC.Controllers
             db = new ProjectEntities();
             deptService = new DepartmentService();
             reqService = new RequisitionService();
+            uSvc = new UtilityService();
         }
         // GET: Stationery
-        public ActionResult DepartmentRequisitions(int? page)
+        public ActionResult DepartmentRequisitions(int? page, int? employeeId, string dateOrderedString)
         {
             Employee currentEmployee = (Employee)Session["User"];
+            ViewBag.Employees = deptService.GetEverySingleEmployeeInDepartment(currentEmployee.DepartmentId);
+            
+
+            List<Requisition> resultList = reqService.GetAllRequisition(currentEmployee.DepartmentId);
+
+            if(employeeId != null)
+            {
+                resultList.RemoveAll(x => x.EmployeeId != employeeId);
+            }
+            if (dateOrderedString != null && dateOrderedString.Length >1)
+            {
+                DateTime dateOrdered = uSvc.GetDateTimeFromPicker(dateOrderedString);
+                resultList.RemoveAll(x => x.OrderedDate != dateOrdered);
+            }
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            
 
-            return View(reqService.GetAllRequisition(currentEmployee.DepartmentId).ToPagedList(pageNumber, pageSize));
+            return View(resultList.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult EmployeeRequisition()
