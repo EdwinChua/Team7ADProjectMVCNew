@@ -10,6 +10,8 @@
 
 
     <h2>List of items below re-order level</h2>
+@if (Model.Count() > 0)
+{
     <form method="get" action="GeneratePurchaseOrders">
         <table class="table">
             <thead>
@@ -81,15 +83,23 @@
                         <input type="number" class="form-control" name="orderQuantity"  />
                     </td>
                 </tr>    
-                }
+                            }
             </tbody>
         </table>
         <h5>Mouse over supplier for contact details.</h5>
         <input type="submit" class="btn btn-primary" value="Generate Purchase Orders" />
     </form>
-
+                            }
+                            else
+                            {
+                                <h4>There are currently no items to re-order.</h4>
+                                <button class="btn btn-info" type="button" onclick="window.location.href = '../StorePO/CreateAdhocPurchaseOrder'">
+                                    Create Ad-hoc
+                                </button>
+                            }
 <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
+    document.getElementById("menu3").className += "active";
 });
 </script>

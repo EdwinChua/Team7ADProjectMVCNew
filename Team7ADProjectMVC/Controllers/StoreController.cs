@@ -75,6 +75,10 @@ namespace Team7ADProjectMVC.TestControllers
         public ActionResult RetrievalList()
         {
             RetrievalList rList = inventorySvc.GetRetrievalList();
+            if (TempData["doc"] != null)
+            {
+                ViewBag.Error = TempData["doc"];
+            }
             ViewBag.RList = rList;
             return View("ViewRetrievalList");
         }
@@ -309,7 +313,15 @@ namespace Team7ADProjectMVC.TestControllers
         [AuthorisePermissions(Permission = "Disbursement")]
         public ActionResult DisburseItems()
         {
-            inventorySvc.AutoAllocateDisbursementsByOrderOfRequisition();
+            try
+            {
+                inventorySvc.AutoAllocateDisbursementsByOrderOfRequisition();
+            }
+            catch (InventoryAndDisbursementUpdateException e)
+            {
+                TempData["doc"] = e;
+                return RedirectToAction("RetrievalList");
+            }
             return RedirectToAction("ReallocateDisbursements");
         }
         //Seq Diagram Done

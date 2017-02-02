@@ -6,7 +6,7 @@
     Employee currentEmployee = (Employee)Session["User"];
     Page.Employee = currentEmployee;
 }
-
+<h2>Add Item to List</h2>
 <form method="get" action="AddAdhocPOItem">
     <div class="row">
         <div class="col-md-5">
@@ -23,10 +23,15 @@
             <input type="submit" class="btn btn-success" value="Add item" />
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-5">
+            *Each item may only be added once. Please add all items before entering the quantities required.
+        </div>
+    </div>
     
 </form>
-
-    <h2>List of items below re-order level</h2>
+<hr />
+    <h2>Adhoc Purchase Order Items</h2>
     <form method="get" action="GeneratePurchaseOrders">
     <table class="table">
         <thead>
@@ -95,7 +100,7 @@
                         <input type="number" class="form-control" name="orderQuantity" />
                     </td>
                     <td class="col-md-1"  style="vertical-align:middle">
-                        <button type="button" class="btn btn-danger" onclick="window.location.href='DeleteItem/@item.ItemNo'">Remove</button>
+                        <button type="button" class="btn btn-danger" onclick="window.location.href='DeleteItem?inventoryId=@item.ItemNo'">Remove</button>
                     </td>
                 </tr>
             }
@@ -109,9 +114,38 @@
     </div>
 </form>
 
+<div>
+    @if (ViewBag.Error != null)
+    {
+    <!-- Show warning message -->
+        <div id="ErrorMessage" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">We were unable to fulfill your request</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5>@ViewBag.Error.Message</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(function ShowModal() {
+                $('#ErrorMessage').modal('toggle');
+            });
+        </script>
+    }
+</div>
 
 <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
+    document.getElementById("menu3").className += "active";
 });
 </script>

@@ -96,17 +96,17 @@
                     }                   
                     @if (Page.Employee.Role.Disbursement)
                     {
-                        <li id="menu3"><a href="@baseurl/Store/ViewRequisitions">Requisitions & Retrievals</a></li>
-                        <li id="menu4"><a href="@baseurl/Store/ViewDisbursements">View Disbursements</a></li>
+                        <li id="menu1"><a href="@baseurl/Store/ViewRequisitions">Requisitions & Retrievals</a></li>
+                        <li id="menu2"><a href="@baseurl/Store/ViewDisbursements">View Disbursements</a></li>
                     }
                     @if (Page.Employee.Role.MakePurchaseOrder|| Page.Employee.Role.ApprovePurchaseOrder)
                     {
-                        <li id="menu8"><a href="@baseurl/StorePO/PurchaseOrderSummary">Purchase Orders</a></li>
+                        <li id="menu3"><a href="@baseurl/StorePO/PurchaseOrderSummary">Purchase Orders</a></li>
                     }
                     @if (Page.Employee.Role.InventoryManagement)
                     {
-                        <li id="menu9"><a href="@baseurl/StorePO/ListDeliveries">Deliveries</a></li>
-                        <li id="menu2"><a href="@baseurl/Store/Inventory">View Inventory</a></li>
+                        <li id="menu4"><a href="@baseurl/StorePO/ListDeliveries">Deliveries</a></li>
+                        <li id="menu5"><a href="@baseurl/Store/Inventory">View Inventory</a></li>
                         <li id="menu6"><a href="@baseurl/Store/SupplierList">Supplier List</a></li>
                     }
                     @if (Page.Employee.Role.ViewReports)
@@ -115,11 +115,11 @@
                     }
                     @if (Page.Employee.Role.MakeAdjustment)
                     {
-                        <li id="menu7"><a href="@baseurl/Adjustments/Create">Create Adjustment</a></li>
+                        <li id="menu8"><a href="@baseurl/Adjustments/Create">Create Adjustment</a></li>
                     }
                     @if (Page.Employee.Role.ApproveAdjustment)
                     {
-                        <li id="menu7"><a href="@baseurl/Adjustments/ViewAdjustment">Approve Adjustment</a></li>
+                        <li id="menu9"><a href="@baseurl/Adjustments/ViewAdjustment">Approve Adjustment</a></li>
                         
                     }
 
@@ -137,32 +137,32 @@
                     } 
                     @if (Page.Employee.Role.ViewRequisition)
                     {
-                        <li id="menu2"><a href="@baseurl/Department/Index">View Requisition</a></li>
+                        <li id="menu10"><a href="@baseurl/Stationery/DepartmentRequisitions">View Requisition</a></li>
                     }
                     @if (Page.Employee.Role.ApproveRequisition)
                     {
-                        <li id="menu1"><a href="@baseurl/Head/ApproveRequisition">Approve Requisition</a></li>
+                        <li id="menu11"><a href="@baseurl/Head/ApproveRequisition">Approve Requisition</a></li>
                     }
                     @if (Page.Employee.Role.MakeRequisition)
                     {
-                        <li id="menu2"><a href="@baseurl/Department/MakeRequisition">Make Requisition</a></li>
+                        <li id="menu12"><a href="@baseurl/Stationery/DepartmentRequisitions">Make Requisition</a></li>
                     }
                     @if (Page.Employee.Role.ChangeCollectionPoint)
                     {                       
-                        <li id="menu2"><a href="@baseurl/Representative/Edit">Change Collection</a></li>
+                        <li id="menu13"><a href="@baseurl/Representative/Edit">Change Collection</a></li>
                     }
                     @if (Page.Employee.Role.ConfirmDisbursement)
                     {
-                        <li id="menu1"><a href="@baseurl/Representative/ViewDisbursements">Confirm Disbursement</a></li>
+                        <li id="menu14"><a href="@baseurl/Representative/ViewDisbursements">Confirm Disbursement</a></li>
                     }
                     @if (Page.Employee.Role.DelegateRole)
                     {
-                        <li id="menu2"><a href="@baseurl/Head/show">Manage Delegation</a></li>
+                        <li id="menu15"><a href="@baseurl/Head/show">Manage Delegation</a></li>
                     }
                                       
                     @if (Page.Employee.Role.ChangeRepresentative)
                     {
-                        <li id="menu7"><a href="@baseurl/Head/ChangeRepresentive">Change Department Representative</a></li>
+                        <li id="menu16"><a href="@baseurl/Head/ChangeRepresentive">Change Department Representative</a></li>
                     }
                                    
                     

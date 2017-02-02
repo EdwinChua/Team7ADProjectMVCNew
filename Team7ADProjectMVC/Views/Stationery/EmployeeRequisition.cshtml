@@ -47,6 +47,7 @@
 
                     <button type="button" id="add-detail" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Another Item</button>
                     <input type="submit" value="Submit For Approval" class="btn btn-success" />
+                    <button type="button" class="btn btn-default" onclick="window.history.back()">Back</button>
                 </div>
             </div>
         </div>
@@ -102,6 +103,8 @@
             EntryToRemove.remove();
         });
 
+        document.getElementById("menu12").className += "active";
     });
 
+    
 </script>
