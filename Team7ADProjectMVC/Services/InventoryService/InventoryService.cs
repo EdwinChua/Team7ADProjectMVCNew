@@ -296,7 +296,7 @@ namespace Team7ADProjectMVC.Models
             }
             else
             {
-                throw new InventoryAndDisbursementUpdateException("The quantity of " + itemNo + " " + i.Description+ " collected was more than the available quantity. Please try again.");
+                throw new InventoryAndDisbursementUpdateException("The quantity of '" + i.Description + "' (Item code: "+ itemNo +") collected was more than the available quantity (Bal: " + i.Quantity+ "). Please try again.");
                 //Shouldn't happen because html5 validation will check first
             }
         }

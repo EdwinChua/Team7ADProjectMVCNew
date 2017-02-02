@@ -17,7 +17,7 @@
         <EntityTypeShape EntityType="ProjectModel.DisbursementList" Width="1.5" PointX="9.75" PointY="21.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectModel.Employee" Width="1.5" PointX="3" PointY="12.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectModel.Inventory" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProjectModel.ItemCodeGenerator" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.ItemCodeGenerator" Width="1.5" PointX="1" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectModel.Measurement" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectModel.Notification" Width="1.5" PointX="7.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ProjectModel.PurchaseDetail" Width="1.5" PointX="12.5" PointY="14" IsExpanded="true" />

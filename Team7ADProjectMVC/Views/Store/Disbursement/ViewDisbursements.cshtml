@@ -45,7 +45,10 @@
                     Department
                 </th>
                 <th>
-                    Delivery Location <br /> (Time 24hr format)
+                    Delivery Location
+                </th>
+                <th>
+                    Date Generated
                 </th>
                 <th>
                     Status
@@ -60,7 +63,10 @@
                         @Html.DisplayFor(modelItem => item.Department.DepartmentName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Department.CollectionPoint.PlaceName) (@item.Department.CollectionPoint.CollectTime.Value.Hours.ToString():@item.Department.CollectionPoint.CollectTime.Value.Minutes.ToString() )
+                        @Html.DisplayFor(modelItem => item.Department.CollectionPoint.PlaceName)
+                    </td>
+                    <td>
+                        @item.Retrieval.RetrievalDate.Value.ToString("dd/MM/yyyy")
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Status)
@@ -98,5 +104,6 @@
                 
         $('#deptNdeliveryPicker').selectpicker('val', getUrlVars()["id"]);
         $('#statusPicker').selectpicker('val', getUrlVars()["status"]);
+        document.getElementById("menu2").className += "active";
     });
 </script>

@@ -19,6 +19,9 @@
                 <th>
                     Order Date
                 </th>
+                <th>
+                    Delivered On
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -29,11 +32,12 @@
                         @item.PurchaseOrder.Supplier.SupplierName
                     </td>
                     <td>
-                        @item.PurchaseOrder.OrderDate.Value.ToString("dd MMM yyyy")
+                        @item.PurchaseOrder.OrderDate.Value.ToString("dd/MM/yyyy")
                     </td>
                     <td>
-                        @item.DeliveredDate
+                        
                         @if (item.DeliveredDate == null) { printLine = "Outstanding"; }
+                        else { printLine = item.DeliveredDate.Value.ToString("dd/MM/yyyy"); }
                          @printLine
                         @{ printLine = null;}
                     </td>
@@ -49,6 +53,7 @@
         $(".clickable-row").click(function () {
             window.document.location = $(this).data("href");
         });
+        document.getElementById("menu4").className += "active";
     });
 
 </script>
