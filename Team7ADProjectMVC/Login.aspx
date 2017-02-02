@@ -23,7 +23,7 @@
         <br />
         <br />
         <br />
-        <h1 style="font-size:60px" class="w3-text-shadow t7-white t7-text-black t7-center">&nbsp;Logic University <br />SSIS</h1><br />
+        <h1 style="font-size:60px" class="w3-text-shadow t7-white t7-text-indigo t7-center">&nbsp;Logic University <br />SSIS</h1><br />
         <br />
          <br />
         <br />
