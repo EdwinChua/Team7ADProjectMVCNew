@@ -30,12 +30,14 @@ namespace Team7ADProjectMVC.Controllers
             utilSvc = new UtilityService();
         }
         // seq diagram done
+        [AuthorisePermissions(Permission = "MakePurchaseOrder")]
         public ActionResult GeneratePO()
         {
             List<Inventory> itemsToResupply = supplierAndPOSvc.GetAllItemsToResupply();
             return View(itemsToResupply);
         }
         // seq diagram done
+        [AuthorisePermissions(Permission = "MakePurchaseOrder")]
         public ActionResult GeneratePurchaseOrders(string[] itemNo, int[] supplier, int?[] orderQuantity)
         {
             Employee currentEmployee = (Employee)Session["User"];
@@ -44,6 +46,7 @@ namespace Team7ADProjectMVC.Controllers
             return RedirectToAction("PurchaseOrderSummary");
         }
         // seq diagram done
+        //[AuthorisePermissions(Permission = "MakePurchaseOrder")] both
         public ActionResult PurchaseOrderSummary()
         {
             List<PurchaseOrder> poList = supplierAndPOSvc.GetAllPOOrderByApproval();
@@ -51,6 +54,7 @@ namespace Team7ADProjectMVC.Controllers
             return View(poList);
         }
         // seq diagram done
+        [AuthorisePermissions(Permission = "MakePurchaseOrder,ApprovePurchaseOrder")]
         public ActionResult SearchPurchaseOrderSummary(string orderStatus, string dateOrderedString, string dateApprovedString)
         {
             DateTime? dateOrdered = null;
@@ -70,6 +74,7 @@ namespace Team7ADProjectMVC.Controllers
             return View("PurchaseOrderSummary", poList);
         }
         // seq diagram done
+        [AuthorisePermissions(Permission = "MakePurchaseOrder,ApprovePurchaseOrder")]
         public ActionResult DeliveryDetails(int id)
         {
             List<DeliveryDetail> deliveryDetailsList = supplierAndPOSvc.GetDeliveryDetailsByDeliveryId(id);
@@ -78,6 +83,7 @@ namespace Team7ADProjectMVC.Controllers
             return View("ViewReceiveOrder",delivery);
         }
         // seq diagram done
+        [AuthorisePermissions(Permission = "MakePurchaseOrder,ApprovePurchaseOrder")]
         public ActionResult PurchaseOrder(int id, int? page)
         {
             PurchaseOrder purchaseOrder = supplierAndPOSvc.FindPOById(id);
@@ -89,6 +95,7 @@ namespace Team7ADProjectMVC.Controllers
             return View(purchaseOrder.PurchaseDetails.ToPagedList(pageNumber, pageSize));
         }
         // seq diagram done
+        [AuthorisePermissions(Permission = "ApprovePurchaseOrder")]
         public ActionResult ApprovePO(int poNumber, string approve)
         {
             if(approve=="Approve")
@@ -103,12 +110,14 @@ namespace Team7ADProjectMVC.Controllers
             return RedirectToAction("PurchaseOrderSummary");
         }
         // seq diagram done
+        [AuthorisePermissions(Permission = "InventoryManagement")]
         public ActionResult ListDeliveries()
         {
             List<Delivery> allDeliveries = supplierAndPOSvc.GetAllDeliveries();
             return View(allDeliveries);
         }
         // seq diagram done
+        [AuthorisePermissions(Permission = "InventoryManagement")]
         public ActionResult AcceptDelivery(int deliveryId, string deliveryRefNo, string dateDelivered, int[] deliveryDetailId, string[] itemNo, int[] quantity, string[] remarks)
         {
             Employee currentEmployee = (Employee)Session["User"];

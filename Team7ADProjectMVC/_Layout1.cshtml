@@ -92,7 +92,7 @@
                 <ul id="nav" class="nav nav-sidebar">
                     @if (Page.Employee.Role.Disbursement || Page.Employee.Role.InventoryManagement || Page.Employee.Role.MakePurchaseOrder || Page.Employee.Role.ApprovePurchaseOrder|| Page.Employee.Role.ViewReports|| Page.Employee.Role.MakeAdjustment|| Page.Employee.Role.ApproveAdjustment)
                     {
-                        <li><u>Store</u></li>
+                        <li><a><b><u>Store</u></b></a></li>
                     }                   
                     @if (Page.Employee.Role.Disbursement)
                     {
@@ -133,7 +133,7 @@
                     @if (Page.Employee.Role.ViewRequisition|| Page.Employee.Role.ApproveRequisition|| Page.Employee.Role.MakeRequisition|| Page.Employee.Role.ChangeCollectionPoint|| Page.Employee.Role.ConfirmDisbursement|| Page.Employee.Role.DelegateRole)
                     {
                         
-                        <li><u>Stationery Requisition</u></li>
+                        <li><a><b><u>Stationery Requisition</u></b></a></li>
                     } 
                     @if (Page.Employee.Role.ViewRequisition)
                     {

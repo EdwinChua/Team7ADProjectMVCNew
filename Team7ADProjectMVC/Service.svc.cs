@@ -317,9 +317,10 @@ namespace Team7ADProjectMVC
                 if (result == true)
                 {
                     Employee emp = deptSvc.FindEmployeeById(empid);
+                    emp.Token = token;
+                    deptSvc.UpdateEmployee(emp);
 
-        
-                    if(deptSvc.IsDelegate(emp))
+                    if (deptSvc.IsDelegate(emp))
                     {
                         deptSvc.SetDelegatePermissions(emp);
                     }
@@ -332,10 +333,7 @@ namespace Team7ADProjectMVC
                     Role makePerm = emp.Role;
                     dDetail.Permission = makePermissionstring(makePerm.ViewRequisition.ToString()) + "-" + makePermissionstring(makePerm.ApproveRequisition.ToString()) + "-" +
                         makePermissionstring(makePerm.ChangeCollectionPoint.ToString()) + "-" + makePermissionstring(makePerm.ViewCollectionDetails.ToString());
-
-
-                    emp.Token = token;
-                    db.SaveChanges();
+                    
                     PushOldNotification(empid, token);
                 }
                 else
