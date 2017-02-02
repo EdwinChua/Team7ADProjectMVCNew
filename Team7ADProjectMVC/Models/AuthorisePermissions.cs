@@ -16,8 +16,12 @@ namespace Team7ADProjectMVC.Models
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             //User isn't logged in
-            //filterContext.Result = new RedirectResult("~/Auth/Unauthorised");
-            filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.Unauthorized, "You are not authorised to view the page. Please click on the back button to continue using the application");
+            //filterContext.Result = new RedirectResult("~/Auth/Unauthorised");       
+            if (filterContext.HttpContext.User.Identity.IsAuthenticated)
+            {
+                filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.Forbidden, "You are not authorised to view the page. Please click on the back button to continue using the application");
+            }     
+            else filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
         }
 
         //Core authentication, called before each action
