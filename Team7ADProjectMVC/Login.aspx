@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <style type="text/css">
         body{
-             background-image:url("Resources/making.jpg");
+             background-image:url("Resources/bbb.jpg");
                background-size: 100% 160%;
         }
     
@@ -89,7 +89,7 @@
                                 </tr>
                                 <tr>
                                     <td align="right" colspan="2">
-                                        <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Log In" CssClass="t7-btn  t7-blue" ValidationGroup="Login1" />
+                                        <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Log In" CssClass="t7-btn  t7-blue" ValidationGroup="Login1" OnClick="LoginButton_Click" />
                                     </td>
                                 </tr>
                             </table>

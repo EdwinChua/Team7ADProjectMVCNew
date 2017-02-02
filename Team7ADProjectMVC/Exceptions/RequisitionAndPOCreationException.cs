@@ -5,13 +5,13 @@ using System.Web;
 
 namespace Team7ADProjectMVC.Exceptions
 {
-    public class RequisitionCreationException : Exception
+    public class RequisitionAndPOCreationException : Exception
     {
-        public RequisitionCreationException()
+        public RequisitionAndPOCreationException()
         {
         }
 
-        public RequisitionCreationException(string message)
+        public RequisitionAndPOCreationException(string message)
         : base(message)
         {
         }
