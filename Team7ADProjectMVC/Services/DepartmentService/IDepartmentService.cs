@@ -34,5 +34,6 @@ namespace Team7ADProjectMVC.Services.DepartmentService
         bool IsDelegate(Employee e);
         Employee SetDelegatePermissions(Employee e);
         List<Employee> GetEverySingleEmployeeInDepartment(int? depId);
+        List<CollectionPoint> getAllCollectionPoint()
     }
 }

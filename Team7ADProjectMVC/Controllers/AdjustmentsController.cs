@@ -30,7 +30,7 @@ namespace Team7ADProjectMVC.Controllers
             Employee user = (Employee)Session["user"];
 
             string role = ivadjustsvc.findRolebyUserID(user.EmployeeId);
-            List<Employee> empList = deptSvc.GetAllEmployeebyDepId(user.DepartmentId);
+            List<Employee> empList = deptSvc.GetEverySingleEmployeeInDepartment (user.DepartmentId);
             ViewBag.employee = new SelectList(empList, "EmployeeId", "EmployeeName");
 
             int pageSize = 10;
@@ -101,7 +101,7 @@ namespace Team7ADProjectMVC.Controllers
                 return View("ViewAdjustment", result.ToPagedList(pageNumber,pageSize));
             }
 
-            if (role == "Store Supervisor")
+            if (role == "Store Manager")
             {
                 //var adjustmentlist = ivadjustsvc.findManagerAdjustmentList();
                 var adjustmentlist = (List<Adjustment>)TempData.Peek("list");
