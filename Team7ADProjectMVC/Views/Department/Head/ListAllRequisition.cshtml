@@ -33,7 +33,7 @@
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav"></ul>
-                        <form class="navbar-form navbar-left" role="form" action="/Head/ApproveRequisition" method="post">
+                        <form class="navbar-form navbar-left" role="form" action="/Head/ApproveRequisition" method="post" onsubmit="return confirm('Are you sure you want to submit?');">
                             <div class="form-group">
                                 <input id="SearchString" type="text" class="form-control" name="SearchString" />
                             </div>
