@@ -29,6 +29,7 @@ namespace Team7ADProjectMVC.Controllers
             uSvc = new UtilityService();
         }
         // GET: Stationery
+        [AuthorisePermissions(Permission = "ViewRequisition")]
         public ActionResult DepartmentRequisitions(int? page, int? employeeId, string dateOrderedString, string status)
         {
             Employee currentEmployee = (Employee)Session["User"];
@@ -57,6 +58,7 @@ namespace Team7ADProjectMVC.Controllers
             return View(resultList.ToPagedList(pageNumber, pageSize));
         }
 
+        [AuthorisePermissions(Permission = "MakeRequisition")]
         public ActionResult EmployeeRequisition()
         {
             Employee currentEmployee = (Employee)Session["User"];
@@ -74,6 +76,7 @@ namespace Team7ADProjectMVC.Controllers
             return View(requisition);
         }
 
+        [AuthorisePermissions(Permission = "MakeRequisition")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EmployeeRequisition([Bind] Requisition requisition)
@@ -115,6 +118,7 @@ namespace Team7ADProjectMVC.Controllers
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        [AuthorisePermissions(Permission = "MakeRequisition")]
         public ActionResult AddDetail()
         {
             Requisition currentRequisition = (Requisition)Session["requisition"];
@@ -125,6 +129,7 @@ namespace Team7ADProjectMVC.Controllers
             return View(currentRequisition);
         }
 
+        [AuthorisePermissions(Permission = "ViewRequisition")]
         public ActionResult Requisition(int id)
         {
             return View(reqService.FindById(id));

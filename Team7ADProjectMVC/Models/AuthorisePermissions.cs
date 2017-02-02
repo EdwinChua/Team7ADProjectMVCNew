@@ -15,7 +15,7 @@ namespace Team7ADProjectMVC.Models
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             //User isn't logged in
-            filterContext.Result = new RedirectResult("NotAuthorised.html");
+            filterContext.Result = new RedirectResult("~/NotAuthorised.html");
         }
 
         //Core authentication, called before each action
@@ -24,8 +24,16 @@ namespace Team7ADProjectMVC.Models
             if (((Employee)httpContext.Session["User"]).Role != null )
             {
                 Employee e = (Employee)httpContext.Session["User"];
-                bool authorised = (bool)e.Role.GetType().GetProperty(this.Permission).GetValue(e.Role);
-                return authorised;
+                List<string> permissions = Permission.Split(',').ToList<string>();
+                foreach (string p in permissions)
+                {
+                    bool authorised = (bool)e.Role.GetType().GetProperty(p).GetValue(e.Role);
+                    if (authorised)
+                    {
+                        return authorised;
+                    }
+                }               
+                
             }
             return false;
         }
