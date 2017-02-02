@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Team7ADProjectMVC.Adjustment>
+﻿@model PagedList.IPagedList<Team7ADProjectMVC.Adjustment>
 
 @{
     ViewBag.Title = "Index";
@@ -7,6 +7,7 @@
     Employee currentEmployee = (Employee)Session["User"];
     Page.Employee = currentEmployee;
 }
+@using PagedList.Mvc;
 
 <h2>Adjustment Voucher</h2>
 <hr />
@@ -51,13 +52,13 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Employee.EmployeeName)
+               Raised By
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AdjustmentDate)
+                Created On
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                Approval Status
             </th>
         </tr>
 
@@ -79,6 +80,13 @@
 
     </table>
 </div>
+
+<center>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("ViewAdjustment",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</center>
+
 <script type="text/javascript">
     $(function () {
         $('#datetimepicker1').datetimepicker({
