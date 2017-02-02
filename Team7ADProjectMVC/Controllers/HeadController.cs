@@ -36,21 +36,8 @@ namespace Team7ADProjectMVC.Controllers
             depsvc = new DepartmentService();
         }
 
-        // GET: Head
-        public ActionResult Index()
-        {
-
-            return View();
-        }
-        public ActionResult Approve()
-        {
-            return View();
-        }
-        public ActionResult DelegateRole()
-        {
-            return View();
-        }
         //----------------------------View/Approve/Reject Requisition Part----------------------------------------start here
+        [AuthorisePermissions(Permission = "ApproveRequisition")]
         public ActionResult ApproveRequisition(string currentFilter, string searchString, int? page)
         {
 
@@ -97,7 +84,7 @@ namespace Team7ADProjectMVC.Controllers
 
 
 
-
+        [AuthorisePermissions(Permission = "ApproveRequisition")]
         public ActionResult EmployeeRequisition(int? id)
         {
             user = (Employee)Session["user"];
@@ -114,6 +101,7 @@ namespace Team7ADProjectMVC.Controllers
             return View("Approve", r);
         }
 
+        [AuthorisePermissions(Permission = "ApproveRequisition")]
         public ActionResult MarkAsCollected(int? rid, string textcomments, string status)
         {
             user = (Employee)Session["user"];
@@ -145,6 +133,7 @@ namespace Team7ADProjectMVC.Controllers
 
 
         //----------------------------Delegation Part----------------------------------------------start here
+        [AuthorisePermissions(Permission = "DelegateRole")]
         public ActionResult show()
         {
             user = (Employee)Session["user"];
@@ -171,7 +160,7 @@ namespace Team7ADProjectMVC.Controllers
 
         }
 
-
+        [AuthorisePermissions(Permission = "DelegateRole")]
         public ActionResult ManageDelegation(int? empId, string status, string startDate, string endDate, int? DelegateId)
 
         {
@@ -267,6 +256,7 @@ namespace Team7ADProjectMVC.Controllers
 
         }
 
+        [AuthorisePermissions(Permission = "DelegateRole")]
         public ActionResult fill()
         {
 
@@ -297,7 +287,7 @@ namespace Team7ADProjectMVC.Controllers
 
 
         //----------------------------Delegation Part----------------------------------end here
-
+        [AuthorisePermissions(Permission = "ChangeRepresentative")]
         public ActionResult ChangeRepresentive()
         {
 
@@ -314,6 +304,8 @@ namespace Team7ADProjectMVC.Controllers
             return View("ChangeDepartmentRepresentative", emplist);
 
         }
+
+        [AuthorisePermissions(Permission = "ChangeRepresentative")]
         public ActionResult ManageCangeRep(int? empId)
 
         {
@@ -324,7 +316,7 @@ namespace Team7ADProjectMVC.Controllers
             Employee currentRep = depsvc.GetCurrentRep(depIdofLoginUser);
             Employee newRep = depsvc.GetEmpbyId(empId);//find new rep
             depsvc.ChangeRep(currentRep, newRep);
-            return RedirectToAction("ApproveRequisition");
+            return RedirectToAction("ChangeRepresentive");
 
         }
     }

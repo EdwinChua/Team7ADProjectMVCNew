@@ -48,10 +48,12 @@
             <button class="btn btn-success" type="submit">
                 Search
             </button>
+        @if ((bool)currentEmployee.Role.MakePurchaseOrder)
+        {
             <button class="btn btn-primary" type="button" onclick="window.location.href='../StorePO/GeneratePO'">
                 Create New
             </button>
-        
+        }
     </form>
 </nav>
 
