@@ -29,7 +29,7 @@ namespace Team7ADProjectMVC.Controllers
             uSvc = new UtilityService();
         }
         // GET: Stationery
-        public ActionResult DepartmentRequisitions(int? page, int? employeeId, string dateOrderedString)
+        public ActionResult DepartmentRequisitions(int? page, int? employeeId, string dateOrderedString, string status)
         {
             Employee currentEmployee = (Employee)Session["User"];
             ViewBag.Employees = deptService.GetEverySingleEmployeeInDepartment(currentEmployee.DepartmentId);
@@ -45,6 +45,10 @@ namespace Team7ADProjectMVC.Controllers
             {
                 DateTime dateOrdered = uSvc.GetDateTimeFromPicker(dateOrderedString);
                 resultList.RemoveAll(x => x.OrderedDate != dateOrdered);
+            }
+            if (status != null)
+            {
+                resultList.RemoveAll(x => x.RequisitionStatus != status);
             }
 
             int pageSize = 10;
