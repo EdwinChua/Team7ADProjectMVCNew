@@ -68,6 +68,16 @@ namespace Team7ADProjectMVC.TestControllers
             return Redirect("/ReportViewer.aspx");
 
         }
+
+        public ActionResult Stocklist()
+        {
+
+            DataView data = rptSvc.GetDataForStocklist();
+            Session["rptData"] = data;
+            Session["rptPath"] = "~/Reports/CrystalReport3.rpt";
+            return Redirect("/ReportViewer.aspx");
+
+        }
     }
 
   
