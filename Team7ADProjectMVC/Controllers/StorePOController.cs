@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Team7ADProjectMVC.Exceptions;
 using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Models.UtilityService;
 using Team7ADProjectMVC.Services;
@@ -42,7 +43,8 @@ namespace Team7ADProjectMVC.Controllers
         {
             Employee currentEmployee = (Employee)Session["User"];
             supplierAndPOSvc.GeneratePurchaseOrders(currentEmployee,itemNo, supplier, orderQuantity);
-            List<Inventory> itemsToResupply = supplierAndPOSvc.GetAllItemsToResupply();
+            //List<Inventory> itemsToResupply = supplierAndPOSvc.GetAllItemsToResupply();
+            Session["inventoryToResupply"] = new List<Inventory>();
             return RedirectToAction("PurchaseOrderSummary");
         }
         // seq diagram done
@@ -124,6 +126,48 @@ namespace Team7ADProjectMVC.Controllers
             supplierAndPOSvc.ReceiveDelivery(currentEmployee, deliveryId, deliveryRefNo, dateDelivered, deliveryDetailId, itemNo, quantity, remarks);
 
             return RedirectToAction("ListDeliveries");
+        }
+
+        public ActionResult CreateAdhocPurchaseOrder()
+        {
+            Employee currentEmployee = (Employee)Session["User"];
+            ViewBag.InventoryItems = inventorySvc.GetAllInventory();
+            List<Inventory> itemsToResupply = (List<Inventory>)Session["inventoryToResupply"];
+            if (TempData["doc"] != null)
+            {
+                ViewBag.Error = TempData["doc"];
+            }
+                return View(itemsToResupply);
+        }
+        public ActionResult AddAdhocPOItem(string inventoryId)
+        {
+            Inventory item = inventorySvc.FindInventoryItemById(inventoryId);
+            List<Inventory> itemsToResupply = (List<Inventory>)Session["inventoryToResupply"];
+            try
+            {
+                var q = (from x in itemsToResupply
+                         where x.ItemNo == inventoryId
+                         select x).FirstOrDefault();
+                if (q != null)
+                {
+                    throw new RequisitionAndPOCreationException("Duplicate items are not allowed.");
+                }
+            }
+            catch (RequisitionAndPOCreationException e)
+            {
+                TempData["doc"] = e;
+                return RedirectToAction("CreateAdhocPurchaseOrder");
+                //TODO: Test this error handling
+            }
+            itemsToResupply.Add(item);
+            return RedirectToAction("CreateAdhocPurchaseOrder");
+        }
+        public ActionResult DeleteItem(string inventoryId)
+        {
+            List<Inventory> itemsToResupply = (List<Inventory>)Session["inventoryToResupply"];
+            itemsToResupply.RemoveAll(x => x.ItemNo == inventoryId);
+            Session["inventoryToResupply"] = itemsToResupply;
+            return RedirectToAction("CreateAdhocPurchaseOrder");
         }
 
     }

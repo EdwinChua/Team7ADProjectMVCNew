@@ -9,19 +9,36 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <style type="text/css">
         body{
-             background-image:url("Resources/making.jpg");
+             background-image:url("Resources/bbb.jpg");
                background-size: 100% 160%;
         }
     
     </style>
 </head>
 <body>
+     
+ <div class="row">
+  <%--<div class="t7-red col-xs-4 col-sm-2 col-md-1" align="center">
+   Col1
+  </div>
+  <div class="t7-blue col-xs-4 col-sm-2" align="center">
+   Col2
+  </div>--%>
+  <div class="t7-green hidden-xs col-sm-6 col-md-7" align="center">
+   Col3
+  </div>
+  <%--<div class="t7-black visible-md col-md-3 " align="center">
+   Col4
+  </div>--%>
+  <div class="t7-gray col-xs-12 col-sm-6 col-md-5" align="center">
+   Col5
+  </div>
+     </div>
+       
     <form id="form1" runat="server">
     <div class="t7-right">
     
-        <br />
-        <br />
-        <br />
+       
         <br />
         <h1 style="font-size:60px" class="w3-text-shadow t7-white t7-text-indigo t7-center">&nbsp;Logic University <br />SSIS</h1><br />
         <br />

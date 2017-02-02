@@ -93,7 +93,7 @@ namespace Team7ADProjectMVC.Controllers
                     {
                         if(q[i].ItemNo == q[i+1].ItemNo)
                         {
-                            throw new RequisitionCreationException("Please ensure the items are not duplicated.");
+                            throw new RequisitionAndPOCreationException("Please ensure the items are not duplicated.");
                         }
 
                     }
@@ -107,7 +107,7 @@ namespace Team7ADProjectMVC.Controllers
                     return RedirectToAction("DepartmentRequisitions");
                 }
             }
-            catch (RequisitionCreationException e)
+            catch (RequisitionAndPOCreationException e)
             {
                 ViewBag.Error = e.Message.ToString();
             }

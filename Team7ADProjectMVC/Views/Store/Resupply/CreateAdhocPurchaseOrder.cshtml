@@ -1,0 +1,117 @@
+﻿@model IEnumerable<Team7ADProjectMVC.Inventory>
+
+@{
+    Layout = "~/_Layout1.cshtml";
+    Page.Title = "Generate Purchase Orders";
+    Employee currentEmployee = (Employee)Session["User"];
+    Page.Employee = currentEmployee;
+}
+
+<form method="get" action="AddAdhocPOItem">
+    <div class="row">
+        <div class="col-md-5">
+            <select id="searchByCategory" name="inventoryId"
+                    class="selectpicker show-tick form-control"
+                    data-live-search="true" title="Category">
+                @foreach (Inventory i in ViewBag.InventoryItems)
+            {
+                    <option value="@i.ItemNo">@i.Description</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-1">
+            <input type="submit" class="btn btn-success" value="Add item" />
+        </div>
+    </div>
+    
+</form>
+
+    <h2>List of items below re-order level</h2>
+    <form method="get" action="GeneratePurchaseOrders">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Item Code
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    On hand
+                </th>
+                <th>
+                    Re-order level
+                </th>
+                <th>
+                    Supplier 1
+                </th>
+                <th>
+                    Supplier 2
+                </th>
+                <th>
+                    Supplier 3
+                </th>
+                <th>
+                    
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="col-md-1">
+                        @item.ItemNo
+                    </td>
+                    <td class="col-md-2">
+                        @item.Description
+                    </td>
+                    <td class="col-md-1">
+                        @item.Quantity
+                    </td>
+                    <td class="col-md-1">
+                        @item.ReorderLevel
+                    </td>
+                    <td class="col-md-2">
+                        <a href="#" data-toggle="tooltip" title="Tel. @item.Supplier.PhNo (@item.Supplier.ContactName)">@item.Supplier.SupplierName</a>
+                        <br />
+                        <input type="hidden" name="itemNo" value="@item.ItemNo" />
+                        <input type="hidden" name="supplier" value="@item.SupplierId1" />
+                        <input type="number" class="form-control" name="orderQuantity" />
+                    </td>
+                    <td class="col-md-2">
+                        <a href="#" data-toggle="tooltip" title="Tel. @item.Supplier1.PhNo (@item.Supplier1.ContactName)">@item.Supplier1.SupplierName</a>
+                        <br />
+                        <input type="hidden" name="itemNo" value="@item.ItemNo" />
+                        <input type="hidden" name="supplier" value="@item.SupplierId2" />
+                        <input type="number" class="form-control" name="orderQuantity" />
+                    </td>
+                    <td class="col-md-2">
+                        <a href="#" data-toggle="tooltip" title="Tel. @item.Supplier2.PhNo (@item.Supplier2.ContactName)">@item.Supplier2.SupplierName</a>
+                        <br />
+                        <input type="hidden" name="itemNo" value="@item.ItemNo" />
+                        <input type="hidden" name="supplier" value="@item.SupplierId3" />
+                        <input type="number" class="form-control" name="orderQuantity" />
+                    </td>
+                    <td class="col-md-1"  style="vertical-align:middle">
+                        <button type="button" class="btn btn-danger" onclick="window.location.href='DeleteItem/@item.ItemNo'">Remove</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <h5>Mouse over supplier for contact details.</h5>
+    <div class="row">
+        <div class="col-md-8"></div><div class="col-md-3">
+            <input type="submit" class="btn btn-primary" value="Generate Purchase Orders" />
+        </div>
+    </div>
+</form>
+
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>

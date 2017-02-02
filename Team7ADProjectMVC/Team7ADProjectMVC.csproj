@@ -974,6 +974,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Resources\bbb.jpg" />
     <Content Include="Resources\dashboard.css" />
     <Content Include="Resources\making.jpg" />
     <Content Include="Resources\mystyle.css" />
@@ -1055,7 +1056,7 @@
     <Compile Include="Employee.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Exceptions\RequisitionCreationException.cs" />
+    <Compile Include="Exceptions\RequisitionAndPOCreationException.cs" />
     <Compile Include="Exceptions\QuantityMismatchException.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="DataSet1.Designer.cs">
@@ -1263,6 +1264,7 @@
     <Content Include="Views\Stationery\EditorTemplates\RequisitionDetail.cshtml" />
     <Content Include="Views\Stationery\DepartmentRequisitions.cshtml" />
     <Content Include="Views\Stationery\Requisition.cshtml" />
+    <Content Include="Views\Store\Resupply\CreateAdhocPurchaseOrder.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
