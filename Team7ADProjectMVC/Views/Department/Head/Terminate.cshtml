@@ -12,11 +12,15 @@
         $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
     </script>*@
 
-<form role="form" action="/Head/ManageDelegation">
+<form role="form" action="/Head/ManageDelegation" onsubmit="return confirm('Are you sure you want to confirm?');">
     <div class="row">
         <div class="col-lg-4 col-xs-12">
-            Delegated to:<label value="employeeName">@ViewBag.emp </label><br />
+            Delegated to : <label value="employeeName">@ViewBag.emp </label><br />
         </div>
+    </div>
+
+    <div class="row">
+        <br />
     </div>
 
     <div class="row">
@@ -145,7 +149,7 @@ else
     <script type="text/javascript">
     $(function () {
         $('#datetimepicker1').datetimepicker({
-                format: 'dd/mm/yy',
+                format: 'DD/MM/YY',
                 inline: true,
                 sideBySide: false,
                 minDate: new Date(),
@@ -159,7 +163,7 @@ else
                 $('#datetimepicker2').data("DateTimePicker").minDate(date.date);
             });
             $('#datetimepicker2').datetimepicker({
-                format: 'dd/mm/yy',
+                format: 'DD/MM/YY',
                 inline: true,
                 sideBySide: false,
                 minDate: '@ViewBag.s2',
@@ -174,16 +178,16 @@ else
             });
 
     });
-        $(document).ready(function () {
-            $('#updatebutton').click(function () {
-                alert("Successfully Updated");
-            })
-        });
-        $(document).ready(function () {
-            $('#terminatebutton').click(function () {
-                alert("Successfully Terminated");
-            })
-        });
+    //    $(document).ready(function () {
+    //        $('#updatebutton').click(function () {
+    //            alert("Successfully Updated");
+    //        })
+    //    });
+    //    $(document).ready(function () {
+    //        $('#terminatebutton').click(function () {
+    //            alert("Successfully Terminated");
+    //        })
+    //    });
     </script>
    
 }
