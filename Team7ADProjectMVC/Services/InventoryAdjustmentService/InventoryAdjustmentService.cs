@@ -185,5 +185,10 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
             db.Adjustments.Find(adjid).Status = "Pending Final Approval";
             db.SaveChanges();
         }
+        public void createAdjustment(Adjustment adjustment)
+        {
+            db.Adjustments.Add(adjustment);
+            db.SaveChanges();
+        }
     }
 }
