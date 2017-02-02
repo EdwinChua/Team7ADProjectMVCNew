@@ -7,25 +7,31 @@ using System.Net;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Models.InventoryAdjustmentService;
+using Team7ADProjectMVC.Services.DepartmentService;
 
 namespace Team7ADProjectMVC.Controllers
 {
     public class AdjustmentsController : Controller
     {
         private IInventoryAdjustmentService ivadjustsvc;
-        private ProjectEntities db = new ProjectEntities();
+        private IDepartmentService deptSvc;
+        private IInventoryService invSvc;
+        
         public AdjustmentsController()
         {
             ivadjustsvc = new InventoryAdjustmentService();
+            deptSvc = new DepartmentService();
+            invSvc = new InventoryService();
         }
 
         // GET: Adjustments
         public ActionResult ViewAdjustment(int? page)
         {
-            int userid = ((Employee)Session["user"]).EmployeeId;
+            Employee user = (Employee)Session["user"];
 
-            string role = ivadjustsvc.findRolebyUserID(userid);
-            ViewBag.employee = new SelectList(db.Employees.Where(x => x.DepartmentId == 6), "EmployeeId", "EmployeeName");
+            string role = ivadjustsvc.findRolebyUserID(user.EmployeeId);
+            List<Employee> empList = deptSvc.GetAllEmployeebyDepId(user.DepartmentId);
+            ViewBag.employee = new SelectList(empList, "EmployeeId", "EmployeeName");
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
@@ -65,13 +71,16 @@ namespace Team7ADProjectMVC.Controllers
             return View();
         }
 
-        public ActionResult SearchAdjustment(string employee, string status, string date)
+        public ActionResult SearchAdjustment(string employee, string status, string date, int? page)
         {
 
-            int userid = ((Employee)Session["user"]).EmployeeId;
+            Employee user = ((Employee)Session["user"]);
 
-            string role = ivadjustsvc.findRolebyUserID(userid);
-            ViewBag.employee = new SelectList(db.Employees.Where(x => x.DepartmentId == 6), "EmployeeId", "EmployeeName");
+            string role = ivadjustsvc.findRolebyUserID(user.EmployeeId);
+            List<Employee> empList = deptSvc.(user.DepartmentId);
+            ViewBag.employee = new SelectList(empList, "EmployeeId", "EmployeeName");
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
 
             if (role == "Store Supervisor")
             {
@@ -89,7 +98,7 @@ namespace Team7ADProjectMVC.Controllers
                 };
 
                 ViewBag.status = statuslist;
-                return View("ViewAdjustment", result);
+                return View("ViewAdjustment", result.ToPagedList(pageNumber,pageSize));
             }
 
             if (role == "Store Supervisor")
@@ -106,7 +115,7 @@ namespace Team7ADProjectMVC.Controllers
                 };
 
                 ViewBag.status = statuslist;
-                return View("ViewAdjustment", result);
+                return View("ViewAdjustment", result.ToPagedList(pageNumber, pageSize));
             }
 
             return View();
@@ -173,14 +182,14 @@ namespace Team7ADProjectMVC.Controllers
         }
 
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
         [HttpGet]
         public ActionResult Create()
         {
@@ -192,7 +201,7 @@ namespace Team7ADProjectMVC.Controllers
                 Status = Convert.ToString("Pending Approval")
             };
             var adjustdetail = new AdjustmentDetail();
-            ViewBag.ItemNo = new SelectList(db.Inventories, "ItemNo", "Description");
+            ViewBag.ItemNo = new SelectList(invSvc.GetAllInventory(), "ItemNo", "Description");
 
             adjust.AdjustmentDetails.Add(adjustdetail);
             return View(adjust);
@@ -204,12 +213,11 @@ namespace Team7ADProjectMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                ivadjustsvc.createAdjustment(adjust);
 
-                db.Adjustments.Add(adjust);
-                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ItemNo = new SelectList(db.Inventories, "ItemNo", "Description");
+            ViewBag.ItemNo = new SelectList(invSvc.GetAllInventory(), "ItemNo", "Description");
             return View(adjust);
         }
 
@@ -220,7 +228,7 @@ namespace Team7ADProjectMVC.Controllers
             Adjustment currentAdjustment = (Adjustment)Session["adjustment"];
             Session["adjustment"] = new Adjustment();
             var adjustdetail = new AdjustmentDetail();
-            ViewBag.ItemNo = new SelectList(db.Inventories, "ItemNo", "Description");
+            ViewBag.ItemNo = new SelectList(invSvc.GetAllInventory(), "ItemNo", "Description");
             currentAdjustment.AdjustmentDetails.Add(adjustdetail);
             return View(currentAdjustment);
         }
