@@ -14,6 +14,12 @@ namespace Team7ADProjectMVC.Services.DepartmentService
         ProjectEntities db = new ProjectEntities();
         PushNotification notify = new PushNotification();
 
+        public void UpdateEmployee(Employee e)
+        {
+            db.Entry(e).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
         public Department FindDeptById(int id)
         {
             return (db.Departments.Find(id));
