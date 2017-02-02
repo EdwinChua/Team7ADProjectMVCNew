@@ -33,7 +33,7 @@
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav"></ul>
-                        <form class="navbar-form navbar-left" role="form" action="/Head/ApproveRequisition" method="post" onsubmit="return confirm('Are you sure you want to submit?');">
+                        <form class="navbar-form navbar-left" role="form" action="/Head/ApproveRequisition" method="post">
                             <div class="form-group">
                                 <input id="SearchString" type="text" class="form-control" name="SearchString" />
                             </div>
@@ -90,7 +90,7 @@
                         <br>
                     </td>
                     <td>
-                        <form id="form1" action="/Head/MarkAsCollected"  onsubmit="return confirm('Are you sure you want to confirm?');">
+                        <form id="form1" action="/Head/MarkAsCollected"  onsubmit="return confirm('Are you sure you confirm?');">
                             <input type="hidden" value="@item.RequisitionId" name="rid" />
                             <input type="hidden" value="" name="textcomments" />
                             <input type="submit" class="btn btn-success btn-lg" name="status" value="Approve" />
