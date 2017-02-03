@@ -10,7 +10,7 @@ using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Models.ListAllRequisitionService;
 using PagedList;
 using Team7ADProjectMVC.Services.DepartmentService;
-using Team7ADProjectMVC.Services.UtilityService;
+using Team7ADProjectMVC.Models.UtilityService;
 
 namespace Team7ADProjectMVC.Controllers
 {

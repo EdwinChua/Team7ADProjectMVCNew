@@ -4,9 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web;
-using Team7ADProjectMVC.Services.UtilityService;
 
-namespace Team7ADProjectMVC.Models
+namespace Team7ADProjectMVC.Models.UtilityService
 {
     public class UtilityService : IUtilityService
     {
