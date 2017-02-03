@@ -113,11 +113,17 @@ namespace Team7ADProjectMVC.Controllers
                         }
                         item.OutstandingQuantity = item.Quantity;
                     }
-                    requisition.Employee = deptService.FindById(currentEmployee.EmployeeId);
-                    reqService.CreateRequisition(requisition);
+                    
+                    reqService.CreateRequisition(requisition, currentEmployee.EmployeeId);
+                    try
+                    {
+                        string emailBody = requisition.Employee.Department.Head.EmployeeName + ", You have a pending requisition from " + requisition.Employee.EmployeeName + ". Please go to " + Request.Url.Host + "/Head/EmployeeRequisition/" + requisition.RequisitionId;
+                        uSvc.SendEmail(new List<string>(new string[] { requisition.Employee.Department.Head.Email }), "New Requisition", emailBody);
+                    }
+                    catch (Exception e)
+                    {
 
-
-
+                    }
                     return RedirectToAction("DepartmentRequisitions");
                 }
             }

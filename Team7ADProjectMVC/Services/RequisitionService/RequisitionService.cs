@@ -93,5 +93,11 @@ namespace Team7ADProjectMVC.Models.ListAllRequisitionService
 
         }
 
+        public void CreateRequisition(Requisition requisition, int employeeId)
+        {
+            requisition.Employee = db.Employees.Find(employeeId);
+            db.Requisitions.Add(requisition);
+            db.SaveChanges();
+        }
     }
 }
