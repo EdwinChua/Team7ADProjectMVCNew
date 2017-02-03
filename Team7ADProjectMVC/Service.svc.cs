@@ -376,13 +376,14 @@ namespace Team7ADProjectMVC
             invService.UpdateInventoryQuantity(dd.ItemNo, math);
         }
 
-        public string approveReq(String reqId)
+        public string approveReq(String reqId,String  deptheadID)
         {
             string result = "False";
             try {
                 int rId = Convert.ToInt32(reqId);
+                int headid = Convert.ToInt32(deptheadID);
                 Requisition r = reqService.FindById(rId);
-                reqService.UpdateApproveStatus(r, null);
+                reqService.UpdateApproveStatus(r, null, headid);
                 result = "True";
             }
             catch (Exception e)
@@ -392,14 +393,15 @@ namespace Team7ADProjectMVC
             return result;
         }
 
-        public string rejectReq(String reqId, String remarks)
+        public string rejectReq(String reqId, String remarks, String deptheadID)
         {
             string result = "False";
             try
             {
                 int rId = Convert.ToInt32(reqId);
+                int headid = Convert.ToInt32(deptheadID);
                 Requisition r = reqService.FindById(rId);
-                reqService.UpdateRejectStatus(r, remarks);
+                reqService.UpdateRejectStatus(r, remarks, headid);
                 result = "True";
             }
             catch (Exception e)

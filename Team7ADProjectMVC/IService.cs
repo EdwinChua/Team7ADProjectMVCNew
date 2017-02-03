@@ -79,12 +79,12 @@ namespace Team7ADProjectMVC
         void updatedqun(wcfDisbursementListDetail c );
 
         [OperationContract]
-        [WebGet(UriTemplate = "/wcfSubmitApproveReq?reqId={reqId}", ResponseFormat = WebMessageFormat.Json)]
-        String approveReq(String reqId);
+        [WebGet(UriTemplate = "/wcfSubmitApproveReq?reqId={reqId}&deptheadid={deptheadid}", ResponseFormat = WebMessageFormat.Json)]
+        String approveReq(String reqId, String deptheadid);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/wcfSubmitRejectReq?reqId={reqId}&remarks={remarks}", ResponseFormat = WebMessageFormat.Json)]
-        String rejectReq(String reqId, String remarks);
+        [WebGet(UriTemplate = "/wcfSubmitRejectReq?reqId={reqId}&remarks={remarks}&deptheadid={deptheadid}", ResponseFormat = WebMessageFormat.Json)]
+        String rejectReq(String reqId, String remarks,String deptheadid);
         
         [OperationContract]
         [WebGet(UriTemplate = "/wcfStoreRequisitions", ResponseFormat = WebMessageFormat.Json)]

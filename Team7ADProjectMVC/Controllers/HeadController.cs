@@ -119,7 +119,7 @@ namespace Team7ADProjectMVC.Controllers
             }
             if (status.Equals("Approve"))
             {
-                reqsvc.UpdateApproveStatus(r, textcomments);
+                reqsvc.UpdateApproveStatus(r, textcomments,depHeadId);
                 //mailing
                 try
                 {
@@ -134,7 +134,7 @@ namespace Team7ADProjectMVC.Controllers
             }
             else
             {
-                reqsvc.UpdateRejectStatus(r, textcomments);
+                reqsvc.UpdateRejectStatus(r, textcomments, depHeadId);
                 //mailing
                 try
                 {
