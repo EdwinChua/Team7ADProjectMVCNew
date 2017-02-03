@@ -9,7 +9,6 @@ using System.Web;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Models.ReportService;
-using Team7ADProjectMVC.Models.UtilityService;
 using Team7ADProjectMVC.Services.DepartmentService;
 
 namespace Team7ADProjectMVC.TestControllers

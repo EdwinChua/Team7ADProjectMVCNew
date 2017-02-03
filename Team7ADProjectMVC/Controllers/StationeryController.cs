@@ -8,7 +8,6 @@ using System.Web.Mvc;
 using Team7ADProjectMVC.Exceptions;
 using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Models.ListAllRequisitionService;
-using Team7ADProjectMVC.Models.UtilityService;
 using Team7ADProjectMVC.Services.DepartmentService;
 using Team7ADProjectMVC.Services.UtilityService;
 
@@ -117,12 +116,12 @@ namespace Team7ADProjectMVC.Controllers
                     reqService.CreateRequisition(requisition, currentEmployee.EmployeeId);
                     try
                     {
-                        string emailBody = requisition.Employee.Department.Head.EmployeeName + ", You have a pending requisition from " + requisition.Employee.EmployeeName + ". Please go to " + Request.Url.Host + "/Head/EmployeeRequisition/" + requisition.RequisitionId;
-                        uSvc.SendEmail(new List<string>(new string[] { requisition.Employee.Department.Head.Email }), "New Requisition", emailBody);
+                        string emailBody = requisition.Employee.Department.Head.EmployeeName + ", You have a pending requisition from " + requisition.Employee.EmployeeName + ". Please go to http://" + Request.Url.Host + ":23130/Head/EmployeeRequisition/" + requisition.RequisitionId+" to approve the request.";
+                        uSvc.SendEmail(new List<string>(new string[] { requisition.Employee.Department.Head.Email }), "New Requisition Pending Approval", emailBody);
                     }
                     catch (Exception e)
                     {
-
+                        return Content("bademail");
                     }
                     return RedirectToAction("DepartmentRequisitions");
                 }
