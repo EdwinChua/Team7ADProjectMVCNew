@@ -7,6 +7,7 @@ using System.Net;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Models.InventoryAdjustmentService;
+using Team7ADProjectMVC.Models.UtilityService;
 using Team7ADProjectMVC.Services.DepartmentService;
 
 namespace Team7ADProjectMVC.Controllers
@@ -16,12 +17,14 @@ namespace Team7ADProjectMVC.Controllers
         private IInventoryAdjustmentService ivadjustsvc;
         private IDepartmentService deptSvc;
         private IInventoryService invSvc;
+        private UtilityService uSvc;
         
         public AdjustmentsController()
         {
             ivadjustsvc = new InventoryAdjustmentService();
             deptSvc = new DepartmentService();
             invSvc = new InventoryService();
+            uSvc = new UtilityService();
         }
 
         // GET: Adjustments
@@ -123,6 +126,7 @@ namespace Team7ADProjectMVC.Controllers
 
         }
 
+        [AuthorisePermissions(Permission = "MakeAdjustment,ApproveAdjustment")]
         public ActionResult ViewAdjustmentDetail(int? id)
         {
             if (id == null)
@@ -142,7 +146,7 @@ namespace Team7ADProjectMVC.Controllers
             return View(dtlist);
         }
 
-
+        [AuthorisePermissions(Permission = "ApproveAdjustment")]
         public ActionResult SupervisorApprove(int? id)
         {
             int empid = ((Employee)Session["user"]).EmployeeId;
@@ -151,7 +155,7 @@ namespace Team7ADProjectMVC.Controllers
             return RedirectToAction("ViewAdjustment");
         }
 
-
+        [AuthorisePermissions(Permission = "ApproveAdjustment")]
         public ActionResult SupervisorRejecct(int? id)
         {
             int empid = ((Employee)Session["user"]).EmployeeId;
@@ -159,14 +163,25 @@ namespace Team7ADProjectMVC.Controllers
             return RedirectToAction("ViewAdjustment");
         }
 
+        [AuthorisePermissions(Permission = "ApproveAdjustment")]
         public ActionResult SupervisorPending(int? id)
         {
             int empid = ((Employee)Session["user"]).EmployeeId;
             ivadjustsvc.PendingBySupervisor(empid, id);
+            try //email to notify manager of approval
+            {
+                List<Employee> storeManagement = deptSvc.GetStoreManagerAndSupervisor();
+                string emailBody = storeManagement.Where(x => x.RoleId == 6).First().EmployeeName + ", you have a new pending inventory adjustment for approval. Please go to http://" + Request.Url.Host + ":23130//Adjustments/ViewAdjustmentDetail/" + id + " to approve the adjustment.";
+                uSvc.SendEmail(new List<string>(new string[] { storeManagement.Where(x => x.RoleId == 6).First().Email }), "New Inventory Adjustment Pending Approval", emailBody);
+            }
+            catch (Exception ex)
+            {
+            }
 
             return RedirectToAction("ViewAdjustment");
         }
 
+        [AuthorisePermissions(Permission = "ApproveAdjustment")]
         public ActionResult ManagerApprove(int? id)
         {
             int empid = ((Employee)Session["user"]).EmployeeId;
@@ -174,6 +189,7 @@ namespace Team7ADProjectMVC.Controllers
             return RedirectToAction("ViewAdjustment");
         }
 
+        [AuthorisePermissions(Permission = "ApproveAdjustment")]
         public ActionResult ManagerRejecct(int? id)
         {
             int empid = ((Employee)Session["user"]).EmployeeId;
@@ -190,6 +206,7 @@ namespace Team7ADProjectMVC.Controllers
         //    }
         //    base.Dispose(disposing);
         //}
+        [AuthorisePermissions(Permission = "MakeAdjustment")]
         [HttpGet]
         public ActionResult Create()
         {
@@ -209,20 +226,31 @@ namespace Team7ADProjectMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorisePermissions(Permission = "MakeAdjustment")]
         public ActionResult Create([Bind] Adjustment adjust)
         {
             if (ModelState.IsValid)
             {
                 ivadjustsvc.createAdjustment(adjust);
-
+                try //email to notify supervisor of approval
+                {
+                    List<Employee> storeManagement = deptSvc.GetStoreManagerAndSupervisor();
+                    string emailBody = storeManagement.Where(x => x.RoleId == 5).First().EmployeeName + ", you have a new pending inventory adjustment for approval. Please go to http://" + Request.Url.Host + ":23130//Adjustments/ViewAdjustmentDetail/" + adjust.AdjustmentId + " to approve the adjustment.";
+                    uSvc.SendEmail(new List<string>(new string[] { storeManagement.Where(x => x.RoleId == 5).First().Email }), "New Inventory Adjustment Pending Approval", emailBody);
+                }
+                catch (Exception ex)
+                {
+                }
                 return RedirectToAction("Index");
             }
+            
             ViewBag.ItemNo = new SelectList(invSvc.GetAllInventory(), "ItemNo", "Description");
             return View(adjust);
         }
 
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        [AuthorisePermissions(Permission = "MakeAdjustment")]
         public ActionResult AddDetail()
         {
             Adjustment currentAdjustment = (Adjustment)Session["adjustment"];
