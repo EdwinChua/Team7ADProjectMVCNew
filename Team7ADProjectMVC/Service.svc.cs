@@ -370,7 +370,7 @@ namespace Team7ADProjectMVC
             }
             catch (Exception e)
             {
-                dDetail.Authenticate = "falseer";
+                dDetail.Authenticate = "false";
                 return dDetail;
             }
         }
