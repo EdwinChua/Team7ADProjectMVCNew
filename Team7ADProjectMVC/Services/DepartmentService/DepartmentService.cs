@@ -16,6 +16,11 @@ namespace Team7ADProjectMVC.Services.DepartmentService
         PushNotification notify = new PushNotification();
         IUtilityService uSvc = new UtilityService();
 
+        public List<Employee> GetStoreManagerAndSupervisor()
+        {
+            return db.Employees.Where(x => x.RoleId == 5 || x.RoleId == 6).ToList();
+        }
+
         public void UpdateEmployee(Employee e)
         {
             db.Entry(e).State = EntityState.Modified;
