@@ -943,8 +943,6 @@
     <Content Include="crystalreportviewers\ActiveXControls\crviewer.dep" />
     <Content Include="crystalreportviewers\crsmarttag.jsp" />
     <Content Include="crystalreportviewers\preview.jsp" />
-    <Content Include="ClassDiagram2.cd" />
-    <Content Include="ClassDiagram3.cd" />
     <None Include="DataSet1.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -964,6 +962,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\kannan.pubxml" />
+    <None Include="Properties\PublishProfiles\ssis.pubxml" />
     <None Include="Properties\PublishProfiles\team7.pubxml" />
     <None Include="Properties\PublishProfiles\Team7Ssis.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
