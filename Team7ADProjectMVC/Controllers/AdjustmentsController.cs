@@ -7,6 +7,7 @@ using System.Net;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Models.InventoryAdjustmentService;
+using Team7ADProjectMVC.Models.UtilityService;
 using Team7ADProjectMVC.Services.DepartmentService;
 
 namespace Team7ADProjectMVC.Controllers
@@ -16,12 +17,14 @@ namespace Team7ADProjectMVC.Controllers
         private IInventoryAdjustmentService ivadjustsvc;
         private IDepartmentService deptSvc;
         private IInventoryService invSvc;
+        private UtilityService uSvc;
         
         public AdjustmentsController()
         {
             ivadjustsvc = new InventoryAdjustmentService();
             deptSvc = new DepartmentService();
             invSvc = new InventoryService();
+            uSvc = new UtilityService();
         }
 
         // GET: Adjustments
@@ -163,6 +166,15 @@ namespace Team7ADProjectMVC.Controllers
         {
             int empid = ((Employee)Session["user"]).EmployeeId;
             ivadjustsvc.PendingBySupervisor(empid, id);
+            try //email to notify manager of approval
+            {
+                List<Employee> storeManagement = deptSvc.GetStoreManagerAndSupervisor();
+                string emailBody = storeManagement.Where(x => x.RoleId == 6).First().EmployeeName + ", you have a new pending inventory adjustment for approval. Please go to http://" + Request.Url.Host + ":23130//Adjustments/ViewAdjustmentDetail/" + id + " to approve the adjustment.";
+                uSvc.SendEmail(new List<string>(new string[] { storeManagement.Where(x => x.RoleId == 6).First().Email }), "New Inventory Adjustment Pending Approval", emailBody);
+            }
+            catch (Exception ex)
+            {
+            }
 
             return RedirectToAction("ViewAdjustment");
         }
@@ -214,9 +226,18 @@ namespace Team7ADProjectMVC.Controllers
             if (ModelState.IsValid)
             {
                 ivadjustsvc.createAdjustment(adjust);
-
+                try //email to notify supervisor of approval
+                {
+                    List<Employee> storeManagement = deptSvc.GetStoreManagerAndSupervisor();
+                    string emailBody = storeManagement.Where(x => x.RoleId == 5).First().EmployeeName + ", you have a new pending inventory adjustment for approval. Please go to http://" + Request.Url.Host + ":23130//Adjustments/ViewAdjustmentDetail/" + adjust.AdjustmentId + " to approve the adjustment.";
+                    uSvc.SendEmail(new List<string>(new string[] { storeManagement.Where(x => x.RoleId == 5).First().Email }), "New Inventory Adjustment Pending Approval", emailBody);
+                }
+                catch (Exception ex)
+                {
+                }
                 return RedirectToAction("Index");
             }
+            
             ViewBag.ItemNo = new SelectList(invSvc.GetAllInventory(), "ItemNo", "Description");
             return View(adjust);
         }
