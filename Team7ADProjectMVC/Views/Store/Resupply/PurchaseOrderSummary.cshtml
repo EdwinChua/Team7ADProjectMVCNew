@@ -60,17 +60,16 @@
     </form>
 </nav>
 
-    <div>
+    
         @if (ViewBag.ResultCount != null)
-    {
-        if (ViewBag.ResultCount == 0)
-        {  <h5> <b>Your search returned @ViewBag.ResultCount result(s). Showing all results.</b></h5>}
-        else {
-            <h5><b>Your search returned @ViewBag.ResultCount result(s). </b></h5>}
+        {
+            if (ViewBag.ResultCount == 0)
+            { <div class="alert alert-info"> <h5>Your search returned @ViewBag.ResultCount result(s). Showing all results.</h5>  </div>}
+            else {
+                <div class="alert alert-info"><h5>Your search returned @ViewBag.ResultCount result(s).</h5>  </div>}
 
-    }
-        <br />
-    </div>
+        }
+   
 
 
     <table class="table">

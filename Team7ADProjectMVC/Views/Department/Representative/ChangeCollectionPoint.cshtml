@@ -8,7 +8,13 @@
     Employee currentEmployee = (Employee)Session["User"];
     Page.Employee = currentEmployee;
 }
+<link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common.min.css" />
+<link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.rtl.min.css" />
+<link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.silver.min.css" />
+<link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.mobile.all.min.css" />
 
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="http://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 
 @using (Html.BeginForm())
 {
@@ -38,13 +44,12 @@
         </div>
 
         <div class="form-group row">
-            
-
-                    <label class="control-label col-md-4" for="form">New Collection Point</label>
+                   <label class="control-label col-md-4" for="form">New Collection Point</label>
 
                 
                 <div class="col-md-5" id="form">
                     <span class="k-invalid-msg" data-for="test"></span><br />
+                    <input type="radio" name="radio" required style="visibility:hidden" /><br />
                     @foreach (var item in ViewBag.Message)
                     {
                     <input type="radio" name="radio" value="@item.CollectionPointId" required> @item.PlaceName   <label>( @item.CollectTime )</label> <br />
@@ -85,10 +90,10 @@
 </script>
 
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="http://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
+<script src="http://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>*@
 
 
 
