@@ -18,6 +18,6 @@ namespace Team7ADProjectMVC.Models.ListAllRequisitionService
         List<RequisitionDetail> GetAllRequisitionDetails();
         void CreateRequisition(Requisition r);
         void UpdateRequisition(Requisition requisition, Requisition req, int idd, int eid, int? deid);
-        void CreateRequisition(Requisition requisition, int employeeId);
+        string CreateRequisition(Requisition requisition, int employeeId);
     }
 }
