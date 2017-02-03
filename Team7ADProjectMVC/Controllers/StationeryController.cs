@@ -20,11 +20,11 @@ namespace Team7ADProjectMVC.Controllers
         IDepartmentService deptService;
         IRequisitionService reqService;
         IUtilityService uSvc;
-        ProjectEntities db;
+        //ProjectEntities db;
         public StationeryController()
         {
             invService = new InventoryService();
-            db = new ProjectEntities();
+            //db = new ProjectEntities();
             deptService = new DepartmentService();
             reqService = new RequisitionService();
             uSvc = new UtilityService();
@@ -107,17 +107,16 @@ namespace Team7ADProjectMVC.Controllers
 
                     foreach (var item in requisition.RequisitionDetails)
                     {
-                        if(item.Quantity <=0)
+                        if(item.Quantity ==null || item.Quantity <=0)
                         {
                             throw new RequisitionAndPOCreationException("Please ensure the item quantity is greater than zero.");
                         }
                         item.OutstandingQuantity = item.Quantity;
                     }
-                    db.Requisitions.Add(requisition);
-                    db.SaveChanges();
-                    requisition.EmployeeId = currentEmployee.EmployeeId;
-                    db.Entry(requisition).State = EntityState.Modified;
-                    db.SaveChanges();
+                    requisition.Employee = deptService.FindById(currentEmployee.EmployeeId);
+                    reqService.CreateRequisition(requisition);
+
+
 
                     return RedirectToAction("DepartmentRequisitions");
                 }
