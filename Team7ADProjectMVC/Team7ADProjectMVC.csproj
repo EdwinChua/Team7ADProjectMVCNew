@@ -963,6 +963,7 @@
     </Content>
     <None Include="Properties\PublishProfiles\kannan.pubxml" />
     <None Include="Properties\PublishProfiles\team7.pubxml" />
+    <None Include="Properties\PublishProfiles\Team7Ssis.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

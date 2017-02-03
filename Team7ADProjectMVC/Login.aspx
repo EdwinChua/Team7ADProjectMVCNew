@@ -13,7 +13,7 @@
         <div class="row">
 
             <div id="pic" class=" hidden-xs col-sm-5 col-md-8 t7-container">
-                <asp:Image ID="Image1" runat="server" src="Resources/bbb.jpg" Style="width: 100%; height: 973px;" />
+                <asp:Image ID="Image1" runat="server" src="Resources/bbb.jpg" Style="width: 100%; height: 1080px;" />
             </div>
 
 
