@@ -1,6 +1,7 @@
 ﻿using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -81,6 +82,8 @@ namespace Team7ADProjectMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EmployeeRequisition([Bind] Requisition requisition)
         {
+            Employee currentEmployee = (Employee)Session["User"];
+            
             try
             {
                 if (ModelState.IsValid)
@@ -97,9 +100,17 @@ namespace Team7ADProjectMVC.Controllers
                         }
 
                     }
+                    if(requisition.RequisitionDetails == null || requisition.RequisitionDetails.Count == 0)
+                    {
+                        throw new RequisitionAndPOCreationException("Please ensure there are items added in the requisition.");
+                    }
 
                     foreach (var item in requisition.RequisitionDetails)
                     {
+                        if(item.Quantity <=0)
+                        {
+                            throw new RequisitionAndPOCreationException("Please ensure the item quantity is greater than zero.");
+                        }
                         item.OutstandingQuantity = item.Quantity;
                     }
                     db.Requisitions.Add(requisition);
