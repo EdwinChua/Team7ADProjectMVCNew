@@ -32,8 +32,6 @@ namespace Team7ADProjectMVC.Models.UtilityService
                     mail.CC.Add(new MailAddress(emailAdd));
                 }
             }
-            mail.To.Add(new MailAddress("sumzhanseng@hotmail.com"));
-
             SmtpClient client = GetSmtpClient();
             mail.Subject = emailSubject;
             mail.Body = emailBody;
