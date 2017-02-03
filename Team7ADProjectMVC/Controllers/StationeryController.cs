@@ -104,6 +104,8 @@ namespace Team7ADProjectMVC.Controllers
                     }
                     db.Requisitions.Add(requisition);
                     db.SaveChanges();
+                    //string emailBody = "You have a pending requisition from "+requisition.Employee.EmployeeName+". Please go to "+ Request.Url.Host+;
+                    //uSvc.SendEmail(new List<string>().Add(requisition.Employee.Department.Head.Email),);
                     return RedirectToAction("DepartmentRequisitions");
                 }
             }

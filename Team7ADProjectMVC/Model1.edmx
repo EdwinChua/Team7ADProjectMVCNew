@@ -983,10 +983,10 @@
           <Property Name="CollectionPointId" Type="Int32" />
           <Property Name="RepresentativeId" Type="Int32" />
           <NavigationProperty Name="CollectionPoint" Relationship="Self.CollectionPointId" FromRole="Department" ToRole="CollectionPoints" />
-          <NavigationProperty Name="Employee" Relationship="Self.DepartmentHeadId" FromRole="Department" ToRole="Employee" />
+          <NavigationProperty Name="Head" Relationship="Self.DepartmentHeadId" FromRole="Department" ToRole="Employee" />
           <NavigationProperty Name="Employees" Relationship="Self.DepartmentId" FromRole="Department" ToRole="Employee" />
           <NavigationProperty Name="DisbursementLists" Relationship="Self.DisbursementListDepartmentId" FromRole="Department" ToRole="DisbursementList" />
-          <NavigationProperty Name="Employee1" Relationship="Self.EmployeeId" FromRole="Department" ToRole="Employee" />
+          <NavigationProperty Name="Representative" Relationship="Self.EmployeeId" FromRole="Department" ToRole="Employee" />
         </EntityType>
         <EntityType Name="DisbursementDetail">
           <Key>
