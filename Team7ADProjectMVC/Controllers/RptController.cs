@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Models.ReportService;
+using Team7ADProjectMVC.Models.UtilityService;
 using Team7ADProjectMVC.Services.DepartmentService;
 
 namespace Team7ADProjectMVC.TestControllers
@@ -76,6 +77,18 @@ namespace Team7ADProjectMVC.TestControllers
             Session["rptData"] = data;
             Session["rptPath"] = "~/Reports/CrystalReport3.rpt";
             return Redirect("/ReportViewer.aspx");
+
+        }
+
+        public ActionResult Email()
+        {
+            UtilityService uSvc = new UtilityService();
+            List<string> emailaddress = new List<string>();
+            emailaddress.Add("sumzhanseng@hotmail.com");
+            emailaddress.Add("sumzhanseng@hotmail.com");
+            uSvc.SendEmail(emailaddress,"HELLO","Welcome",emailaddress);
+            
+            return Content("ok");
 
         }
     }
