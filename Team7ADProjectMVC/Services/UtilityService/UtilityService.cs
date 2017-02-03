@@ -6,7 +6,7 @@ using System.Net.Mail;
 using System.Web;
 using Team7ADProjectMVC.Services.UtilityService;
 
-namespace Team7ADProjectMVC.Models.UtilityService
+namespace Team7ADProjectMVC.Models
 {
     public class UtilityService : IUtilityService
     {

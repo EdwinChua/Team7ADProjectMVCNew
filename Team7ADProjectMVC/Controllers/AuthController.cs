@@ -40,7 +40,7 @@ namespace Team7ADProjectMVC.Controllers
                 }
                 if (emp.Role.Name == "Employee" || emp.Role.Name == "Representative")
                 {
-                    redirectUrl="~/Department/MakeRequisition";
+                    redirectUrl= "~/Stationery/EmployeeRequisition";
                 }
 
                 if (Session["ReturnUrl"] != null)
