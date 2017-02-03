@@ -450,6 +450,22 @@ namespace Team7ADProjectMVC.Models
                     }
                 }
             }
+            List<string> itemNoList = new List<string>();
+            foreach (var item in returnDisbursementDetailList)
+            {
+                var q = (from x in returnDisbursementDetailList
+                         where item.ItemNo == x.ItemNo
+                         select x).ToList();
+                if (q.Count ==1)
+                {
+                    itemNoList.Add(item.ItemNo);
+                }
+            }
+            foreach (var item in itemNoList)
+            {
+                returnDisbursementDetailList.RemoveAll(x => x.ItemNo == item);
+            }
+
             return returnDisbursementDetailList;
         }
 
@@ -513,6 +529,8 @@ namespace Team7ADProjectMVC.Models
             int disburseDetailId;
             string itemNumber;
 
+            bool error=false;
+
             if (CheckIfInputQtyExceedsCollectedQty(itemNo, preparedQuantity, adjustedQuantity))
             {
                 for (int i = 0; i < departmentId.Length; i++)
@@ -534,6 +552,10 @@ namespace Team7ADProjectMVC.Models
                     db.SaveChanges();
                 }
             } else
+            {
+                error = true;
+            }
+            if (error)
             {
                 throw new InventoryAndDisbursementUpdateException("Adjusted quantity exceeds collected quantity.");
             }

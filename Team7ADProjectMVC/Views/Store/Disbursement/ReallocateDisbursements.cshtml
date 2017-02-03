@@ -63,21 +63,21 @@
 
                             }
                         </td>
-                        <td class="col-md-2"><input class="form-control" name="adjustedQuantity" type="number" max="@prodmax" />
+                        <td class="col-md-2"><input class="form-control" name="adjustedQuantity" type="number" max="@prodmax" value="@item.PreparedQuantity"/>
                          <span class="text-danger field-validation-error" data-valmsg-for="preparedQuantity" data-valmsg-replace="true"><span for="preparedQuantity" class="">Value must be less than or equal to @prodmax</span></span>
                     </tr>
 
                 </tbody>
             </table>
-            
 
-            { item2 = item; formcount++; }
 
-        }
+                                    { item2 = item; formcount++; }
 
-    }
-    else { <div><h4>There are no items to reallocate at this time</h4></div> }
-        <input type="submit" class="btn btn-primary pull-right" value="Allocate" />
+                                }
+                                <input type="submit" class="btn btn-primary pull-right" value="Allocate" />
+                                }
+                                else { <div><h4>There are no items to reallocate at this time</h4></div> }
+        
     </div>
 </div>
 </form>
