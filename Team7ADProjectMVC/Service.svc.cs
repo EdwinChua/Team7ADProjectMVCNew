@@ -356,9 +356,7 @@ namespace Team7ADProjectMVC
                 int cpoint = Convert.ToInt32(collectionptid);
                 Department wcfItem = deptSvc.FindDeptById(dId);
                 deptSvc.changeDeptCp(wcfItem, cpoint);
-                //wcfItem.CollectionPointId = cpoint;
-                //db.SaveChanges();
-                fcm.CollectionPointChanged(dId);
+                //fcm.CollectionPointChanged(dId);
                 return collectionptid;
             }
             catch (Exception e)
