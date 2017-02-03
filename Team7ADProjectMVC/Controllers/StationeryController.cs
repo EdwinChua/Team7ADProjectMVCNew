@@ -115,8 +115,8 @@ namespace Team7ADProjectMVC.Controllers
                         item.OutstandingQuantity = item.Quantity;
                     }
                     
-                    string requisitionId = reqService.CreateRequisition(requisition, currentEmployee.EmployeeId);
-                    pushSvc.NewRequisitonMade(requisitionId);
+                    reqService.CreateRequisition(requisition, currentEmployee.EmployeeId);
+                    pushSvc.NotificationForHeadOnCreate(currentEmployee.EmployeeId.ToString());
 
                     try
                     {
