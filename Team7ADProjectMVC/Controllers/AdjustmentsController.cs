@@ -126,6 +126,7 @@ namespace Team7ADProjectMVC.Controllers
 
         }
 
+        [AuthorisePermissions(Permission = "MakeAdjustment,ApproveAdjustment")]
         public ActionResult ViewAdjustmentDetail(int? id)
         {
             if (id == null)
@@ -145,7 +146,7 @@ namespace Team7ADProjectMVC.Controllers
             return View(dtlist);
         }
 
-
+        [AuthorisePermissions(Permission = "ApproveAdjustment")]
         public ActionResult SupervisorApprove(int? id)
         {
             int empid = ((Employee)Session["user"]).EmployeeId;
@@ -154,7 +155,7 @@ namespace Team7ADProjectMVC.Controllers
             return RedirectToAction("ViewAdjustment");
         }
 
-
+        [AuthorisePermissions(Permission = "ApproveAdjustment")]
         public ActionResult SupervisorRejecct(int? id)
         {
             int empid = ((Employee)Session["user"]).EmployeeId;
@@ -162,6 +163,7 @@ namespace Team7ADProjectMVC.Controllers
             return RedirectToAction("ViewAdjustment");
         }
 
+        [AuthorisePermissions(Permission = "ApproveAdjustment")]
         public ActionResult SupervisorPending(int? id)
         {
             int empid = ((Employee)Session["user"]).EmployeeId;
@@ -179,6 +181,7 @@ namespace Team7ADProjectMVC.Controllers
             return RedirectToAction("ViewAdjustment");
         }
 
+        [AuthorisePermissions(Permission = "ApproveAdjustment")]
         public ActionResult ManagerApprove(int? id)
         {
             int empid = ((Employee)Session["user"]).EmployeeId;
@@ -186,6 +189,7 @@ namespace Team7ADProjectMVC.Controllers
             return RedirectToAction("ViewAdjustment");
         }
 
+        [AuthorisePermissions(Permission = "ApproveAdjustment")]
         public ActionResult ManagerRejecct(int? id)
         {
             int empid = ((Employee)Session["user"]).EmployeeId;
@@ -202,6 +206,7 @@ namespace Team7ADProjectMVC.Controllers
         //    }
         //    base.Dispose(disposing);
         //}
+        [AuthorisePermissions(Permission = "MakeAdjustment")]
         [HttpGet]
         public ActionResult Create()
         {
@@ -221,6 +226,7 @@ namespace Team7ADProjectMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorisePermissions(Permission = "MakeAdjustment")]
         public ActionResult Create([Bind] Adjustment adjust)
         {
             if (ModelState.IsValid)
@@ -244,6 +250,7 @@ namespace Team7ADProjectMVC.Controllers
 
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+        [AuthorisePermissions(Permission = "MakeAdjustment")]
         public ActionResult AddDetail()
         {
             Adjustment currentAdjustment = (Adjustment)Session["adjustment"];
