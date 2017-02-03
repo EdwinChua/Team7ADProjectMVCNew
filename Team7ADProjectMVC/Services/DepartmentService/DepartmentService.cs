@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Team7ADProjectMVC.Models;
+using Team7ADProjectMVC.Models.UtilityService;
 
 namespace Team7ADProjectMVC.Services.DepartmentService
 {
@@ -13,6 +14,12 @@ namespace Team7ADProjectMVC.Services.DepartmentService
     {
         ProjectEntities db = new ProjectEntities();
         PushNotification notify = new PushNotification();
+        IUtilityService uSvc = new UtilityService();
+
+        public List<Employee> GetStoreManagerAndSupervisor()
+        {
+            return db.Employees.Where(x => x.RoleId == 5 || x.RoleId == 6).ToList();
+        }
 
         public void UpdateEmployee(Employee e)
         {
@@ -198,6 +205,14 @@ namespace Team7ADProjectMVC.Services.DepartmentService
             db.Entry(e).State = EntityState.Modified;
             db.SaveChanges();
 
+            try
+            {
+                string emailBody = e.EmployeeName+", you have been delegated the authority to approve requisitions for the period between "+ startDate.Date.ToString("dd/MM/yyyy")+" and " + endDate.Date.ToString("dd/MM/yyyy")+". While you are the delegate, you will not be allowed to make any requisitions.";
+                uSvc.SendEmail(new List<string>(new string[] { e.Email }), "Delegated Authority", emailBody);
+            }
+            catch (Exception ex)
+            {
+            }
 
         }
         public void updateDelegate(Delegate d, DateTime startDate, DateTime endDate, int? depHeadId)
@@ -208,7 +223,16 @@ namespace Team7ADProjectMVC.Services.DepartmentService
             d.ApprovedBy = depHeadId;//default dep head id
             d.ApprovedDate = DateTime.Today.Date;
             db.Entry(d).State = EntityState.Modified;
+            //mail
             db.SaveChanges();
+            try
+            {
+                string emailBody = d.Employee.EmployeeName + ", your period for delegation has been updated to between " + startDate.Date.ToString("dd/MM/yyyy") + " and " + endDate.Date.ToString("dd/MM/yyyy") + ". While you are the delegate, you will not be allowed to make any requisitions.";
+                uSvc.SendEmail(new List<string>(new string[] { d.Employee.Email }), "Updated Delegated Authority", emailBody);
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         public void TerminateDelegate(Delegate d)
@@ -216,6 +240,15 @@ namespace Team7ADProjectMVC.Services.DepartmentService
             d.ActualEndDate = DateTime.Today.AddDays(-1);
             db.Entry(d).State = EntityState.Modified;
             db.SaveChanges();
+            //mail
+            try
+            {
+                string emailBody = d.Employee.EmployeeName+ ", your delegation has been terminated with immediate effect. Your permissions has been restored to status quo before the delegation.";
+                uSvc.SendEmail(new List<string>(new string[] { d.Employee.Email }), "Delegation Terminated", emailBody);
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         public List<Delegate> getDelegate()

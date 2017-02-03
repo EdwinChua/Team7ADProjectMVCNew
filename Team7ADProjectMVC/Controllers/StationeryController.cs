@@ -9,7 +9,7 @@ using Team7ADProjectMVC.Exceptions;
 using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Models.ListAllRequisitionService;
 using Team7ADProjectMVC.Services.DepartmentService;
-using Team7ADProjectMVC.Services.UtilityService;
+using Team7ADProjectMVC.Models.UtilityService;
 
 namespace Team7ADProjectMVC.Controllers
 {
@@ -117,7 +117,13 @@ namespace Team7ADProjectMVC.Controllers
                     try
                     {
                         string emailBody = requisition.Employee.Department.Head.EmployeeName + ", You have a pending requisition from " + requisition.Employee.EmployeeName + ". Please go to http://" + Request.Url.Host + ":23130/Head/EmployeeRequisition/" + requisition.RequisitionId+" to approve the request.";
-                        uSvc.SendEmail(new List<string>(new string[] { requisition.Employee.Department.Head.Email }), "New Requisition Pending Approval", emailBody);
+                        Delegate delegateRecord = deptService.getDelegatedEmployee(requisition.DepartmentId);
+                        if (delegateRecord != null) //if there is a delegate for the department, email will be addressed to the delegate and CC to the head.
+                        {
+                            emailBody = delegateRecord.Employee.EmployeeName + ", You have a pending requisition from " + requisition.Employee.EmployeeName + ". Please go to http://" + Request.Url.Host + ":23130/Head/EmployeeRequisition/" + requisition.RequisitionId + " to approve the request.";
+                            uSvc.SendEmail(new List<string>(new string[] { delegateRecord.Employee.Email }), "New Requisition Pending Approval", emailBody, new List<string>(new string[] { requisition.Employee.Department.Head.Email }));
+                        } 
+                        else uSvc.SendEmail(new List<string>(new string[] { requisition.Employee.Department.Head.Email }), "New Requisition Pending Approval", emailBody);
                     }
                     catch (Exception e)
                     {
