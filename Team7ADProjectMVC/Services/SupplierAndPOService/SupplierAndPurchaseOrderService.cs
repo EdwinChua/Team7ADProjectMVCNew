@@ -140,12 +140,14 @@ namespace Team7ADProjectMVC.Services.SupplierService
             {
                 resultList.RemoveAll(x => x.OrderDate > dateOrdered);
                 resultList.RemoveAll(x => x.OrderDate < dateOrdered);
+                resultList.RemoveAll(x => x.OrderDate == null);
                 count = resultList.Count();
             }
             if (dateApproved != null && resultList.Count() > 0)
             {
                 resultList.RemoveAll(x => x.AuthorizedDate < dateApproved);
                 resultList.RemoveAll(x => x.AuthorizedDate > dateApproved);
+                resultList.RemoveAll(x => x.AuthorizedDate == null);
                 count = resultList.Count();
             }
             if(resultList.Count() ==0)
