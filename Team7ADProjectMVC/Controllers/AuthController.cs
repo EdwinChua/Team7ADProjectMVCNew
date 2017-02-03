@@ -20,7 +20,7 @@ namespace Team7ADProjectMVC.Controllers
             {
                 String redirectUrl="";             
                 int userId = Int32.Parse(User.Identity.Name);
-                Employee emp = db.Employees.Find(userId);
+                Employee emp = deptSvc.FindById(userId);
                 Session["user"] = emp;
                 if (deptSvc.IsDelegate(emp))
                 {

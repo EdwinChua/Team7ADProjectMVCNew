@@ -8,6 +8,7 @@ namespace Team7ADProjectMVC.Services.UtilityService
     public interface IUtilityService
     {
         DateTime GetDateTimeFromPicker(string date);
-        void SendEmail(String sendTo, String emailSubject, String emailBody);
+        void SendEmail(List<string> sendToEmailAddress, string emailSubject, string emailBody, List<string> ccToEmailAddress = null);
+
     }
 }
