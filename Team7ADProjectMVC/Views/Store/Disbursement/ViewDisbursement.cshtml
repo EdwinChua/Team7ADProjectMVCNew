@@ -87,7 +87,7 @@
                     Update
                 </button>
 
-                <button class="btn btn-danger noprint" onclick="window.history.back()">
+                <button class="btn btn-default noprint" type="button" onclick="window.history.back()">
                     Cancel
                 </button>
             </div>
@@ -114,6 +114,10 @@
 </script>
 }
 <script>
+    $(document).ready(function () {
+        document.getElementById("menu2").className += "active";
+    });
+
     function ClearTB() {
         $(document).find('input[type=text]').val('');
         $(document).find('input[type=number]').val('');

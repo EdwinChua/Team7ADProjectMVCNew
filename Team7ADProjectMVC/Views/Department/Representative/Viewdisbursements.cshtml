@@ -116,13 +116,7 @@
     @Html.PagedListPager(Model, page => Url.Action("Viewdisbursements",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </center>
-<script>
-    $(document).ready(function ($) {
-        $(".clickable-row").click(function () {
-            window.document.location = $(this).data("href");
-        });
-    });
-</script>
+
 <script>
     $(document).ready(function () {
         var date_input = $('input[name="date"]'); //our date input has the name "date"
@@ -135,6 +129,8 @@
             clearBtn: true,
         };
         date_input.datepicker(options);
+        document.getElementById("menu14").className += "active";
+
     })
 
 </script>

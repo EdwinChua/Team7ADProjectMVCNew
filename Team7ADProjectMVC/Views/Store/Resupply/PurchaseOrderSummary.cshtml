@@ -53,6 +53,9 @@
             <button class="btn btn-primary" type="button" onclick="window.location.href='../StorePO/GeneratePO'">
                 Create New
             </button>
+            <button class="btn btn-info" type="button" onclick="window.location.href = '../StorePO/CreateAdhocPurchaseOrder'">
+                Create Ad-hoc
+            </button>
         }
     </form>
 </nav>
@@ -159,5 +162,6 @@
         var date2 = unescape(getUrlVars()["dateApprovedString"]);
         $('#datetimepicker1').data("DateTimePicker").date(date1);
         $('#datetimepicker2').data("DateTimePicker").date(date2);
+        document.getElementById("menu3").className += "active";
         });
     </script>

@@ -1196,19 +1196,11 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Views\TestViews\Inventories\Create.cshtml" />
-    <Content Include="Views\TestViews\Inventories\Delete.cshtml" />
-    <Content Include="Views\TestViews\Inventories\Details.cshtml" />
-    <Content Include="Views\TestViews\Inventories\Edit.cshtml" />
-    <Content Include="Views\TestViews\Inventories\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Department\Head\Approve.cshtml" />
     <Content Include="Views\Department\Head\DelegateRole.cshtml" />
     <Content Include="Views\Department\Head\ListAllRequisition.cshtml" />
     <Content Include="Views\Department\Representative\ChangeCollectionPoint.cshtml" />
-    <Content Include="Views\Department\DepartmentEmployee.cshtml" />
-    <Content Include="Views\Department\MakeRequisition.cshtml" />
-    <Content Include="Views\Department\ViewRequisitionDetails.cshtml" />
     <Content Include="Views\Store\Adjustment\CreateNewAdjustment.cshtml" />
     <Content Include="Views\Store\Adjustment\InventoryAdjustment.cshtml" />
     <Content Include="Views\Store\Disbursement\ViewDisbursements.cshtml" />
@@ -1225,43 +1217,22 @@
     <Content Include="Views\Store\Dashboard.cshtml" />
     <Content Include="Views\Store\GenerateReports.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Department\Index.cshtml" />
-    <Content Include="Views\TESTDisbursementLists\Create.cshtml" />
-    <Content Include="Views\TESTDisbursementLists\Delete.cshtml" />
-    <Content Include="Views\TESTDisbursementLists\Details.cshtml" />
-    <Content Include="Views\TESTDisbursementLists\Edit.cshtml" />
-    <Content Include="Views\TESTDisbursementLists\Index.cshtml" />
     <Content Include="Views\Store\Disbursement\ViewDisbursement.cshtml" />
     <Content Include="Views\Store\Disbursement\ViewRequisitions.cshtml" />
     <Content Include="Views\Department\Representative\Viewdisbursements.cshtml" />
-    <Content Include="Views\DisbursementDetails\Create.cshtml" />
-    <Content Include="Views\DisbursementDetails\Delete.cshtml" />
-    <Content Include="Views\DisbursementDetails\Details.cshtml" />
-    <Content Include="Views\DisbursementDetails\Edit.cshtml" />
-    <Content Include="Views\DisbursementDetails\Index.cshtml" />
     <Content Include="Views\Department\Representative\ViewDisbursementDetail.cshtml" />
     <Content Include="Views\Rpt\ItemDeptRpt.cshtml" />
     <Content Include="Views\Rpt\ItemSupplierRpt.cshtml" />
-    <Content Include="Views\Rpt\ReportOptions.cshtml" />
     <Content Include="Views\Inventory\Create.cshtml" />
     <Content Include="Views\Inventory\Delete.cshtml" />
     <Content Include="Views\Inventory\Details.cshtml" />
     <Content Include="Views\Inventory\Edit.cshtml" />
     <Content Include="Views\Inventory\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutD.cshtml" />
-    <Content Include="Views\Shared\_Layouthead.cshtml" />
-    <Content Include="Views\Shared\_LayoutD.cshtml" />
     <Content Include="Views\Adjustments\Create.cshtml" />
     <Content Include="Views\Adjustments\ViewAdjustment.cshtml" />
     <Content Include="Views\Adjustments\AddDetail.cshtml" />
     <Content Include="Views\Department\Head\Terminate.cshtml" />
     <Content Include="Views\Store\Disbursement\ReallocateDisbursements.cshtml" />
-    <Content Include="Views\Suppliers\Create.cshtml" />
-    <Content Include="Views\Suppliers\Delete.cshtml" />
-    <Content Include="Views\Suppliers\Details.cshtml" />
-    <Content Include="Views\Suppliers\Edit.cshtml" />
-    <Content Include="Views\Suppliers\Index.cshtml" />
     <Content Include="Views\Store\Resupply\PurchaseOrder.cshtml" />
     <Content Include="Views\Store\Resupply\ListDeliveries.cshtml" />
     <Content Include="Views\Adjustments\ViewAdjustmentDetail.cshtml" />
@@ -1285,8 +1256,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Services\WCFService\" />
-    <Folder Include="Views\Auth\" />
-    <Folder Include="Views\FCM\" />
+    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

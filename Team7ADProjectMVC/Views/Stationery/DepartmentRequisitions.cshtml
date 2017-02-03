@@ -111,5 +111,7 @@
         $('#searchByEmployee').selectpicker('val', getUrlVars()["employeeId"]);
         var date1 = unescape(getUrlVars()["dateOrderedString"]);
         $('#datetimepicker1').data("DateTimePicker").date(date1);
+
+        document.getElementById("menu10").className += "active";
     });
 </script>
