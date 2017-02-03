@@ -113,10 +113,13 @@ namespace Team7ADProjectMVC.Controllers
                         }
                         item.OutstandingQuantity = item.Quantity;
                     }
-                    db.Requisitions.Add(requisition);
+                    Requisition completeRequisition = new Requisition();
+                    completeRequisition.RequisitionDetails = requisition.RequisitionDetails;
+                    completeRequisition.Employee = currentEmployee;
+                    db.Requisitions.Add(completeRequisition);
                     db.SaveChanges();
-                    string emailBody = requisition.Employee.Department.Head.EmployeeName+", You have a pending requisition from " +requisition.Employee.EmployeeName+". Please go to "+ Request.Url.Host+ "/Head/EmployeeRequisition/"+requisition.RequisitionId;
-                    uSvc.SendEmail(new List<string>(new string[] {requisition.Employee.Department.Head.Email}), "New Requisition",emailBody);
+                    string emailBody = completeRequisition.Employee.Department.Head.EmployeeName+", You have a pending requisition from " + completeRequisition.Employee.EmployeeName+". Please go to "+ Request.Url.Host+ "/Head/EmployeeRequisition/"+ completeRequisition.RequisitionId;
+                    uSvc.SendEmail(new List<string>(new string[] { completeRequisition.Employee.Department.Head.Email}), "New Requisition",emailBody);
                     return RedirectToAction("DepartmentRequisitions");
                 }
             }
