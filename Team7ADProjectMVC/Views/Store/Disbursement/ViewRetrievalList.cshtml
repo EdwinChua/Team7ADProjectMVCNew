@@ -5,6 +5,9 @@
     Page.Title = "View Stationery Retrieval List";
     Employee currentEmployee = (Employee)Session["User"];
     Page.Employee = currentEmployee;
+
+    ProjectEntities db = new ProjectEntities();
+    int maxqty = 0;
 }
 
 
@@ -40,6 +43,17 @@
         {
             if (!item.collectionStatus)
             {
+                
+                    int quantity = db.Inventories.Find(item.itemNo).Quantity;
+                    if (quantity > item.requiredQuantity)
+                    {
+                        maxqty = item.requiredQuantity;
+                    }
+                    else
+                    {
+                        maxqty = quantity;
+                    }
+                
 
                     <tr>
                         <td>
@@ -49,11 +63,11 @@
                             @item.itemNo - @item.description
                         </td>
                         <td>
-                            @item.requiredQuantity
+                            @maxqty
                         </td>
                         <td>
                             <form action="MarkAsCollected">
-                            <div class="col-md-4"><input type="number" name="collectedQuantity" class="form-control" value="@item.requiredQuantity" width="30" /></div>
+                            <div class="col-md-4"><input type="number" name="collectedQuantity" class="form-control" value="@maxqty" width="30" /></div>
                             <input type="hidden" value="@item.itemNo" name="itemNo" />
                             <input type="submit" class="btn btn-info" value="Mark As Collected" /></form>
                         </td>
@@ -90,7 +104,17 @@
         {
             if (item.collectionStatus)
             {
-
+                
+                    int quantity = db.Inventories.Find(item.itemNo).Quantity;
+                    if (quantity > item.requiredQuantity)
+                    {
+                        maxqty = item.requiredQuantity;
+                    }
+                    else
+                    {
+                        maxqty = quantity;
+                    }
+                
                 <tr>
                     <td>
                         @item.binNo
@@ -99,11 +123,11 @@
                         @item.itemNo - @item.description
                     </td>
                     <td>
-                        @item.requiredQuantity
+                        @maxqty
                     </td>
                     <td>
                         <form action="MarkAsCollected">
-                            <div class="col-md-4"><input type="number" name="collectedQuantity" class="form-control" value="@item.collectedQuantity" max="@item.collectedQuantity" width="30" /></div>
+                            <div class="col-md-4"><input type="number" name="collectedQuantity" class="form-control" value="@item.collectedQuantity" max="@maxqty" width="30" /></div>
                             <input type="hidden" value="@item.itemNo" name="itemNo" />
                             <input type="submit" class="btn btn-info" value="Update" />
                         </form>

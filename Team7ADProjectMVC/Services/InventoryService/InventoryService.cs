@@ -186,13 +186,24 @@ namespace Team7ADProjectMVC.Models
                 {
                     foreach (RequisitionDetail reqDetails in requisition.RequisitionDetails)
                     {
-                        RetrievalListItems newItem = new RetrievalListItems();
-                        newItem.itemNo = reqDetails.ItemNo;
-                        newItem.requiredQuantity = (int)reqDetails.OutstandingQuantity;
-                        newItem.binNo = reqDetails.Inventory.BinNo;
-                        newItem.description = reqDetails.Inventory.Description;
-                        newItem.collectionStatus = false;
-                        unconsolidatedList.Add(newItem);
+                        int invBalance = (int)FindInventoryItemById(reqDetails.ItemNo).Quantity;
+                        if (reqDetails.OutstandingQuantity > 0 &&  invBalance > 0)
+                        {
+                            RetrievalListItems newItem = new RetrievalListItems();
+                            newItem.itemNo = reqDetails.ItemNo;
+                            if (invBalance >= (int)reqDetails.OutstandingQuantity)
+                            {
+                                newItem.requiredQuantity = (int)reqDetails.OutstandingQuantity;
+                            }
+                            else
+                            {
+                                newItem.requiredQuantity = invBalance;
+                            }
+                            newItem.binNo = reqDetails.Inventory.BinNo;
+                            newItem.description = reqDetails.Inventory.Description;
+                            newItem.collectionStatus = false;
+                            unconsolidatedList.Add(newItem);
+                        }
                     }
                 }
                 RetrievalListItemsComparer comparer = new RetrievalListItemsComparer();
