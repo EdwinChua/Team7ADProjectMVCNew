@@ -48,7 +48,7 @@ namespace Team7ADProjectMVC.Controllers
             return RedirectToAction("PurchaseOrderSummary");
         }
         // seq diagram done
-        //[AuthorisePermissions(Permission = "MakePurchaseOrder")] both
+        [AuthorisePermissions(Permission = "MakePurchaseOrder,ApprovePurchaseOrder")]
         public ActionResult PurchaseOrderSummary()
         {
             List<PurchaseOrder> poList = supplierAndPOSvc.GetAllPOOrderByApproval();
@@ -128,6 +128,7 @@ namespace Team7ADProjectMVC.Controllers
             return RedirectToAction("ListDeliveries");
         }
 
+        [AuthorisePermissions(Permission = "MakePurchaseOrder")]
         public ActionResult CreateAdhocPurchaseOrder()
         {
             Employee currentEmployee = (Employee)Session["User"];
@@ -139,6 +140,8 @@ namespace Team7ADProjectMVC.Controllers
             }
                 return View(itemsToResupply);
         }
+
+        [AuthorisePermissions(Permission = "MakePurchaseOrder")]
         public ActionResult AddAdhocPOItem(string inventoryId)
         {
             Inventory item = inventorySvc.FindInventoryItemById(inventoryId);
@@ -162,6 +165,8 @@ namespace Team7ADProjectMVC.Controllers
             itemsToResupply.Add(item);
             return RedirectToAction("CreateAdhocPurchaseOrder");
         }
+
+        [AuthorisePermissions(Permission = "MakePurchaseOrder")]
         public ActionResult DeleteItem(string inventoryId)
         {
             List<Inventory> itemsToResupply = (List<Inventory>)Session["inventoryToResupply"];

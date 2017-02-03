@@ -192,8 +192,8 @@ namespace Team7ADProjectMVC
                 String[] substrings = beforesplit.Split(delimiter);
                 aftersplit = substrings[0];
                 dl.DeliveryDatetime = aftersplit + " ( " + d.Department.CollectionPoint.CollectTime.ToString()+" )"; 
-                dl.RepName = d.Department.Employee.EmployeeName.ToString();
-                dl.RepPhone = d.Department.Employee.PhNo.ToString();
+                dl.RepName = d.Department.Representative.EmployeeName.ToString();
+                dl.RepPhone = d.Department.Representative.PhNo.ToString();
                 dl.DisListID = d.DisbursementListId.ToString();
                 dList.Add(dl);
             }

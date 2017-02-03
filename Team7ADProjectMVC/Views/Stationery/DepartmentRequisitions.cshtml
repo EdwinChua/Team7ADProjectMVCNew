@@ -83,7 +83,7 @@
 </div>
 <center>
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-    @Html.PagedListPager(Model, page => Url.Action("Inventory",
+    @Html.PagedListPager(Model, page => Url.Action("DepartmentRequisitions",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </center>
 <script type="text/javascript">
