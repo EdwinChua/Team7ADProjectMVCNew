@@ -32,12 +32,13 @@ namespace Team7ADProjectMVC.Models.ListAllRequisitionService
             return db.Requisitions.Find(requisitionId);
         }
         
-        public void  UpdateApproveStatus(Requisition requisition, string comments)
+        public void  UpdateApproveStatus(Requisition requisition, string comments,int? approvedbyId)
         {
 
             requisition.RequisitionStatus = "Approved";
             requisition.Comment = comments;
             requisition.ApprovedDate = DateTime.Today.Date;
+            requisition.ApprovedBy = approvedbyId;
             
             db.Entry(requisition).State = EntityState.Modified;
             db.SaveChanges();
@@ -45,12 +46,14 @@ namespace Team7ADProjectMVC.Models.ListAllRequisitionService
             string reqListId = requisition.RequisitionId.ToString();
             notify.NewRequisitonMade(reqListId);
         }
-        public void UpdateRejectStatus(Requisition requisition, string comments)
+        public void UpdateRejectStatus(Requisition requisition, string comments, int? approvedbyId)
         {
 
             requisition.Comment = comments;
             requisition.ApprovedDate = DateTime.Today.Date;
             requisition.RequisitionStatus = "Rejected";
+            requisition.ApprovedBy = approvedbyId;
+
             db.Entry(requisition).State = EntityState.Modified;
             db.SaveChanges();
         }

@@ -6,11 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Exceptions;
 using Team7ADProjectMVC.Models;
-using Team7ADProjectMVC.Models.UtilityService;
 using Team7ADProjectMVC.Services;
 using Team7ADProjectMVC.Services.DepartmentService;
 using Team7ADProjectMVC.Services.SupplierService;
-using Team7ADProjectMVC.Services.UtilityService;
+using Team7ADProjectMVC.Models.UtilityService;
 
 namespace Team7ADProjectMVC.Controllers
 {
@@ -45,6 +44,15 @@ namespace Team7ADProjectMVC.Controllers
             supplierAndPOSvc.GeneratePurchaseOrders(currentEmployee,itemNo, supplier, orderQuantity);
             //List<Inventory> itemsToResupply = supplierAndPOSvc.GetAllItemsToResupply();
             Session["inventoryToResupply"] = new List<Inventory>();
+            List<Employee> storeManagement = deptSvc.GetStoreManagerAndSupervisor();
+            try //email to Store Manager and Supervisor
+            {
+                string emailBody = storeManagement[0].EmployeeName + " and " + storeManagement[1].EmployeeName + ", you have new pending purchase orders for approval. Please go to http://"+ Request.Url.Host + ":23130/Head/ApproveRequisition to approve them.";
+                utilSvc.SendEmail(new List<string>(new string[] { storeManagement[0].Email, storeManagement[1].Email }), "New Purchase Orders for Approval", emailBody);
+            }
+            catch (Exception ex)
+            {
+            }
             return RedirectToAction("PurchaseOrderSummary");
         }
         // seq diagram done

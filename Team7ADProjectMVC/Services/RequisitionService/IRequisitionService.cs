@@ -11,8 +11,8 @@ namespace Team7ADProjectMVC.Models.ListAllRequisitionService
         List<Requisition> GetAllRequisition(int? depId);       
         Requisition FindById(int? requisitionId);
       
-        void UpdateApproveStatus(Requisition requisition,string comments);
-        void UpdateRejectStatus(Requisition requisition, string comments);
+        void UpdateApproveStatus(Requisition requisition,string comments,int? approvedbyId);
+        void UpdateRejectStatus(Requisition requisition, string comments, int? approvedbyId);
         List<Requisition> getDataForPagination(string searchString);
         List<RequisitionDetail> GetAllRequisitionDetails(int dId, int rId);
         List<RequisitionDetail> GetAllRequisitionDetails();

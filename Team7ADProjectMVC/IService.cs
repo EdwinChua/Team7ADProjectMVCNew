@@ -79,12 +79,12 @@ namespace Team7ADProjectMVC
         void updatedqun(wcfDisbursementListDetail c );
 
         [OperationContract]
-        [WebGet(UriTemplate = "/wcfSubmitApproveReq?reqId={reqId}", ResponseFormat = WebMessageFormat.Json)]
-        String approveReq(String reqId);
+        [WebGet(UriTemplate = "/wcfSubmitApproveReq?reqId={reqId}&deptheadid={deptheadid}", ResponseFormat = WebMessageFormat.Json)]
+        String approveReq(String reqId, String deptheadid);
 
         [OperationContract]
-        [WebGet(UriTemplate = "/wcfSubmitRejectReq?reqId={reqId}&remarks={remarks}", ResponseFormat = WebMessageFormat.Json)]
-        String rejectReq(String reqId, String remarks);
+        [WebGet(UriTemplate = "/wcfSubmitRejectReq?reqId={reqId}&remarks={remarks}&deptheadid={deptheadid}", ResponseFormat = WebMessageFormat.Json)]
+        String rejectReq(String reqId, String remarks,String deptheadid);
         
         [OperationContract]
         [WebGet(UriTemplate = "/wcfStoreRequisitions", ResponseFormat = WebMessageFormat.Json)]
@@ -121,7 +121,9 @@ namespace Team7ADProjectMVC
         [WebGet(UriTemplate = "/wcfLogout?userid={userid}", ResponseFormat = WebMessageFormat.Json)]
         String wcfLogout(String userid);
 
-
+        [OperationContract]
+        [WebGet(UriTemplate = "/wcfMarkasCollected?collected={colletedid}&itemNo={itemid}", ResponseFormat = WebMessageFormat.Json)]
+        void markascollected(String colletedid, String itemid);
 
 
 

@@ -8,6 +8,7 @@ namespace Team7ADProjectMVC.Services.DepartmentService
 {
     interface IDepartmentService
     {
+        List<Employee> GetStoreManagerAndSupervisor();
         void UpdateEmployee(Employee e);
         List<Employee> GetAllEmployees();
         List<Department> ListAllDepartments();

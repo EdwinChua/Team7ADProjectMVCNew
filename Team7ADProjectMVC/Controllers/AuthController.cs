@@ -22,13 +22,7 @@ namespace Team7ADProjectMVC.Controllers
                 int userId = Int32.Parse(User.Identity.Name);
                 Employee emp = deptSvc.FindById(userId);
                 Session["user"] = emp;
-                if (deptSvc.IsDelegate(emp))
-                {
-                    deptSvc.SetDelegatePermissions(emp);
-                    Session["user"] = emp;
-                    //return Redirect(Url.Content("~/Head/ApproveRequisition")); //If delegated, do not redirect to Make Requisition use case
-                    redirectUrl = "~/Head/ApproveRequisition";
-                }
+                
 
                 if (emp.Role.Name == "Store Clerk" || emp.Role.Name == "Store Representative" || emp.Role.Name == "Store Supervisor")
                 {
@@ -40,7 +34,14 @@ namespace Team7ADProjectMVC.Controllers
                 }
                 if (emp.Role.Name == "Employee" || emp.Role.Name == "Representative")
                 {
-                    redirectUrl="~/Department/MakeRequisition";
+                    redirectUrl= "~/Stationery/EmployeeRequisition";
+                }
+                if (deptSvc.IsDelegate(emp))
+                {
+                    deptSvc.SetDelegatePermissions(emp);
+                    Session["user"] = emp;
+                    //return Redirect(Url.Content("~/Head/ApproveRequisition")); //If delegated, do not redirect to Make Requisition use case
+                    redirectUrl = "~/Head/ApproveRequisition";
                 }
 
                 if (Session["ReturnUrl"] != null)
