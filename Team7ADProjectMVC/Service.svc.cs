@@ -279,6 +279,20 @@ namespace Team7ADProjectMVC
             return retrialList;
         }
 
+        public void markascollected(String collected,String itemNo)
+        {
+            try
+            {
+                int collectedid = Convert.ToInt32(collected);
+                RetrievalList rList = invService.GetRetrievalList();
+                invService.UpdateCollectionInfo(rList, collectedid, itemNo);
+
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
         public String getallocate()
         {
             String rt = "false";

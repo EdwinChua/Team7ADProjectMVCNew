@@ -121,7 +121,9 @@ namespace Team7ADProjectMVC
         [WebGet(UriTemplate = "/wcfLogout?userid={userid}", ResponseFormat = WebMessageFormat.Json)]
         String wcfLogout(String userid);
 
-
+        [OperationContract]
+        [WebGet(UriTemplate = "/wcfMarkasCollected?collected={colletedid}&itemNo={itemid}", ResponseFormat = WebMessageFormat.Json)]
+        void markascollected(String colletedid, String itemid);
 
 
 
