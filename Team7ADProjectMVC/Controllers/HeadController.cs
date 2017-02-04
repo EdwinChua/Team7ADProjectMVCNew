@@ -47,7 +47,7 @@ namespace Team7ADProjectMVC.Controllers
             depIdofLoginUser = user.DepartmentId;
             depHeadId = user.EmployeeId;
             
-            var requisitions = reqsvc.GetAllRequisition(depIdofLoginUser);
+            var requisitions = reqsvc.GetAllPendingRequisitionByDept(depIdofLoginUser);
 
           
                 if (searchString != null)

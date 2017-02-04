@@ -38,7 +38,7 @@ namespace Team7ADProjectMVC.Controllers
             ViewBag.Employees = deptService.GetEverySingleEmployeeInDepartment(currentEmployee.DepartmentId);
             
 
-            List<Requisition> resultList = reqService.GetAllRequisition(currentEmployee.DepartmentId);
+            List<Requisition> resultList = reqService.ListAllRequisitionByDept(currentEmployee.DepartmentId);
 
             if(employeeId != null)
             {

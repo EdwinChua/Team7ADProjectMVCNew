@@ -70,7 +70,7 @@ namespace Team7ADProjectMVC.Models
             var reqList = from req in db.Requisitions
                           where req.DepartmentId == departmentId
                           && req.RequisitionStatus != "Completed"
-                          orderby req.RequisitionStatus ascending
+                          orderby req.RequisitionStatus descending
                           select req;
             return reqList.ToList();
         }

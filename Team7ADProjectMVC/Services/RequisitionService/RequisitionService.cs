@@ -11,13 +11,17 @@ namespace Team7ADProjectMVC.Models.ListAllRequisitionService
         ProjectEntities db = new ProjectEntities();
         PushNotification notify = new PushNotification();
 
+        public List<Requisition> ListAllRequisitionByDept(int? deptId)
+        {
 
+            return (db.Requisitions.Where(x=>x.DepartmentId==deptId).OrderByDescending(x=>x.OrderedDate).ToList());
+        }
         public List<Requisition> ListAllRequisition()
         {
 
             return (db.Requisitions.ToList());
         }
-        public List<Requisition> GetAllRequisition(int? depId)
+        public List<Requisition> GetAllPendingRequisitionByDept(int? depId)
         {
             var queryByStatus = from t in db.Requisitions 
                                   where t.RequisitionStatus == "Pending Approval" && t.DepartmentId == depId
