@@ -122,7 +122,7 @@ namespace Team7ADProjectMVC.Controllers
                 //mailing
                 try
                 {
-                    string emailBody = r.Employee.EmployeeName + ", your requisition dated " + r.OrderedDate.Value.Date.ToString("dd/MM/yyyy")+ " has been approved. Please go to http://" + Request.Url.Host + ":23130/Stationery/Requisition/" + r.RequisitionId + " for more information.";
+                    string emailBody = r.Employee.EmployeeName + ", your requisition dated " + r.OrderedDate.Value.Date.ToString("dd/MM/yyyy")+ " has been approved. Please go to http://" + uSvc.GetBaseUrl() + "/Stationery/Requisition/" + r.RequisitionId + " for more information.";
                     uSvc.SendEmail(new List<string>(new string[] { r.Employee.Email }), "Approved Requisition", emailBody);
                 }
                 catch (Exception e)
@@ -137,7 +137,7 @@ namespace Team7ADProjectMVC.Controllers
                 //mailing
                 try
                 {
-                    string emailBody = r.Employee.EmployeeName + ", your requisition dated " + r.OrderedDate.Value.Date.ToString("dd/MM/yyyy") + " has been rejected. Please go to http://" + Request.Url.Host + ":23130/Stationery/Requisition/" + r.RequisitionId + " for more information.";
+                    string emailBody = r.Employee.EmployeeName + ", your requisition dated " + r.OrderedDate.Value.Date.ToString("dd/MM/yyyy") + " has been rejected. Please go to http://" + uSvc.GetBaseUrl() + "/Stationery/Requisition/" + r.RequisitionId + " for more information.";
                     uSvc.SendEmail(new List<string>(new string[] { r.Employee.Email }), "Rejected Requisition", emailBody);
                 }
                 catch (Exception e)

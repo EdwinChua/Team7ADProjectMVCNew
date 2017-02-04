@@ -47,7 +47,7 @@ namespace Team7ADProjectMVC.Controllers
             List<Employee> storeManagement = deptSvc.GetStoreManagerAndSupervisor();
             try //email to Store Manager and Supervisor
             {
-                string emailBody = storeManagement[0].EmployeeName + " and " + storeManagement[1].EmployeeName + ", you have new pending purchase orders for approval. Please go to http://"+ Request.Url.Host + ":23130/Head/ApproveRequisition to approve them.";
+                string emailBody = storeManagement[0].EmployeeName + " and " + storeManagement[1].EmployeeName + ", you have new pending purchase orders for approval. Please go to http://"+ utilSvc.GetBaseUrl() + "/Head/ApproveRequisition to approve them.";
                 utilSvc.SendEmail(new List<string>(new string[] { storeManagement[0].Email, storeManagement[1].Email }), "New Purchase Orders for Approval", emailBody);
             }
             catch (Exception ex)

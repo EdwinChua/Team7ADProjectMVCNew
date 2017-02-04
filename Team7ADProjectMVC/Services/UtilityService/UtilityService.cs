@@ -9,6 +9,16 @@ namespace Team7ADProjectMVC.Models.UtilityService
 {
     public class UtilityService : IUtilityService
     {
+        public static string baseUrl = "10.10.2.101";
+
+        public string GetBaseUrl()
+        {
+            if (baseUrl.Length > 0)
+            {
+                return baseUrl;
+            }
+            else return "localhost:23130";
+        }
         public DateTime GetDateTimeFromPicker(string date)
         {
             List<String> datesplit = date.Split('/').ToList<String>();
