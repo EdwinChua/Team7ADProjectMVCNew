@@ -742,7 +742,8 @@ namespace Team7ADProjectMVC.Models
             db.SaveChanges();
             try
             {
-                //string emailBody=disbursementList.Department.Representative.EmployeeName+", your disbursement scheduled to be collected on " + previousDate.ToString("dd/MM/yyyy")+" has been rescheduled to " + disbursementList.DeliveryDate.Value.Date.ToString("dd/MM/yyyy")+". Please see "
+                string emailBody=disbursementList.Department.Representative.EmployeeName+", your disbursement scheduled to be collected on " + previousDate.ToString("dd/MM/yyyy")+" has been rescheduled to " + disbursementList.DeliveryDate.Value.Date.ToString("dd/MM/yyyy")+ ". Please click on http://localhost//Representative/ViewDisbursementDetail/" + disbursementList.DisbursementListId + " for more information.";
+                utilSvc.SendEmail(new List<string>(new string[] { disbursementList.Department.Representative.Email }), "New Disbursement Scheduled for Collection", emailBody);
             }
             catch(Exception ex)
             {
