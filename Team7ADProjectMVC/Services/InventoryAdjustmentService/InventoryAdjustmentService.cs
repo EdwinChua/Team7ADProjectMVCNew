@@ -40,10 +40,9 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
 
             return (adjustmentlist);
         }
-        public List<Adjustment> findClerkAdjustmentList(int? id)
+        public List<Adjustment> findClerkAdjustmentList()
         {
             var adjustmentlist = (from x in db.Adjustments
-                                  where x.EmployeeId == id
                                   orderby x.AdjustmentDate
                                   select x
                                   ).ToList();

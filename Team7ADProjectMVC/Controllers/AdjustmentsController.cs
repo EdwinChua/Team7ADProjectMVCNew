@@ -71,7 +71,7 @@ namespace Team7ADProjectMVC.Controllers
             }
             if (role == "Store Clerk")
             {
-                
+
                 List<SelectListItem> statuslist = new List<SelectListItem>()
                 {
                     new SelectListItem {Text ="Pending Approval"},
@@ -82,7 +82,7 @@ namespace Team7ADProjectMVC.Controllers
                 };
 
                 ViewBag.status = statuslist;
-                var adjustmentlist = ivadjustsvc.findClerkAdjustmentList (user.EmployeeId );
+                var adjustmentlist = ivadjustsvc.findClerkAdjustmentList();
                 TempData["list"] = adjustmentlist;
                 return View(adjustmentlist.ToPagedList(pageNumber, pageSize));
 
@@ -102,17 +102,13 @@ namespace Team7ADProjectMVC.Controllers
             string role = ivadjustsvc.findRolebyUserID(user.EmployeeId);
             List<Employee> empList = deptSvc.GetEverySingleEmployeeInDepartment(user.DepartmentId);
             ViewBag.employee = new SelectList(empList, "EmployeeId", "EmployeeName");
+            var adjustmentlist = (List<Adjustment>)TempData.Peek("list");
+            var result = ivadjustsvc.FindAdjustmentBySearch(adjustmentlist, employee, status, date);
             int pageSize = 10;
             int pageNumber = (page ?? 1);
 
             if (role == "Store Supervisor")
             {
-                //var adjustmentlist = ivadjustsvc.findSupervisorAdjustmentList();
-                var adjustmentlist = (List<Adjustment>)TempData.Peek("list");
-
-                var result = ivadjustsvc.FindAdjustmentBySearch(adjustmentlist, employee, status, date);
-
-
                 List<SelectListItem> statuslist = new List<SelectListItem>()
                 {
                     new SelectListItem {Text ="Pending Approval"},
@@ -126,10 +122,6 @@ namespace Team7ADProjectMVC.Controllers
 
             if (role == "Store Manager")
             {
-                //var adjustmentlist = ivadjustsvc.findManagerAdjustmentList();
-                var adjustmentlist = (List<Adjustment>)TempData.Peek("list");
-                var result = ivadjustsvc.FindAdjustmentBySearch(adjustmentlist, employee, status, date);
-
                 List<SelectListItem> statuslist = new List<SelectListItem>()
                 {
                     new SelectListItem {Text ="Pending Final Approval" },
@@ -140,7 +132,21 @@ namespace Team7ADProjectMVC.Controllers
                 ViewBag.status = statuslist;
                 return View("ViewAdjustment", result.ToPagedList(pageNumber, pageSize));
             }
+            if (role == "Store Clerk")
+            {
+                List<SelectListItem> statuslist = new List<SelectListItem>()
+                {
+                    new SelectListItem {Text ="Pending Approval"},
+                    new SelectListItem {Text ="Pending Final Approval" },
+                    new SelectListItem {Text ="Approved"},
+                    new SelectListItem {Text ="Rejected"},
 
+                };
+
+                ViewBag.status = statuslist;
+                return View("ViewAdjustment", result.ToPagedList(pageNumber, pageSize));
+
+            }
             return View();
 
 
