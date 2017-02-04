@@ -684,10 +684,10 @@ VALUES
 (6,4,'2016-06-21','Completed'),
 (6,5,'2016-07-21','Completed'),
 (7,1,'2016-08-21','Completed'),
-(7,2,'2016-09-21','Processing'),
-(7,3,'2016-10-21','Processing'),
-(7,4,'2016-11-21','Processing'),
-(7,5,'2016-12-21','Processing');
+(7,2,'2016-09-21','Completed'),
+(7,3,'2016-10-21','Completed'),
+(7,4,'2016-11-21','Completed'),
+(7,5,'2016-12-21','Completed');
 
 -------------------------------------------------- DisbursementDetail ----------------------------------------
 CREATE TABLE DisbursementDetail
