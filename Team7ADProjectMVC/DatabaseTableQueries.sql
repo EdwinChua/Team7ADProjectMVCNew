@@ -926,11 +926,20 @@ ExtraDetail VARCHAR(50)
 -------------------------------------- Stock Card View ----------------------------------------
 CREATE VIEW StockCard AS
 
-SELECT ISNULL(a.AdjustmentDate,'1900-01-01') AS [Date], e.EmployeeName AS [Dept/Supplier], '-' + CAST(ad.Quantity AS VARCHAR(100)) As AdjustedQuantity, i.ItemNo, i.Description
-FROM AdjustmentDetail ad
+SELECT ISNULL(a.AdjustmentDate,'1900-01-01') AS [Date], e.EmployeeName AS [Dept/Supplier], '+' + CAST(ad.Quantity AS VARCHAR(100)) As AdjustedQuantity, i.ItemNo, i.Description
+FROM AdjustmentDetail ad 
 INNER JOIN Adjustment a on a.AdjustmentId = ad.AdjustmentId
 INNER JOIN Employee e on e.EmployeeId = a.EmployeeId
 INNER JOIN Inventory i on i.ItemNo = ad.ItemNo
+where ad.Quantity>0
+
+UNION
+SELECT ISNULL(a.AdjustmentDate,'1900-01-01') AS [Date], e.EmployeeName AS [Dept/Supplier],  + CAST(ad.Quantity AS VARCHAR(100)) As AdjustedQuantity, i.ItemNo, i.Description
+FROM AdjustmentDetail ad 
+INNER JOIN Adjustment a on a.AdjustmentId = ad.AdjustmentId
+INNER JOIN Employee e on e.EmployeeId = a.EmployeeId
+INNER JOIN Inventory i on i.ItemNo = ad.ItemNo
+where ad.Quantity<0
 
 UNION
 SELECT ISNULL(dl.DeliveryDate,'1900-01-01') AS [Date], d.DepartmentName , '-' + CAST(dd.DeliveredQuantity AS VARCHAR(100)) As DeliveredQuantity, dd.ItemNo, i.Description 

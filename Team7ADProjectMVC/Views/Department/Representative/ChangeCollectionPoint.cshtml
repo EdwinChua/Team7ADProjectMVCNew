@@ -8,11 +8,13 @@
     Employee currentEmployee = (Employee)Session["User"];
     Page.Employee = currentEmployee;
 }
-
 <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common.min.css" />
 <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.rtl.min.css" />
 <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.silver.min.css" />
 <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2017.1.118/styles/kendo.mobile.all.min.css" />
+
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="http://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 
 @using (Html.BeginForm())
 {
@@ -25,48 +27,45 @@
 
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DepartmentName, "Department Name", htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="form-group row">
+            @Html.LabelFor(model => model.DepartmentName, "Department Name", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-4">
-                @Html.DisplayFor(model => model.DepartmentName)
+                @Html.EditorFor(model => model.DepartmentName, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
                 @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
             </div>
         </div>
         <br />
-        <div class="form-group">
-            @Html.LabelFor(model => model.CollectionPointId, "Current Collection Point", htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="form-group row">
+            @Html.LabelFor(model => model.CollectionPointId, "Current Collection Point", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-4">
                 @Html.DisplayFor(model => model.CollectionPoint.PlaceName)  (@Html.DisplayFor(model => model.CollectionPoint.CollectTime))
                 @Html.ValidationMessageFor(model => model.CollectionPointId, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @*<div class="row">
-                <div class="form-group col-md-3 text-right " >
-                    New Collection Point
-                </div>*@
-            <label class="control-label col-md-3">New Collection Point</label>
-            <div class="col-md-2" id="form">
-                <input type="radio" hidden name="radio" required><br />
-                @foreach (var item in ViewBag.Message)
-                {
+        <div class="form-group row">
+                   <label class="control-label col-md-4" for="form">New Collection Point</label>
+
+                
+                <div class="col-md-5" id="form">
+                    <span class="k-invalid-msg" data-for="test"></span><br />
+                    <input type="radio" name="radio" required style="visibility:hidden" /><br />
+                    @foreach (var item in ViewBag.Message)
+                    {
                     <input type="radio" name="radio" value="@item.CollectionPointId" required> @item.PlaceName   <label>( @item.CollectTime )</label> <br />
-                }
+                    }
+                </div>
+            
+        </div>
+
+        <br />
+        <div class="form-group">
+            <div class="col-md-4"></div><div class="col-md-4 text-right">
+                <input type="submit" value="Save" class="btn btn-success " id="post" />
 
             </div>
-
         </div>
     </div>
-
-    <br />
-    <div class="form-group">
-        <div class="col-md-offset-3 col-md-3">
-            <input type="submit" value="Save" class="btn btn-success " id="post" />
-
-        </div>
-    </div>
-    @*</div>*@
 }
 <script>
     $(function () {
@@ -81,7 +80,6 @@
             },
             messages: {
                 radio: "This is a required field"
-
             }
         }).getKendoValidator();
 
@@ -92,16 +90,16 @@
 </script>
 
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="http://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
+<script src="http://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>*@
 
 
 
 
 <script>
-    $(document).ready(function () {
-        document.getElementById("menu13").className += "active";
-    });
+$(document).ready(function(){
+    document.getElementById("menu13").className += "active";
+});
 </script>

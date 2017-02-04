@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using Team7ADProjectMVC.Models.UtilityService;
 
 namespace Team7ADProjectMVC.Services.SupplierService
 {
     public class SupplierAndPurchaseOrderService : ISupplierAndPurchaseOrderService
     {
         ProjectEntities db = new ProjectEntities();
+        UtilityService uSvc = new UtilityService();
         public List<Supplier> GetAllSuppliers()
         {
             return (db.Suppliers.ToList());
@@ -140,12 +142,14 @@ namespace Team7ADProjectMVC.Services.SupplierService
             {
                 resultList.RemoveAll(x => x.OrderDate > dateOrdered);
                 resultList.RemoveAll(x => x.OrderDate < dateOrdered);
+                resultList.RemoveAll(x => x.OrderDate == null);
                 count = resultList.Count();
             }
             if (dateApproved != null && resultList.Count() > 0)
             {
                 resultList.RemoveAll(x => x.AuthorizedDate < dateApproved);
                 resultList.RemoveAll(x => x.AuthorizedDate > dateApproved);
+                resultList.RemoveAll(x => x.AuthorizedDate == null);
                 count = resultList.Count();
             }
             if(resultList.Count() ==0)
@@ -188,6 +192,14 @@ namespace Team7ADProjectMVC.Services.SupplierService
                     db.DeliveryDetails.Add(deliveryDetail);
                     db.SaveChanges();
                 }
+                try //email to notify approval
+                {
+                    string emailBody = "Your purchase order dated "+purchaseOrder.OrderDate.Value.Date.ToString("dd/MM/yyyy")+ " for supplier " +purchaseOrder.Supplier.SupplierName+" has been approved.";
+                    uSvc.SendEmail(new List<string>(new string[] {purchaseOrder.Employee1.Email}), "Purchase Order Approved", emailBody);
+                }
+                catch (Exception ex)
+                {
+                }
             }
             else if (approve=="Rejected")
             {
@@ -197,6 +209,14 @@ namespace Team7ADProjectMVC.Services.SupplierService
                     tempInv.HoldQuantity -= item.Quantity;
                     db.Entry(tempInv).State = EntityState.Modified;
                     db.SaveChanges();
+                    try //email to notify rejection
+                    {
+                        string emailBody = "Your purchase order dated " + purchaseOrder.OrderDate.Value.Date.ToString("dd/MM/yyyy") + " for supplier " + purchaseOrder.Supplier.SupplierName + " has been rejected.";
+                        uSvc.SendEmail(new List<string>(new string[] { purchaseOrder.Employee1.Email }), "Purchase Order Rejected", emailBody);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                 }
             }
         }

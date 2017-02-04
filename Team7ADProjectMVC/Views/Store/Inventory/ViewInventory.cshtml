@@ -45,7 +45,10 @@
                         Item Code
                     </th>
                     <th>
-                        Product
+                        Description
+                    </th>
+                    <th>
+                        Category
                     </th>
                 </tr>
             </thead>
@@ -55,7 +58,7 @@
                     <tr class="clickable-row" data-href="InventoryItem/@StockCard.ItemNo">
                         <td>@StockCard.ItemNo</td>
                         <td>@StockCard.Description</td>
-
+                        <td>@StockCard.Category.CategoryName</td>
                     </tr>
                 }
             </tbody>

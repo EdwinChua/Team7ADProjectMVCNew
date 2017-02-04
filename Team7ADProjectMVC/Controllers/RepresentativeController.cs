@@ -99,7 +99,7 @@ namespace Team7ADProjectMVC.TestControllers
                 departmentSvc.changeDeptCp(department, int.Parse(rid));
 
 
-                return RedirectToAction("Viewdisbursements");
+                return RedirectToAction("Edit");
             }
             ViewBag.Message = departmentSvc .getAllCollectionPoint();
             return View(department);

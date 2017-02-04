@@ -19,6 +19,7 @@ namespace Team7ADProjectMVC.Controllers
         IDepartmentService deptService;
         IRequisitionService reqService;
         IUtilityService uSvc;
+        PushNotification pushSvc;
         //ProjectEntities db;
         public StationeryController()
         {
@@ -27,6 +28,7 @@ namespace Team7ADProjectMVC.Controllers
             deptService = new DepartmentService();
             reqService = new RequisitionService();
             uSvc = new UtilityService();
+            pushSvc = new PushNotification();
         }
         // GET: Stationery
         [AuthorisePermissions(Permission = "ViewRequisition")]
@@ -114,6 +116,8 @@ namespace Team7ADProjectMVC.Controllers
                     }
                     
                     reqService.CreateRequisition(requisition, currentEmployee.EmployeeId);
+                    pushSvc.NotificationForHeadOnCreate(currentEmployee.EmployeeId.ToString());
+
                     try
                     {
                         string emailBody = requisition.Employee.Department.Head.EmployeeName + ", You have a pending requisition from " + requisition.Employee.EmployeeName + ". Please go to http://" + Request.Url.Host + ":23130/Head/EmployeeRequisition/" + requisition.RequisitionId+" to approve the request.";
@@ -127,7 +131,7 @@ namespace Team7ADProjectMVC.Controllers
                     }
                     catch (Exception e)
                     {
-                        return Content("bademail");
+                        //return Content("bademail");
                     }
                     return RedirectToAction("DepartmentRequisitions");
                 }
@@ -136,8 +140,7 @@ namespace Team7ADProjectMVC.Controllers
             {
                 ViewBag.Error = e.Message.ToString();
             }
-
-
+            
             ViewBag.ItemNo = new SelectList(invService.GetAllInventory(), "ItemNo", "Description");
             return View(requisition);
         }

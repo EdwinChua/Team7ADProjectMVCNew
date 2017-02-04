@@ -16,7 +16,7 @@ namespace Team7ADProjectMVC.Controllers
     public class StorePOController : Controller
     {
         private IInventoryService inventorySvc;
-        private IDisbursementService disbursementSvc;
+        //private IDisbursementService disbursementSvc;
         private IDepartmentService deptSvc;
         private ISupplierAndPurchaseOrderService supplierAndPOSvc;
         private IUtilityService utilSvc;
@@ -24,7 +24,7 @@ namespace Team7ADProjectMVC.Controllers
         public StorePOController()
         {
             inventorySvc = new InventoryService();
-            disbursementSvc = new DisbursementService();
+            //disbursementSvc = new DisbursementService();
             deptSvc = new DepartmentService();
             supplierAndPOSvc = new SupplierAndPurchaseOrderService();
             utilSvc = new UtilityService();

@@ -8,6 +8,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
     public class InventoryAdjustmentService : IInventoryAdjustmentService
     {
         ProjectEntities db = new ProjectEntities();
+        Team7ADProjectMVC.Models.UtilityService.UtilityService uSvc = new UtilityService.UtilityService();
         public string findRolebyUserID(int userid)
         {
             string role = db.Employees.Find(userid).Role.Name;
@@ -155,6 +156,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
             db.Adjustments.Find(adjid).SupervisorId = empid;
             db.Adjustments.Find(adjid).Status = "Approved";
             db.SaveChanges();
+            SendApprovedAdjEmail(db.Adjustments.Find(adjid));
         }
         public void RejecteBySupervisor(int? empid, int? adjid)
         {
@@ -162,6 +164,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
             db.Adjustments.Find(adjid).SupervisorId = empid;
             db.Adjustments.Find(adjid).Status = "Rejected";
             db.SaveChanges();
+            SendRejectedAdjEmail(db.Adjustments.Find(adjid));
         }
         public void ApproveByManager(int? empid, int? adjid)
         {
@@ -169,6 +172,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
             db.Adjustments.Find(adjid).HeadId = empid;
             db.Adjustments.Find(adjid).Status = "Approved";
             db.SaveChanges();
+            SendApprovedAdjEmail(db.Adjustments.Find(adjid));
         }
         public void RejectByManager(int? empid, int? adjid)
         {
@@ -176,6 +180,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
             db.Adjustments.Find(adjid).HeadId = empid;
             db.Adjustments.Find(adjid).Status = "Rejected";
             db.SaveChanges();
+            SendRejectedAdjEmail(db.Adjustments.Find(adjid));
         }
         
         public void PendingBySupervisor(int? empid, int? adjid)
@@ -189,6 +194,29 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
         {
             db.Adjustments.Add(adjustment);
             db.SaveChanges();
+        }
+
+        private void SendApprovedAdjEmail(Adjustment adj)
+        {
+            try //email to notify approval
+            {
+                string emailBody = adj.Employee.EmployeeName+ ", your request for an inventory adjustment dated "+adj.AdjustmentDate.Value.Date.ToString("dd/MM/YYYY")+" is approved.";
+                uSvc.SendEmail(new List<string>(new string[] { adj.Employee.Email }), "Inventory Adjustment Approved", emailBody);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+        private void SendRejectedAdjEmail(Adjustment adj)
+        {
+            try //email to notify approval
+            {
+                string emailBody = adj.Employee.EmployeeName + ", your request for an inventory adjustment dated " + adj.AdjustmentDate.Value.Date.ToString("dd/MM/YYYY") + " is rejected.";
+                uSvc.SendEmail(new List<string>(new string[] { adj.Employee.Email }), "Inventory Adjustment Rejected", emailBody);
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }

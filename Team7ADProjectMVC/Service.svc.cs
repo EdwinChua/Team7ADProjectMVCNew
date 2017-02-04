@@ -108,11 +108,15 @@ namespace Team7ADProjectMVC
 
             foreach (DisbursementDetail dd in dDetail)
             {
-                wcfTodayCollectionDetail cd = new wcfTodayCollectionDetail();
-                cd.RequestedQty = dd.PreparedQuantity.ToString();
-                cd.DisbursedQty = dd.DeliveredQuantity.ToString();
-                cd.ItemDescription = dd.Inventory.Description;
-                collectionDetails.Add(cd);
+                if(dd.PreparedQuantity>0)
+                {
+                    wcfTodayCollectionDetail cd = new wcfTodayCollectionDetail();
+                    cd.RequestedQty = dd.PreparedQuantity.ToString();
+                    cd.DisbursedQty = dd.DeliveredQuantity.ToString();
+                    cd.ItemDescription = dd.Inventory.Description;
+                    collectionDetails.Add(cd);
+                }
+               
             }
             return collectionDetails.ToList();
         }
@@ -279,6 +283,20 @@ namespace Team7ADProjectMVC
             return retrialList;
         }
 
+        public void markascollected(String collected,String itemNo)
+        {
+            try
+            {
+                int collectedid = Convert.ToInt32(collected);
+                RetrievalList rList = invService.GetRetrievalList();
+                invService.UpdateCollectionInfo(rList, collectedid, itemNo);
+
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
         public String getallocate()
         {
             String rt = "false";
@@ -317,24 +335,32 @@ namespace Team7ADProjectMVC
                 if (result == true)
                 {
                     Employee emp = deptSvc.FindEmployeeById(empid);
-                    emp.Token = token;
-                    deptSvc.UpdateEmployee(emp);
-
-                    if (deptSvc.IsDelegate(emp))
+                    if(emp.RoleId<=4)
                     {
-                        deptSvc.SetDelegatePermissions(emp);
-                    }
+                        emp.Token = token;
+                        deptSvc.UpdateEmployee(emp);
 
-                    dDetail.Role = emp.Role.Name;
-                    dDetail.Deptid = emp.DepartmentId.ToString();
-                    dDetail.Userid = userid;
-                    dDetail.EmpName = emp.EmployeeName;
-                    dDetail.Authenticate = "true";
-                    Role makePerm = emp.Role;
-                    dDetail.Permission = makePermissionstring(makePerm.ViewRequisition.ToString()) + "-" + makePermissionstring(makePerm.ApproveRequisition.ToString()) + "-" +
-                        makePermissionstring(makePerm.ChangeCollectionPoint.ToString()) + "-" + makePermissionstring(makePerm.ViewCollectionDetails.ToString());
-                    
-                    PushOldNotification(empid, token);
+                        if (deptSvc.IsDelegate(emp))
+                        {
+                            deptSvc.SetDelegatePermissions(emp);
+                        }
+
+                        dDetail.Role = emp.Role.Name;
+                        dDetail.Deptid = emp.DepartmentId.ToString();
+                        dDetail.Userid = userid;
+                        dDetail.EmpName = emp.EmployeeName;
+                        dDetail.Authenticate = "true";
+                        Role makePerm = emp.Role;
+                        dDetail.Permission = makePermissionstring(makePerm.ViewRequisition.ToString()) + "-" + makePermissionstring(makePerm.ApproveRequisition.ToString()) + "-" +
+                            makePermissionstring(makePerm.ChangeCollectionPoint.ToString()) + "-" + makePermissionstring(makePerm.ViewCollectionDetails.ToString());
+
+                        PushOldNotification(empid, token);
+                    }
+                    else
+                    {
+                        dDetail.Authenticate = "false";
+                    }
+                   
                 }
                 else
                 {
@@ -344,7 +370,7 @@ namespace Team7ADProjectMVC
             }
             catch (Exception e)
             {
-                dDetail.Authenticate = "falseer";
+                dDetail.Authenticate = "false";
                 return dDetail;
             }
         }
@@ -355,8 +381,7 @@ namespace Team7ADProjectMVC
                 int dId = Convert.ToInt32(deptid);
                 int cpoint = Convert.ToInt32(collectionptid);
                 Department wcfItem = deptSvc.FindDeptById(dId);
-                deptSvc.changeDeptCp(wcfItem, cpoint);
-                //fcm.CollectionPointChanged(dId);
+                deptSvc.changeDeptCp(wcfItem, cpoint);                
                 return collectionptid;
             }
             catch (Exception e)
@@ -370,8 +395,7 @@ namespace Team7ADProjectMVC
             int dId = Convert.ToInt32(c.Ddid);
             int dId1 = Convert.ToInt32(c.DisbQty);
             int math;
-            DisbursementDetail dd = disService.UpdateDisbursementStatus(dId, dId1, c.Remarks);
-            
+            DisbursementDetail dd = disService.UpdateDisbursementStatus(dId, dId1, c.Remarks);            
             math = dId1 - (int)dd.DeliveredQuantity;
             invService.UpdateInventoryQuantity(dd.ItemNo, math);
         }
