@@ -155,7 +155,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
             {
                 var price = Math.Abs(Convert.ToInt32(item.Quantity)) * item.Inventory.Price1;
 
-                total += total + price;
+                total +=  price;
             }
             return total;
         }
@@ -164,6 +164,12 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
             db.Adjustments.Find(adjid).SupervisorAuthorizedDate = DateTime.Today;
             db.Adjustments.Find(adjid).SupervisorId = empid;
             db.Adjustments.Find(adjid).Status = "Approved";
+            var adjdtlist =db.AdjustmentDetails.Where(x => x.AdjustmentId == adjid).ToList();
+            foreach (var adjdt in adjdtlist)
+            {
+                var ivquantity=db.Inventories.Find(adjdt.ItemNo).Quantity;
+                db.Inventories.Find(adjdt.ItemNo).Quantity = ivquantity + adjdt.Quantity;
+            }
             db.SaveChanges();
             SendApprovedAdjEmail(db.Adjustments.Find(adjid));
         }
@@ -180,6 +186,12 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
             db.Adjustments.Find(adjid).HeadAuthorizedDate = DateTime.Today;
             db.Adjustments.Find(adjid).HeadId = empid;
             db.Adjustments.Find(adjid).Status = "Approved";
+            var adjdtlist = db.AdjustmentDetails.Where(x => x.AdjustmentId == adjid).ToList();
+            foreach (var adjdt in adjdtlist)
+            {
+                var ivquantity = db.Inventories.Find(adjdt.ItemNo).Quantity;
+                db.Inventories.Find(adjdt.ItemNo).Quantity = ivquantity + adjdt.Quantity;
+            }
             db.SaveChanges();
             SendApprovedAdjEmail(db.Adjustments.Find(adjid));
         }
