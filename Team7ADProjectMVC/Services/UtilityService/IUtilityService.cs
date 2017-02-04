@@ -10,5 +10,6 @@ namespace Team7ADProjectMVC.Models.UtilityService
         DateTime GetDateTimeFromPicker(string date);
         void SendEmail(List<string> sendToEmailAddress, string emailSubject, string emailBody, List<string> ccToEmailAddress = null);
 
+        int DaysToAdd(DayOfWeek current, DayOfWeek desired);
     }
 }

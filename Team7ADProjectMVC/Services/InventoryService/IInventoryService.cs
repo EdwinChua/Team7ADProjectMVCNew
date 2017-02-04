@@ -39,7 +39,7 @@ namespace Team7ADProjectMVC.Models
 
         void ClearRetrievalList();
 
-        void AutoAllocateDisbursementsByOrderOfRequisition();
+        void AutoAllocateDisbursementsByOrderOfRequisition(DateTime? deliveryDate);
 
         List<DisbursementDetail> GenerateListForManualAllocation();
 
