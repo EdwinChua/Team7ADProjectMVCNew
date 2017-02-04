@@ -168,7 +168,6 @@ namespace Team7ADProjectMVC.Controllers
             {
                 TempData["doc"] = e;
                 return RedirectToAction("CreateAdhocPurchaseOrder");
-                //TODO: Test this error handling
             }
             itemsToResupply.Add(item);
             return RedirectToAction("CreateAdhocPurchaseOrder");

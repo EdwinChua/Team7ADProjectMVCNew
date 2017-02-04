@@ -302,7 +302,8 @@ namespace Team7ADProjectMVC
             String rt = "false";
             try
             {
-                invService.AutoAllocateDisbursementsByOrderOfRequisition();
+                //TODO: Edwin/Gogul To fill in date
+                invService.AutoAllocateDisbursementsByOrderOfRequisition(null);
                 rt = "True";
             }
             catch(Exception e)

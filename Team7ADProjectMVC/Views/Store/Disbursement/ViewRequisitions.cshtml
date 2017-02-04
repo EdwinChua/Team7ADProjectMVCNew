@@ -60,14 +60,17 @@
     <table class="table">
         <thead>
             <tr>
-                <th>
+                <th class="col-md-3">
                     Department
                 </th>
-                <th>
+                <th class="col-md-2">
                     Date Approved
                 </th>
-                <th>
+                <th class="col-md-2">
                     Requisition Status
+                </th>
+                <th class="col-md-3">
+                    Items Required
                 </th>
             </tr>
         </thead>
@@ -79,10 +82,21 @@
                         @Html.DisplayFor(modelItem => item.Employee.Department.DepartmentName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ApprovedDate)
+                        @item.ApprovedDate.Value.ToString("dd/MM/yyyy")
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.RequisitionStatus)
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach (RequisitionDetail r in item.RequisitionDetails)
+                            {
+                                if (r.OutstandingQuantity > 0)
+                                {
+                                <li>@r.Inventory.Description (Qty: @r.OutstandingQuantity)</li>
+                                }
+                            }
+                        </ul>
                     </td>
                 </tr>
             }
