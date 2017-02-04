@@ -186,13 +186,17 @@ namespace Team7ADProjectMVC.Models
                 {
                     foreach (RequisitionDetail reqDetails in requisition.RequisitionDetails)
                     {
-                        RetrievalListItems newItem = new RetrievalListItems();
-                        newItem.itemNo = reqDetails.ItemNo;
-                        newItem.requiredQuantity = (int)reqDetails.OutstandingQuantity;
-                        newItem.binNo = reqDetails.Inventory.BinNo;
-                        newItem.description = reqDetails.Inventory.Description;
-                        newItem.collectionStatus = false;
-                        unconsolidatedList.Add(newItem);
+                        int invBalance = (int)FindInventoryItemById(reqDetails.ItemNo).Quantity;
+                        if (reqDetails.OutstandingQuantity > 0 && invBalance > 0)
+                        {
+                            RetrievalListItems newItem = new RetrievalListItems();
+                            newItem.itemNo = reqDetails.ItemNo;
+                            newItem.requiredQuantity = (int)reqDetails.OutstandingQuantity;
+                            newItem.binNo = reqDetails.Inventory.BinNo;
+                            newItem.description = reqDetails.Inventory.Description;
+                            newItem.collectionStatus = false;
+                            unconsolidatedList.Add(newItem);
+                        }
                     }
                 }
                 RetrievalListItemsComparer comparer = new RetrievalListItemsComparer();
@@ -214,6 +218,15 @@ namespace Team7ADProjectMVC.Models
                     {
                         rList.itemsToRetrieve.Add(item);
                         i++;
+                    }
+                }
+
+                foreach (var item in rList.itemsToRetrieve)
+                {
+                    int invBal = (int)FindInventoryItemById(item.itemNo).Quantity;
+                    if (item.requiredQuantity > invBal)
+                    {
+                        item.requiredQuantity = invBal;
                     }
                 }
             }
