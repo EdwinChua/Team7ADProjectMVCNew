@@ -188,7 +188,7 @@ else
         $('#datetimepicker1').datetimepicker({
             format: 'DD/MM/YYYY',
             date: '@ViewBag.SuggestedDeliveryDate',
-            minDate: new Date()
+            minDate: moment().millisecond(0).second(0).minute(0).hour(0)
         });
 
         $('#datetimepicker2').datetimepicker({ format: 'DD/MM/YYYY' });
