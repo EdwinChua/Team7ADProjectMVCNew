@@ -14,6 +14,7 @@ namespace Team7ADProjectMVC.Models
     {
         //IDepartmentService deptSvc;
         ProjectEntities db = new ProjectEntities();
+        UtilityService.UtilityService uSvc = new UtilityService.UtilityService();
         public PushNotification()
         {
             // TODO: Add constructor logic here
@@ -150,6 +151,20 @@ namespace Team7ADProjectMVC.Models
             if (checkForStockReorder != null)
             {
                 PushFCMNotificationToStoreClerk("Low Stock Alert", "Please review stock cards.", myData);
+                try //Email to all clerks for low stocks
+                {
+                    List<string> clerkEmails = new List<string>();
+                    List<Employee> clerks = db.Employees.Where(x => x.Role.Name == "Store Clerk").ToList();
+                    foreach(Employee emp in clerks)
+                    {
+                        clerkEmails.Add(emp.Email);
+                    }
+                    string emailBody = "There are stocks which are running low. Please go to http://localhost:23130/StorePO/GeneratePO to generate PO for stocks which are running low.";
+                    uSvc.SendEmail(clerkEmails, "Stocks Running Low", emailBody);
+                }
+                catch (Exception ex)
+                {
+                }
             }
         }
 
