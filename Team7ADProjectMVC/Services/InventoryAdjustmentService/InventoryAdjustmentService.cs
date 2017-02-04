@@ -40,6 +40,16 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
 
             return (adjustmentlist);
         }
+        public List<Adjustment> findClerkAdjustmentList(int? id)
+        {
+            var adjustmentlist = (from x in db.Adjustments
+                                  where x.EmployeeId == id
+                                  orderby x.AdjustmentDate
+                                  select x
+                                  ).ToList();
+            return adjustmentlist;
+
+        }
 
         public List<Adjustment> FindAdjustmentBySearch(List<Adjustment> searchlist, string employee, string status, string date)
         {
@@ -144,7 +154,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
             decimal? total = 0;
             foreach (var item in adjdtlist)
             {
-                var price = item.Quantity * item.Inventory.Price1;
+                var price = Math.Abs(Convert.ToInt32(item.Quantity)) * item.Inventory.Price1;
 
                 total += total + price;
             }
@@ -182,7 +192,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
             db.SaveChanges();
             SendRejectedAdjEmail(db.Adjustments.Find(adjid));
         }
-        
+
         public void PendingBySupervisor(int? empid, int? adjid)
         {
             db.Adjustments.Find(adjid).SupervisorAuthorizedDate = DateTime.Today;
@@ -200,7 +210,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
         {
             try //email to notify approval
             {
-                string emailBody = adj.Employee.EmployeeName+ ", your request for an inventory adjustment dated "+adj.AdjustmentDate.Value.Date.ToString("dd/MM/YYYY")+" is approved.";
+                string emailBody = adj.Employee.EmployeeName + ", your request for an inventory adjustment dated " + adj.AdjustmentDate.Value.Date.ToString("dd/MM/YYYY") + " is approved.";
                 uSvc.SendEmail(new List<string>(new string[] { adj.Employee.Email }), "Inventory Adjustment Approved", emailBody);
             }
             catch (Exception ex)

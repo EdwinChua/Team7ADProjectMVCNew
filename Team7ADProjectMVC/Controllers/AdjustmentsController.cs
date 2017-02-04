@@ -18,7 +18,7 @@ namespace Team7ADProjectMVC.Controllers
         private IDepartmentService deptSvc;
         private IInventoryService invSvc;
         private UtilityService uSvc;
-        
+
         public AdjustmentsController()
         {
             ivadjustsvc = new InventoryAdjustmentService();
@@ -34,7 +34,7 @@ namespace Team7ADProjectMVC.Controllers
             Employee user = (Employee)Session["user"];
 
             string role = ivadjustsvc.findRolebyUserID(user.EmployeeId);
-            List<Employee> empList = deptSvc.GetEverySingleEmployeeInDepartment (user.DepartmentId);
+            List<Employee> empList = deptSvc.GetEverySingleEmployeeInDepartment(user.DepartmentId);
             ViewBag.employee = new SelectList(empList, "EmployeeId", "EmployeeName");
 
             int pageSize = 10;
@@ -68,6 +68,24 @@ namespace Team7ADProjectMVC.Controllers
                 var adjustmentlist = ivadjustsvc.findManagerAdjustmentList();
                 TempData["list"] = adjustmentlist;
                 return View(adjustmentlist.ToPagedList(pageNumber, pageSize));
+            }
+            if (role == "Store Clerk")
+            {
+                
+                List<SelectListItem> statuslist = new List<SelectListItem>()
+                {
+                    new SelectListItem {Text ="Pending Approval"},
+                    new SelectListItem {Text ="Pending Final Approval" },
+                    new SelectListItem {Text ="Approved"},
+                    new SelectListItem {Text ="Rejected"},
+
+                };
+
+                ViewBag.status = statuslist;
+                var adjustmentlist = ivadjustsvc.findClerkAdjustmentList (user.EmployeeId );
+                TempData["list"] = adjustmentlist;
+                return View(adjustmentlist.ToPagedList(pageNumber, pageSize));
+
             }
 
 
@@ -103,7 +121,7 @@ namespace Team7ADProjectMVC.Controllers
                 };
 
                 ViewBag.status = statuslist;
-                return View("ViewAdjustment", result.ToPagedList(pageNumber,pageSize));
+                return View("ViewAdjustment", result.ToPagedList(pageNumber, pageSize));
             }
 
             if (role == "Store Manager")
@@ -243,9 +261,9 @@ namespace Team7ADProjectMVC.Controllers
                 catch (Exception ex)
                 {
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("ViewAdjustment");
             }
-            
+
             ViewBag.ItemNo = new SelectList(invSvc.GetAllInventory(), "ItemNo", "Description");
             return View(adjust);
         }
