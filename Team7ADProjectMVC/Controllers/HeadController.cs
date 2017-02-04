@@ -46,41 +46,40 @@ namespace Team7ADProjectMVC.Controllers
             user = (Employee)Session["user"];
             depIdofLoginUser = user.DepartmentId;
             depHeadId = user.EmployeeId;
-
-
+            
             var requisitions = reqsvc.GetAllRequisition(depIdofLoginUser);
 
+          
+                if (searchString != null)
 
-            if (searchString != null)
+                {
+                    page = 1;
+                }
+                else
+                {
+                    searchString = currentFilter;
+                }
 
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
+                ViewBag.CurrentFilter = searchString;
 
-            ViewBag.CurrentFilter = searchString;
+                int pageSize = 3;
+                int pageNumber = (page ?? 1);
 
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
+                if (!String.IsNullOrEmpty(searchString))
+                {
 
-            if (!String.IsNullOrEmpty(searchString))
-            {
-              
-                var q = reqsvc.getDataForPagination (searchString);
-                requisitions = q.ToList();
-            }
+                    var q = reqsvc.getDataForPagination(searchString);
+                    requisitions = q.ToList();
+                }
 
-            Employee userName = (Employee)Session["User"];
+                Employee userName = (Employee)Session["User"];
 
-            requisitions.RemoveAll(x => x.DepartmentId != userName.DepartmentId);
-            requisitions.RemoveAll(x => x.RequisitionStatus != "Pending Approval");
-            ViewBag.req = requisitions.ToList();
+                requisitions.RemoveAll(x => x.DepartmentId != userName.DepartmentId);
+                requisitions.RemoveAll(x => x.RequisitionStatus != "Pending Approval");
+                ViewBag.req = requisitions.ToList();
 
-            return View("ListAllRequisition", requisitions.ToPagedList(pageNumber, pageSize));
-
+                return View("ListAllRequisition", requisitions.ToPagedList(pageNumber, pageSize));
+  
 
         }
 

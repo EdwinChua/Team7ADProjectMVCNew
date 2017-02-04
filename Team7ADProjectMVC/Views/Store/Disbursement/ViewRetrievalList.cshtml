@@ -8,6 +8,8 @@
 
     ProjectEntities db = new ProjectEntities();
     int maxqty = 0;
+    int uncollectedCount = 0;
+    int collectedCount = 0;
 }
 
 
@@ -17,25 +19,33 @@
     <br />
 </div>
 
+
 <h2>Items to collect</h2>
 
-
+@foreach (var item in ViewBag.RList.itemsToRetrieve)
+{
+    if (!item.collectionStatus)
+    {
+        uncollectedCount++;
+    }
+}
+@if (uncollectedCount > 0)
+{
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th class="col-md-1">
                 Bin#
             </th>
-            <th>
+            <th class="col-md-3">
                 Stationery Description
             </th>
-            <th>
+            <th class="col-md-2">
                 Quantity Needed
             </th>
-            <th>
+            <th class="col-md-5">
                 Quantity Retrieved
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -43,17 +53,17 @@
         {
             if (!item.collectionStatus)
             {
-                
-                    int quantity = db.Inventories.Find(item.itemNo).Quantity;
-                    if (quantity > item.requiredQuantity)
-                    {
-                        maxqty = item.requiredQuantity;
-                    }
-                    else
-                    {
-                        maxqty = quantity;
-                    }
-                
+
+                int quantity = db.Inventories.Find(item.itemNo).Quantity;
+                if (quantity > item.requiredQuantity)
+                {
+                    maxqty = item.requiredQuantity;
+                }
+                else
+                {
+                    maxqty = quantity;
+                }
+
 
                     <tr>
                         <td>
@@ -78,33 +88,46 @@
 
     </tbody>
 </table>
-
+}
+else
+{
+    <h4>All items have been collected.</h4>
+}
 <hr />
-<h2>Items collected</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Bin#
-            </th>
-            <th>
-                Stationery Description
-            </th>
-            <th>
-                Quantity Needed
-            </th>
-            <th>
-                Quantity Retrieved
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in ViewBag.RList.itemsToRetrieve)
-        {
-            if (item.collectionStatus)
+
+@foreach (var item in ViewBag.RList.itemsToRetrieve)
+{
+    if (item.collectionStatus)
+    {
+        collectedCount++;
+    }
+}
+@if (collectedCount > 0)
+{
+    <h2>Items collected</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="col-md-1">
+                    Bin#
+                </th>
+                <th class="col-md-3">
+                    Stationery Description
+                </th>
+                <th class="col-md-2">
+                    Quantity Needed
+                </th>
+                <th class="col-md-5">
+                    Quantity Retrieved
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.RList.itemsToRetrieve)
             {
-                
+                if (item.collectionStatus)
+                {
+
                     int quantity = db.Inventories.Find(item.itemNo).Quantity;
                     if (quantity > item.requiredQuantity)
                     {
@@ -114,39 +137,62 @@
                     {
                         maxqty = quantity;
                     }
-                
-                <tr>
-                    <td>
-                        @item.binNo
-                    </td>
-                    <td>
-                        @item.itemNo - @item.description
-                    </td>
-                    <td>
-                        @maxqty
-                    </td>
-                    <td>
-                        <form action="MarkAsCollected">
-                            <div class="col-md-4"><input type="number" name="collectedQuantity" class="form-control" value="@item.collectedQuantity" max="@maxqty" width="30" /></div>
-                            <input type="hidden" value="@item.itemNo" name="itemNo" />
-                            <input type="submit" class="btn btn-info" value="Update" />
-                        </form>
-                    </td>
-                </tr>
 
+                    <tr>
+                        <td>
+                            @item.binNo
+                        </td>
+                        <td>
+                            @item.itemNo - @item.description
+                        </td>
+                        <td>
+                            @maxqty
+                        </td>
+                        <td>
+                            <form action="MarkAsCollected">
+                                <div class="col-md-4"><input type="number" name="collectedQuantity" class="form-control" value="@item.collectedQuantity" max="@maxqty" width="30" /></div>
+                                <input type="hidden" value="@item.itemNo" name="itemNo" />
+                                <input type="submit" class="btn btn-info" value="Update" />
+                            </form>
+                        </td>
+                    </tr>
+
+                }
             }
-        }
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
+    <h5>Please remember to click the 'Update' button if there are changes to the quantity of collected items.</h5>
+    <hr />
+}
 
+<div class="row">
+    <form action="DisburseItems" method="get">
+        <div class="col-md-2">Delivery Date</div>
+        <div class="form-group col-md-5">
+            <div class='input-group date' id='datetimepicker1'>
+                <input type='text' class="form-control" placeholder="Date Ordered" name="disbursementDateString" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
 
-
-<input type="button" class="btn btn-info pull-right" value="Generate Disbursements" onclick="window.location.href='DisburseItems'"/>
+        <input type="submit" class="btn btn-info pull-right" value="Generate Disbursements" />
+    </form>
+</div>
 
 <script>
-$(document).ready(function(){
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'DD/MM/YYYY',
+            date: '@ViewBag.SuggestedDeliveryDate',
+            minDate: new Date()
+        });
 
+        $('#datetimepicker2').datetimepicker({ format: 'DD/MM/YYYY' });
+    });
+    $(document).ready(function () {
     document.getElementById("menu1").className += "active";
 });
 </script>
