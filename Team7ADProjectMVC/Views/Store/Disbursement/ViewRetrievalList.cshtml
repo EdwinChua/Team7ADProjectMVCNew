@@ -164,30 +164,31 @@ else
     </table>
     <h5>Please remember to click the 'Update' button if there are changes to the quantity of collected items.</h5>
     <hr />
+    <div class="row">
+        <form action="DisburseItems" method="get">
+            <div class="col-md-2">Delivery Date</div>
+            <div class="form-group col-md-5">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" placeholder="Date Ordered" name="disbursementDateString" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+
+            <input type="submit" class="btn btn-info pull-right" value="Generate Disbursements" />
+        </form>
+    </div>
 }
 
-<div class="row">
-    <form action="DisburseItems" method="get">
-        <div class="col-md-2">Delivery Date</div>
-        <div class="form-group col-md-5">
-            <div class='input-group date' id='datetimepicker1'>
-                <input type='text' class="form-control" placeholder="Date Ordered" name="disbursementDateString" />
-                <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-            </div>
-        </div>
 
-        <input type="submit" class="btn btn-info pull-right" value="Generate Disbursements" />
-    </form>
-</div>
 
 <script>
     $(function () {
         $('#datetimepicker1').datetimepicker({
             format: 'DD/MM/YYYY',
             date: '@ViewBag.SuggestedDeliveryDate',
-            minDate: new Date()
+            minDate: moment().millisecond(0).second(0).minute(0).hour(0)
         });
 
         $('#datetimepicker2').datetimepicker({ format: 'DD/MM/YYYY' });

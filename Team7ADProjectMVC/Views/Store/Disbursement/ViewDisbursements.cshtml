@@ -31,8 +31,9 @@
             </div>
             
                 <input class="btn btn-success" type="submit" value="Search" />
+            <input class="btn btn-info" type="button" value="Reallocate Previous" onclick="window.location.href='/Store/ReallocateDisbursements'" />
                 <input class="btn btn-default" type="button" value="Show All" onclick="window.location.href='/Store/ViewDisbursements'" />
-            
+           
 
         </form>
     </nav>
@@ -82,7 +83,7 @@
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
     @Html.PagedListPager(Model, page => Url.Action("ViewDisbursements",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    new { page, id= ViewBag.Id , status = ViewBag.Status }))
 </center>
 <script>
     $(document).ready(function ($) {
