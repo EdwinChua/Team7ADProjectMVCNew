@@ -22,7 +22,6 @@ namespace Team7ADProjectMVC.Controllers
         private IRequisitionService reqsvc;
         public static int count = 0;
         private IDepartmentService depsvc;
-        private IUtilityService uSvc;
 
   
 
@@ -35,7 +34,6 @@ namespace Team7ADProjectMVC.Controllers
         {
             reqsvc = new RequisitionService();
             depsvc = new DepartmentService();
-            uSvc = new UtilityService();
         }
 
         //----------------------------View/Approve/Reject Requisition Part----------------------------------------start here
@@ -119,30 +117,13 @@ namespace Team7ADProjectMVC.Controllers
             if (status.Equals("Approve"))
             {
                 reqsvc.UpdateApproveStatus(r, textcomments,depHeadId);
-                //mailing
-                try
-                {
-                    string emailBody = r.Employee.EmployeeName + ", your requisition dated " + r.OrderedDate.Value.Date.ToString("dd/MM/yyyy")+ " has been approved. Please go to http://" + uSvc.GetBaseUrl() + "/Stationery/Requisition/" + r.RequisitionId + " for more information.";
-                    uSvc.SendEmail(new List<string>(new string[] { r.Employee.Email }), "Approved Requisition", emailBody);
-                }
-                catch (Exception e)
-                {
-                }
-                return RedirectToAction("ApproveRequisition");
 
+                return RedirectToAction("ApproveRequisition");
             }
             else
             {
                 reqsvc.UpdateRejectStatus(r, textcomments, depHeadId);
-                //mailing
-                try
-                {
-                    string emailBody = r.Employee.EmployeeName + ", your requisition dated " + r.OrderedDate.Value.Date.ToString("dd/MM/yyyy") + " has been rejected. Please go to http://" + uSvc.GetBaseUrl() + "/Stationery/Requisition/" + r.RequisitionId + " for more information.";
-                    uSvc.SendEmail(new List<string>(new string[] { r.Employee.Email }), "Rejected Requisition", emailBody);
-                }
-                catch (Exception e)
-                {
-                }
+               
                 return RedirectToAction("ApproveRequisition");
             }
 
