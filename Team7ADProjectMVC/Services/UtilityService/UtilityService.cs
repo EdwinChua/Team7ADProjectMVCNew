@@ -53,5 +53,14 @@ namespace Team7ADProjectMVC.Models.UtilityService
             //client.Port = 25;
             return client;
         }
+        public int DaysToAdd(DayOfWeek current, DayOfWeek desired)
+        {
+
+            int c = (int)current;
+            int d = (int)desired;
+            int n = (7 - c + d);
+
+            return (n > 7) ? n % 7 : n;
+        }
     }
 }

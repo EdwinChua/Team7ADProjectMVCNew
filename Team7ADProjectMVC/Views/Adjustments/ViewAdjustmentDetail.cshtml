@@ -50,16 +50,16 @@
         {
             if (@ViewBag.sum < 250)
             {
-                <button class="btn btn-success" type="button" onclick="window.location.href='/Adjustments/SupervisorApprove/@ViewBag.Adjid'">Approve</button>
-                <button class="btn btn-danger" type="button" onclick="window.location.href='/Adjustments/SupervisorRejecct/@ViewBag.Adjid'">Reject</button>
-                
+                <button class="btn btn-success" type="button" onclick="window.location.href='/Adjustments/SupervisorApprove/@ViewBag.Adjid' ">Approve</button>
+                <button class="btn btn-danger" type="button" onclick="return confirm('Are you sure?') ,window.location.href='/Adjustments/SupervisorRejecct/@ViewBag.Adjid'">Reject</button>
+
 
             }
             else
             {
 
                 <button class="btn btn-danger" type="button" onclick="window.location.href='/Adjustments/SupervisorPending/@ViewBag.Adjid'">Forward To Manager</button>
-                
+
 
             }
         }
@@ -67,15 +67,15 @@
         {
             <button class="btn btn-success" type="button" onclick="window.location.href='/Adjustments/ManagerApprove/@ViewBag.Adjid'">Approve</button>
             <button class="btn btn-danger" type="button" onclick="window.location.href='/Adjustments/ManagerRejecct/@ViewBag.Adjid'">Reject</button>
-         
-           
+
+
         }
-                                    <button class="btn btn-default" type="button" onclick="window.history.back()">Back</button>                         
+        <button class="btn btn-default" type="button" onclick="window.history.back()">Back</button>
     </div>
-    
+
 </div>
 <script>
-$(document).ready(function(){
-    document.getElementById("menu8").className += "active";
-});
+    $(document).ready(function () {
+        document.getElementById("menu8").className += "active";
+    });
 </script>

@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Team7ADProjectMVC.Exceptions;
+using Team7ADProjectMVC.Models.UtilityService;
 
 namespace Team7ADProjectMVC.Models
 {
@@ -11,6 +12,7 @@ namespace Team7ADProjectMVC.Models
     {
         ProjectEntities db = new ProjectEntities();
         PushNotification fcm = new PushNotification();
+        IUtilityService utilSvc = new UtilityService.UtilityService();
 
         public string FindItemIdByName(string itemName)
         {
@@ -240,7 +242,7 @@ namespace Team7ADProjectMVC.Models
             System.Web.HttpContext.Current.Application["RetrievalList"] = new RetrievalList();
         }
 
-        public void AutoAllocateDisbursementsByOrderOfRequisition()
+        public void AutoAllocateDisbursementsByOrderOfRequisition(DateTime? deliveryDate)
         {
             System.Web.HttpContext.Current.Application.Lock();
             RetrievalList retrievalList = (RetrievalList)System.Web.HttpContext.Current.Application["RetrievalList"];
@@ -265,7 +267,7 @@ namespace Team7ADProjectMVC.Models
                          select x).FirstOrDefault();
                 if (q == null) // if its first time entering loop, create new disbursementlist for dept
                 {
-                    currentDisbursementListId = CreateNewDisbursementListForDepartment(dList, requisition, retrievalList, currentDisbursementListId);
+                    currentDisbursementListId = CreateNewDisbursementListForDepartment(dList, requisition, retrievalList, currentDisbursementListId, deliveryDate);
 
                     foreach (RequisitionDetail reqDetails in requisition.RequisitionDetails)
                     {
@@ -350,29 +352,39 @@ namespace Team7ADProjectMVC.Models
             var x = (from y in retrievalList.itemsToRetrieve
                      where y.itemNo == newDisbursementDetail.ItemNo
                      select y).SingleOrDefault();
-            if (x.collectedQuantity >= reqDetails.OutstandingQuantity && x.collectedQuantity != 0)
+            if (x != null)
             {
-                newDisbursementDetail.PreparedQuantity = reqDetails.OutstandingQuantity;
-                newDisbursementDetail.DeliveredQuantity = newDisbursementDetail.PreparedQuantity;
-                x.collectedQuantity = x.collectedQuantity - (int)reqDetails.OutstandingQuantity;
+                if (x.collectedQuantity >= reqDetails.OutstandingQuantity && x.collectedQuantity != 0)
+                {
+                    newDisbursementDetail.PreparedQuantity = reqDetails.OutstandingQuantity;
+                    newDisbursementDetail.DeliveredQuantity = newDisbursementDetail.PreparedQuantity;
+                    x.collectedQuantity = x.collectedQuantity - (int)reqDetails.OutstandingQuantity;
+                }
+                else
+                {
+                    newDisbursementDetail.PreparedQuantity = x.collectedQuantity;
+                    newDisbursementDetail.DeliveredQuantity = newDisbursementDetail.PreparedQuantity;
+                    x.collectedQuantity = x.collectedQuantity - (int)newDisbursementDetail.PreparedQuantity;
+                }
+                
+                tempDisbursementDetailList.Add(newDisbursementDetail);
             }
-            else
-            {
-                newDisbursementDetail.PreparedQuantity = x.collectedQuantity;
-                newDisbursementDetail.DeliveredQuantity = newDisbursementDetail.PreparedQuantity;
-                x.collectedQuantity = x.collectedQuantity - (int)newDisbursementDetail.PreparedQuantity;
-            }
-
-            tempDisbursementDetailList.Add(newDisbursementDetail);
         }
-        private int? CreateNewDisbursementListForDepartment(DisbursementList dList, Requisition requisition, RetrievalList retrievalList, int? currentDisbursementListId)
+        private int? CreateNewDisbursementListForDepartment(DisbursementList dList, Requisition requisition, RetrievalList retrievalList, int? currentDisbursementListId, DateTime? deliverydate)
         {
+            
             Department d = db.Departments.Find(requisition.DepartmentId);
             dList.DepartmentId = d.DepartmentId;
             dList.RetrievalId = retrievalList.retrievalId;
             dList.Status = "Processing";
-            dList.DeliveryDate = DateTime.Today.AddDays(2); //TODO: Place logic for date later
-
+            if (deliverydate != null)
+            {
+                dList.DeliveryDate = deliverydate;
+            }
+            else
+            {
+                dList.DeliveryDate = DateTime.Today.AddDays(utilSvc.DaysToAdd(DateTime.Today.DayOfWeek, DayOfWeek.Friday));
+            }
             db.Set(typeof(DisbursementList)).Attach(dList);
             db.DisbursementLists.Add(dList);
             db.SaveChanges(); // creates new disbursementlist

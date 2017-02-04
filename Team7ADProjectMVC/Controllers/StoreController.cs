@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Exceptions;
 using Team7ADProjectMVC.Models;
+using Team7ADProjectMVC.Models.UtilityService;
 using Team7ADProjectMVC.Services;
 using Team7ADProjectMVC.Services.DepartmentService;
 using Team7ADProjectMVC.Services.SupplierService;
@@ -20,6 +21,7 @@ namespace Team7ADProjectMVC.TestControllers
         private IDisbursementService disbursementSvc;
         private IDepartmentService deptSvc;
         private ISupplierAndPurchaseOrderService supplierAndPOSvc;
+        private IUtilityService utilSvc;
 
         public StoreController()
         {
@@ -27,16 +29,11 @@ namespace Team7ADProjectMVC.TestControllers
             disbursementSvc = new DisbursementService();
             deptSvc = new DepartmentService();
             supplierAndPOSvc = new SupplierAndPurchaseOrderService();
+            utilSvc = new UtilityService();
         }
 
         //**************** INVENTORY ********************
 
-        // GET: Store
-        public ActionResult Index()
-        {
-            return View("Dashboard");
-            //TODO: EDWIN - Create a nice dashboard or delete this
-        }
         //Seq Diagram Done + Design Done
         [AuthorisePermissions(Permission = "InventoryManagement")]
         public ActionResult Inventory(int? page, int? id) 
@@ -79,6 +76,8 @@ namespace Team7ADProjectMVC.TestControllers
             {
                 ViewBag.Error = TempData["doc"];
             }
+            DateTime suggestedDeliveryDate = DateTime.Today.AddDays(utilSvc.DaysToAdd(DateTime.Today.DayOfWeek, DayOfWeek.Friday));
+            ViewBag.SuggestedDeliveryDate = suggestedDeliveryDate;
             ViewBag.RList = rList;
             return View("ViewRetrievalList");
         }
@@ -311,11 +310,12 @@ namespace Team7ADProjectMVC.TestControllers
         }
         //Seq Diagram Done
         [AuthorisePermissions(Permission = "Disbursement")]
-        public ActionResult DisburseItems()
+        public ActionResult DisburseItems(string disbursementDateString)
         {
+            DateTime deliveryDate = utilSvc.GetDateTimeFromPicker(disbursementDateString);
             try
             {
-                inventorySvc.AutoAllocateDisbursementsByOrderOfRequisition();
+                inventorySvc.AutoAllocateDisbursementsByOrderOfRequisition(deliveryDate);
             }
             catch (InventoryAndDisbursementUpdateException e)
             {

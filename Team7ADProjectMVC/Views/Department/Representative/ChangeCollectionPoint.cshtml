@@ -30,7 +30,7 @@
         <div class="form-group row">
             @Html.LabelFor(model => model.DepartmentName, "Department Name", htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-4">
-                @Html.EditorFor(model => model.DepartmentName, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
+                @Html.DisplayFor(model => model.DepartmentName)
                 @Html.ValidationMessageFor(model => model.DepartmentName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -44,18 +44,18 @@
         </div>
 
         <div class="form-group row">
-                   <label class="control-label col-md-4" for="form">New Collection Point</label>
+            <label class="control-label col-md-4" for="form">New Collection Point</label>
 
-                
-                <div class="col-md-5" id="form">
-                    <span class="k-invalid-msg" data-for="test"></span><br />
-                    <input type="radio" name="radio" required style="visibility:hidden" /><br />
-                    @foreach (var item in ViewBag.Message)
-                    {
-                    <input type="radio" name="radio" value="@item.CollectionPointId" required> @item.PlaceName   <label>( @item.CollectTime )</label> <br />
-                    }
-                </div>
-            
+
+            <div class="col-md-5" id="form">
+
+                <input type="radio" name="radio" required hidden /><br />
+                @foreach (var item in ViewBag.Message)
+                {
+                    <input type="radio " name="radio" value="@item.CollectionPointId" required > @item.PlaceName   <label>( @item.CollectTime )</label> <br />
+                }
+            </div>
+
         </div>
 
         <br />
@@ -79,7 +79,7 @@
                 }
             },
             messages: {
-                radio: "This is a required field"
+                radio: "Please select a new collection"
             }
         }).getKendoValidator();
 
@@ -91,15 +91,15 @@
 
 
 @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="http://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>*@
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="http://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>*@
 
 
 
 
 <script>
-$(document).ready(function(){
-    document.getElementById("menu13").className += "active";
-});
+    $(document).ready(function () {
+        document.getElementById("menu13").className += "active";
+    });
 </script>
