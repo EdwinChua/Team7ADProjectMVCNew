@@ -395,7 +395,7 @@ namespace Team7ADProjectMVC.Models
 
             try //email to notify manager of approval
             {        
-                string emailBody = dList.Department.Representative.EmployeeName + ", you have a disbursement scheduled for collection on " +dList.DeliveryDate+ " "+ dList.Department.CollectionPoint.CollectTime+ " at "+dList.Department.CollectionPoint.PlaceName+ ". Please click on http://localhost//Representative/ViewDisbursementDetail/"+dList.DisbursementListId+" to view details for confirmation.";
+                string emailBody = dList.Department.Representative.EmployeeName + ", you have a disbursement scheduled for collection on " +dList.DeliveryDate+ " "+ dList.Department.CollectionPoint.CollectTime+ " at "+dList.Department.CollectionPoint.PlaceName+ ". Please click on http://"+ utilSvc.GetBaseUrl() + "/Representative/ViewDisbursementDetail/"+dList.DisbursementListId+" to view details for confirmation.";
                 utilSvc.SendEmail(new List<string>(new string[] { dList.Department.Representative.Email}), "New Disbursement Scheduled for Collection", emailBody);
             }
             catch (Exception ex)
@@ -742,8 +742,8 @@ namespace Team7ADProjectMVC.Models
             db.SaveChanges();
             try
             {
-                string emailBody=disbursementList.Department.Representative.EmployeeName+", your disbursement scheduled to be collected on " + previousDate.ToString("dd/MM/yyyy")+" has been rescheduled to " + disbursementList.DeliveryDate.Value.Date.ToString("dd/MM/yyyy")+ ". Please click on http://localhost//Representative/ViewDisbursementDetail/" + disbursementList.DisbursementListId + " for more information.";
-                utilSvc.SendEmail(new List<string>(new string[] { disbursementList.Department.Representative.Email }), "New Disbursement Scheduled for Collection", emailBody);
+                string emailBody=disbursementList.Department.Representative.EmployeeName+", your disbursement scheduled to be collected on " + previousDate.ToString("dd/MM/yyyy")+" has been rescheduled to " + disbursementList.DeliveryDate.Value.Date.ToString("dd/MM/yyyy")+ ". Please click on http://"+ utilSvc.GetBaseUrl() + "//Representative/ViewDisbursementDetail/" + disbursementList.DisbursementListId + " for more information.";
+                utilSvc.SendEmail(new List<string>(new string[] { disbursementList.Department.Representative.Email }), "Disbursement Rescheduled for Collection", emailBody);
             }
             catch(Exception ex)
             {
