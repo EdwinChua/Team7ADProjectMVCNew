@@ -17,6 +17,7 @@ namespace Team7ADProjectMVC.Services
         public List<DisbursementList> GetAllDisbursements()
         {
             var disbursementList = from d in db.DisbursementLists
+                                   orderby d.Status descending
                                    select d;
 
             return (disbursementList.ToList());

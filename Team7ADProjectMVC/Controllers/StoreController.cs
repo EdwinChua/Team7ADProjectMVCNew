@@ -198,7 +198,8 @@ namespace Team7ADProjectMVC.TestControllers
             {
                 disbursementList = disbursementSvc.GetAllDisbursements();
             }
-
+            ViewBag.Id = id;
+            ViewBag.Status = status;
             ViewBag.Departments = deptSvc.ListAllDepartments();
             int pageSize = 10;
             int pageNumber = (page ?? 1);
