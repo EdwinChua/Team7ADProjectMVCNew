@@ -28,6 +28,7 @@ namespace Team7ADProjectMVC.Controllers
         }
 
         // GET: Adjustments
+        [AuthorisePermissions(Permission = "MakeAdjustment,ApproveAdjustment")]
         public ActionResult ViewAdjustment(int? page)
         {
             Employee user = (Employee)Session["user"];
@@ -74,6 +75,7 @@ namespace Team7ADProjectMVC.Controllers
             return View();
         }
 
+        [AuthorisePermissions(Permission = "MakeAdjustment,ApproveAdjustment")]
         public ActionResult SearchAdjustment(string employee, string status, string date, int? page)
         {
 
