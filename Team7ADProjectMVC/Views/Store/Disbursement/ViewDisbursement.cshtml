@@ -14,7 +14,26 @@
 
 
 <h2>Collection Point: @Model.Department.CollectionPoint.PlaceName ( @Model.Department.CollectionPoint.CollectTime ) </h2>
-<div class="pull-right">
+
+<div class="row">
+    <form action="../UpdateDateOfDelivery" method="get">
+        <div class="col-md-2">Delivery Date</div>
+        <div class="form-group col-md-3">
+            <div class='input-group date' id='datetimepicker1'>
+                <input type="hidden" name="disbursementListId" value="@Model.DisbursementListId" />
+                <input type='text' class="form-control" placeholder="Date Ordered" name="deliveryDateString" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <input type="submit" class="btn btn-info pull-right" value="Update Delivery Date" />
+            </div>
+</form>
+</div>
+
+<div class="row pull-right">
     <a href="#" class="btn btn-success noprint dragTxt" onclick="window.print()">
         <span class="glyphicon glyphicon-print"></span> Print
     </a>
@@ -116,6 +135,12 @@
 <script>
     $(document).ready(function () {
         document.getElementById("menu2").className += "active";
+
+        $('#datetimepicker1').datetimepicker({
+            format: 'DD/MM/YYYY',
+            date: '@Model.DeliveryDate',
+            minDate: moment().millisecond(0).second(0).minute(0).hour(0)
+        });
     });
 
     function ClearTB() {

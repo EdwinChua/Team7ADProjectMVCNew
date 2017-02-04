@@ -722,5 +722,22 @@ namespace Team7ADProjectMVC.Models
                             select dd;
             return disDetail.ToList();
         }
+
+        public void UpdateDisbursementDate(DateTime deliveryDate, int disbursementListId)
+        {
+            DisbursementList disbursementList = db.DisbursementLists.Find(disbursementListId);
+            DateTime previousDate = disbursementList.DeliveryDate.Value;
+            disbursementList.DeliveryDate = deliveryDate;
+            db.Entry(disbursementList).State = EntityState.Modified;
+            db.SaveChanges();
+            try
+            {
+                //string emailBody=disbursementList.Department.Representative.EmployeeName+", your disbursement scheduled to be collected on " + previousDate.ToString("dd/MM/yyyy")+" has been rescheduled to " + disbursementList.DeliveryDate.Value.Date.ToString("dd/MM/yyyy")+". Please see "
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
     }
 }

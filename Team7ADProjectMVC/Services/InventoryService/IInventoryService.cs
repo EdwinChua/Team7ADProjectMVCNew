@@ -56,5 +56,6 @@ namespace Team7ADProjectMVC.Models
         List<DisbursementDetail> GetNotCompletedDisbursementDetails(int did, int disbursementListID);
         List<DisbursementList> GetProcessingDisbursements();
         List<DisbursementDetail> FindDisbursementDetails(int dId);
+        void UpdateDisbursementDate(DateTime deliveryDate, int disbursementListId);
     }
 }

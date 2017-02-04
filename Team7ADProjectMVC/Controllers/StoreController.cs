@@ -198,6 +198,7 @@ namespace Team7ADProjectMVC.TestControllers
             {
                 disbursementList = disbursementSvc.GetAllDisbursements();
             }
+            disbursementList = disbursementList.OrderByDescending(x => x.DeliveryDate).ToList();
             ViewBag.Id = id;
             ViewBag.Status = status;
             ViewBag.Departments = deptSvc.ListAllDepartments();
@@ -229,6 +230,12 @@ namespace Team7ADProjectMVC.TestControllers
             return RedirectToAction("ViewDisbursements");
         }
 
+        public ActionResult UpdateDateOfDelivery(string deliveryDateString, int disbursementListId)
+        {
+            DateTime deliveryDate = utilSvc.GetDateTimeFromPicker(deliveryDateString);
+            inventorySvc.UpdateDisbursementDate(deliveryDate, disbursementListId);
+            return RedirectToAction("ViewDisbursement/" + disbursementListId);
+        }
         // ********************* MAINTAIN *******************
         //Seq Diagram Done
         [AuthorisePermissions(Permission = "InventoryManagement")]
