@@ -404,7 +404,13 @@ namespace Team7ADProjectMVC.Models
             var currentDisbursement = (from x in db.DisbursementLists
                                        where x.RetrievalId == lastRetrievalListId
                                        select x).ToList();
-
+            while (currentDisbursement == null || currentDisbursement.Count() <1)
+            {
+                lastRetrievalListId = lastRetrievalListId - 1;
+                currentDisbursement = (from x in db.DisbursementLists
+                                       where x.RetrievalId == lastRetrievalListId
+                                       select x).ToList();
+            }
             List<DisbursementDetail> tempDisbursementDetailList = new List<DisbursementDetail>();
             List<DisbursementDetail> returnDisbursementDetailList = new List<DisbursementDetail>();
             foreach (var x in currentDisbursement)
@@ -509,6 +515,14 @@ namespace Team7ADProjectMVC.Models
             var q = (from x in db.Requisitions
                     where x.RetrievalId == currentRetrievalListId
                     select x).ToList();
+
+            while(q == null || q.Count <1)
+            {
+                currentRetrievalListId = currentRetrievalListId - 1;
+                q = (from x in db.Requisitions
+                         where x.RetrievalId == currentRetrievalListId
+                         select x).ToList();
+            }
             HashSet<Department> test = new HashSet<Department>();
 
             foreach (var x in q.ToList())
