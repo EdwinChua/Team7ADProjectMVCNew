@@ -15,7 +15,7 @@
     <div class="navbar navbar-default row">
 
         <form class="form" role="form" action="SearchAdjustment" method="get">
-            <div class="form-group">
+            <div class="form-group" style="@(currentEmployee.Role .Name  =="Store Clerk" ? "display:block" : "display:none")">
                 @Html.Label("Raised by", htmlAttributes: new { @class = "control-label col-md-1" })
                 <div class="col-md-3 ">
                     @Html.DropDownList("employee", null, "-- Please Select --", htmlAttributes: new { @class = "form-control" })
