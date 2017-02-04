@@ -297,13 +297,15 @@ namespace Team7ADProjectMVC
             }
         }
 
-        public String getallocate()
+        public String getallocate(String deliverydate)
         {
             String rt = "false";
             try
             {
-                //TODO: Edwin/Gogul To fill in date
-                invService.AutoAllocateDisbursementsByOrderOfRequisition(null);
+              
+                String[] e = deliverydate.Split('/');
+                DateTime edate = new DateTime(Int32.Parse(e[2]), Int32.Parse(e[0]), Int32.Parse(e[1]));
+                invService.AutoAllocateDisbursementsByOrderOfRequisition(edate);
                 rt = "True";
             }
             catch(Exception e)
