@@ -392,6 +392,16 @@ namespace Team7ADProjectMVC.Models
             currentDisbursementListId = db.DisbursementLists
                                         .OrderByDescending(x => x.DisbursementListId)
                                         .FirstOrDefault().DisbursementListId; //returns created disbursementlist Id
+
+            try //email to notify manager of approval
+            {        
+                string emailBody = dList.Department.Representative.EmployeeName + ", you have a disbursement scheduled for collection on " +dList.DeliveryDate+ " "+ dList.Department.CollectionPoint.CollectTime+ " at "+dList.Department.CollectionPoint.PlaceName+ ". Please click on http://localhost//Representative/ViewDisbursementDetail/"+dList.DisbursementListId+" to view details for confirmation.";
+                utilSvc.SendEmail(new List<string>(new string[] { dList.Department.Representative.Email}), "New Disbursement Scheduled for Collection", emailBody);
+            }
+            catch (Exception ex)
+            {
+            }
+
             return currentDisbursementListId;
         }
 
@@ -721,6 +731,24 @@ namespace Team7ADProjectMVC.Models
                             orderby dd.Inventory.Description ascending
                             select dd;
             return disDetail.ToList();
+        }
+
+        public void UpdateDisbursementDate(DateTime deliveryDate, int disbursementListId)
+        {
+            DisbursementList disbursementList = db.DisbursementLists.Find(disbursementListId);
+            DateTime previousDate = disbursementList.DeliveryDate.Value;
+            disbursementList.DeliveryDate = deliveryDate;
+            db.Entry(disbursementList).State = EntityState.Modified;
+            db.SaveChanges();
+            try
+            {
+                string emailBody=disbursementList.Department.Representative.EmployeeName+", your disbursement scheduled to be collected on " + previousDate.ToString("dd/MM/yyyy")+" has been rescheduled to " + disbursementList.DeliveryDate.Value.Date.ToString("dd/MM/yyyy")+ ". Please click on http://localhost//Representative/ViewDisbursementDetail/" + disbursementList.DisbursementListId + " for more information.";
+                utilSvc.SendEmail(new List<string>(new string[] { disbursementList.Department.Representative.Email }), "New Disbursement Scheduled for Collection", emailBody);
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
     }
 }

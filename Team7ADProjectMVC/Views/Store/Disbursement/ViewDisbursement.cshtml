@@ -14,7 +14,34 @@
 
 
 <h2>Collection Point: @Model.Department.CollectionPoint.PlaceName ( @Model.Department.CollectionPoint.CollectTime ) </h2>
-<div class="pull-right">
+<hr />
+<div class="row">
+@if (Model.Status == "Processing")
+{
+    <form  id="formDate" action="../UpdateDateOfDelivery" method="get">
+        <div class="col-md-2">Delivery Date</div>
+        <input type="hidden" name="disbursementListId" value="@Model.DisbursementListId" />
+        <div class="form-group col-md-3">
+            <div class='input-group date' id='datetimepicker1'>
+                <input type='text' class="form-control" placeholder="Date Ordered" name="deliveryDateString" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <input type="submit" class="btn btn-info pull-right" value="Update Delivery Date" />
+            </div>
+</form>
+}
+else
+{
+    <div class="col-md-2"><h4>Delivery Date</h4></div>
+    <div class="col-md-3"><h4>@Model.DeliveryDate.Value.ToString("dd/MM/yyyy")</h4></div>
+}
+</div>
+
+<div class="row pull-right">
     <a href="#" class="btn btn-success noprint dragTxt" onclick="window.print()">
         <span class="glyphicon glyphicon-print"></span> Print
     </a>
@@ -105,8 +132,7 @@
     });
     $('#form1 input[type="text"]').each(function () {
         $(this).attr('disabled', 'disabled');
-
-       
+      
     });
         
         $('#submitbutton').attr('disabled', 'disabled');
@@ -116,6 +142,12 @@
 <script>
     $(document).ready(function () {
         document.getElementById("menu2").className += "active";
+
+        $('#datetimepicker1').datetimepicker({
+            format: 'DD/MM/YYYY',
+            date: '@Model.DeliveryDate',
+            minDate: moment().millisecond(0).second(0).minute(0).hour(0)
+        });
     });
 
     function ClearTB() {
