@@ -55,6 +55,23 @@ namespace Team7ADProjectMVC
             //RegisterRoutes(RouteTable.Routes);
             Application["RetrievalList"] = new RetrievalList();
         }
+
+        protected void Application_Error(Object sender, EventArgs e)
+        {
+            Exception exception = Server.GetLastError();
+            Server.ClearError();
+            Employee currentEmployee = (Employee)Session["user"];
+            if (currentEmployee.EmployeeId != 0)
+            {
+                HttpException httpException = exception as HttpException;
+                Response.Redirect("/Home/Error?message=" + exception.Message);
+            }
+            else
+            {
+                Response.Redirect("/Login.aspx");
+            }
+
+        }
         protected void Session_Start()
         {
             Session["user"] = new Employee(); // To prevent layout page from throwing exception

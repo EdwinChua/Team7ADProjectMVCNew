@@ -978,11 +978,21 @@
     </Content>
     <Content Include="Resources\bbb.jpg" />
     <Content Include="Resources\dashboard.css" />
+    <Content Include="Resources\errorpage.css" />
+    <Content Include="Resources\Error_Page\base.png" />
+    <Content Include="Resources\Error_Page\hut.png" />
+    <Content Include="Resources\Error_Page\jedi.png" />
+    <Content Include="Resources\Error_Page\main.jpg" />
+    <Content Include="Resources\Error_Page\NotWhatYouRLookingFor.png" />
+    <Content Include="Resources\Error_Page\oval.png" />
+    <Content Include="Resources\Error_Page\smallhut.png" />
+    <Content Include="Resources\Error_Page\spacecraft.png" />
     <Content Include="Resources\finallogo.jpg" />
     <Content Include="Resources\making.jpg" />
     <Content Include="Resources\mystyle.css" />
     <Content Include="Resources\print.css" />
     <Content Include="Resources\screen.css" />
+    <Content Include="Resources\_error.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1025,6 +1035,7 @@
     </Compile>
     <Compile Include="Controllers\AdjustmentsController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Exceptions\ChangeCollectionPointException.cs" />
     <Compile Include="Controllers\StationeryController.cs" />
     <Compile Include="Controllers\StorePOController.cs" />
@@ -1240,6 +1251,7 @@
     <Content Include="Views\Stationery\Requisition.cshtml" />
     <Content Include="Views\Store\Resupply\CreateAdhocPurchaseOrder.cshtml" />
     <Content Include="Views\Rpt\CostDeptRpt.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
