@@ -275,10 +275,15 @@ namespace Team7ADProjectMVC.Services
             return collectionLocation.ToList();
         }
 
-        public DisbursementDetail UpdateDisbursementStatus(int dId, int dId1, string remarks)
+        public DisbursementDetail UpdateDisbursementStatus(int disbursementDetailId, int updatedDeliveryQuantity, string remarks)
         {
-            DisbursementDetail dd = db.DisbursementDetails.Where(p => p.DisbursementDetailId == dId).First();
-            dd.DeliveredQuantity = dId1;
+            DisbursementDetail dd = db.DisbursementDetails.Where(p => p.DisbursementDetailId == disbursementDetailId).First();
+
+            IInventoryService invSvc = new InventoryService();
+            int updateAmount = updatedDeliveryQuantity - (int)dd.DeliveredQuantity;
+            invSvc.UpdateInventoryQuantity(dd.ItemNo, updateAmount);
+            
+            dd.DeliveredQuantity = updatedDeliveryQuantity;
             dd.Remark = remarks;
             db.SaveChanges();
             return dd;
