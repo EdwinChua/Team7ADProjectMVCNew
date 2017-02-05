@@ -243,7 +243,7 @@ namespace Team7ADProjectMVC.Services
 
             db.SaveChanges();
 
-            foreach(Requisition r in requisitionlist)
+            foreach(Requisition r in requisitionlist.Where(x=>x.DepartmentId==deptid))
             {
                 try
                 {
