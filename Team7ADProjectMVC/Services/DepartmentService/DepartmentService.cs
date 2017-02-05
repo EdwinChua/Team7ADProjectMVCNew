@@ -53,6 +53,7 @@ namespace Team7ADProjectMVC.Services
             List<DisbursementList> list = disbursementService.GetDisbursementByDeptId(department.DepartmentId);
             var q = (from x in list
                      where x.DeliveryDate == DateTime.Today
+                     && x.Status != "Completed"
                      select x).ToList();
 
             if (q.Count() == 0)
