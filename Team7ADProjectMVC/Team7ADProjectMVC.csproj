@@ -1025,7 +1025,6 @@
     </Compile>
     <Compile Include="Controllers\AdjustmentsController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="Controllers\StationeryController.cs" />
     <Compile Include="Controllers\StorePOController.cs" />
     <Compile Include="CreateUserWizard.aspx.cs">
@@ -1103,11 +1102,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\adjustment.cs" />
-    <Compile Include="Models\adjustmentdetail.cs" />
     <Compile Include="Models\AuthorisePermissions.cs" />
     <Compile Include="Models\YrMth.cs" />
-    <Compile Include="Models\List.cs" />
     <Compile Include="Models\PushNotification.cs" />
     <Compile Include="Models\CustomizedComparers.cs" />
     <Compile Include="Notification.cs">
@@ -1180,7 +1176,6 @@
     <Compile Include="Service.svc.cs">
       <DependentUpon>Service.svc</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="StockCard.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1227,11 +1222,6 @@
     <Content Include="Views\Department\Representative\ViewDisbursementDetail.cshtml" />
     <Content Include="Views\Rpt\ItemDeptRpt.cshtml" />
     <Content Include="Views\Rpt\ItemSupplierRpt.cshtml" />
-    <Content Include="Views\Inventory\Create.cshtml" />
-    <Content Include="Views\Inventory\Delete.cshtml" />
-    <Content Include="Views\Inventory\Details.cshtml" />
-    <Content Include="Views\Inventory\Edit.cshtml" />
-    <Content Include="Views\Inventory\Index.cshtml" />
     <Content Include="Views\Adjustments\Create.cshtml" />
     <Content Include="Views\Adjustments\ViewAdjustment.cshtml" />
     <Content Include="Views\Adjustments\AddDetail.cshtml" />
@@ -1260,7 +1250,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Services\WCFService\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

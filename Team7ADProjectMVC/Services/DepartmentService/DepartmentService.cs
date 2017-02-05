@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Team7ADProjectMVC.Models;
-using Team7ADProjectMVC.Models.UtilityService;
 
-namespace Team7ADProjectMVC.Services.DepartmentService
+namespace Team7ADProjectMVC.Services
 {
-    
+    //Author: Sandi
     class DepartmentService : IDepartmentService
     {
         ProjectEntities db = new ProjectEntities();

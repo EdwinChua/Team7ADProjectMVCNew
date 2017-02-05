@@ -1,4 +1,6 @@
 ﻿
+---- Author: Thiha, Seng ----
+
 ----------------------------------------- Run this code first to create the database -----------------------------------------
 use master
 IF EXISTS(SELECT * FROM sys.databases where name = 'Project')

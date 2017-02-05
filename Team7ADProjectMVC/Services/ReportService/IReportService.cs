@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using Team7ADProjectMVC.Models;
 
-namespace Team7ADProjectMVC.Models.ReportService
+namespace Team7ADProjectMVC.Services
 {
+    //Author : Zhan Seng
     public interface IReportService
     {
         List<string> GetMonthValues();

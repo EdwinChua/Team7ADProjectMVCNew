@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Team7ADProjectMVC.Services.SupplierService
+namespace Team7ADProjectMVC.Services
 {
+    //Author : Edwin
     interface ISupplierAndPurchaseOrderService
     {
         List<Supplier> GetAllSuppliers();

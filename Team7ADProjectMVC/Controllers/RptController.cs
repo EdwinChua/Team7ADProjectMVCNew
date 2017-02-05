@@ -1,19 +1,14 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Models;
-using Team7ADProjectMVC.Models.ReportService;
-using Team7ADProjectMVC.Models.UtilityService;
-using Team7ADProjectMVC.Services.DepartmentService;
+using Team7ADProjectMVC.Services;
 
-namespace Team7ADProjectMVC.TestControllers
+namespace Team7ADProjectMVC.Controllers
 {
+    //Author : Zhan Seng
     public class RptController : Controller
     {
         private IReportService rptSvc = new ReportService();

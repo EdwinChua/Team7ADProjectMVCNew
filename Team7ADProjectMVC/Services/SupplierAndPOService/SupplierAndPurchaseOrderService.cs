@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
-using Team7ADProjectMVC.Models.UtilityService;
 
-namespace Team7ADProjectMVC.Services.SupplierService
+namespace Team7ADProjectMVC.Services
 {
+    //Author : Edwin
     public class SupplierAndPurchaseOrderService : ISupplierAndPurchaseOrderService
     {
         ProjectEntities db = new ProjectEntities();
-        UtilityService uSvc = new UtilityService();
+        IUtilityService uSvc = new UtilityService();
         public List<Supplier> GetAllSuppliers()
         {
             return (db.Suppliers.ToList());

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using Team7ADProjectMVC.Services.DepartmentService;
+using Team7ADProjectMVC.Services;
 
 namespace Team7ADProjectMVC.Controllers
 {
+    //Author : Zhan Seng
     public class AuthController : Controller
     {
         ProjectEntities db = new ProjectEntities();

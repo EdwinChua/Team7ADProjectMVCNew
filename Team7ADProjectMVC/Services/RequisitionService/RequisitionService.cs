@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
+using Team7ADProjectMVC.Models;
 
-namespace Team7ADProjectMVC.Models.ListAllRequisitionService
+namespace Team7ADProjectMVC.Services
 {
+    //Author : Chunxiao
     public class RequisitionService : IRequisitionService
     {
         ProjectEntities db = new ProjectEntities();
         PushNotification notify = new PushNotification();
-        UtilityService.UtilityService uSvc = new UtilityService.UtilityService();
+        UtilityService uSvc = new UtilityService();
 
         public List<Requisition> ListAllRequisitionByDept(int? deptId)
         {

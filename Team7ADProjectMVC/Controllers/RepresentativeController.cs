@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Services;
-using Team7ADProjectMVC.Services.DepartmentService;
 using PagedList;
 
-namespace Team7ADProjectMVC.TestControllers
+namespace Team7ADProjectMVC.Controllers
 {
+    //Author : Chunxiao
     public class RepresentativeController : Controller
     {
         private IDisbursementService disbursementSvc;

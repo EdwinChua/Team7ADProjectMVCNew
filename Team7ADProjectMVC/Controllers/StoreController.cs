@@ -1,20 +1,16 @@
 ﻿using PagedList;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Exceptions;
 using Team7ADProjectMVC.Models;
-using Team7ADProjectMVC.Models.UtilityService;
 using Team7ADProjectMVC.Services;
-using Team7ADProjectMVC.Services.DepartmentService;
-using Team7ADProjectMVC.Services.SupplierService;
 
-namespace Team7ADProjectMVC.TestControllers
+namespace Team7ADProjectMVC.Controllers
 {
+    //Author : Edwin
     public class StoreController : Controller
     {
         private IInventoryService inventorySvc;

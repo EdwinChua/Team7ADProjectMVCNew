@@ -1,17 +1,15 @@
 ﻿using PagedList;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Models;
-using Team7ADProjectMVC.Models.InventoryAdjustmentService;
-using Team7ADProjectMVC.Models.UtilityService;
-using Team7ADProjectMVC.Services.DepartmentService;
+using Team7ADProjectMVC.Services;
 
 namespace Team7ADProjectMVC.Controllers
 {
+    //Author : Chunxiao
     public class AdjustmentsController : Controller
     {
         private IInventoryAdjustmentService ivadjustsvc;

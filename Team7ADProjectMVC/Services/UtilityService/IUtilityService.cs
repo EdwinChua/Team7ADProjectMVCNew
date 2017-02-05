@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Team7ADProjectMVC.Models.UtilityService
+namespace Team7ADProjectMVC.Services
 {
+    //Author : Zhan Seng
     public interface IUtilityService
     {
         DateTime GetDateTimeFromPicker(string date);

@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Team7ADProjectMVC.Models
 {
+    //Authro: Zhan Seng
     public struct YrMth
     {
         public int yr, mth;
