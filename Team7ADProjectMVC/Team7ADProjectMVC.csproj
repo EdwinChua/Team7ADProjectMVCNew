@@ -1212,8 +1212,6 @@
     <Content Include="Views\Department\Head\DelegateRole.cshtml" />
     <Content Include="Views\Department\Head\ListAllRequisition.cshtml" />
     <Content Include="Views\Department\Representative\ChangeCollectionPoint.cshtml" />
-    <Content Include="Views\Store\Adjustment\CreateNewAdjustment.cshtml" />
-    <Content Include="Views\Store\Adjustment\InventoryAdjustment.cshtml" />
     <Content Include="Views\Store\Disbursement\ViewDisbursements.cshtml" />
     <Content Include="Views\Store\Inventory\NewStockCard.cshtml" />
     <Content Include="Views\Store\Inventory\UpdateStockCard.cshtml" />
@@ -1225,7 +1223,6 @@
     <Content Include="Views\Store\Resupply\GeneratePO.cshtml" />
     <Content Include="Views\Store\Resupply\PurchaseOrderSummary.cshtml" />
     <Content Include="Views\Store\Resupply\ViewReceiveOrder.cshtml" />
-    <Content Include="Views\Store\Dashboard.cshtml" />
     <Content Include="Views\Store\GenerateReports.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Store\Disbursement\ViewDisbursement.cshtml" />
@@ -1268,7 +1265,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Services\WCFService\" />
-    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
