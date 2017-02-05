@@ -173,55 +173,111 @@ namespace Team7ADProjectMVC.Controllers
         }
 
         [AuthorisePermissions(Permission = "ApproveAdjustment")]
-        public ActionResult SupervisorApprove(int? id)
+        [HttpPost, ActionName("ViewAdjustmentDetail")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ApproveAdjustment(int id, string result)
         {
-            int empid = ((Employee)Session["user"]).EmployeeId;
-            ivadjustsvc.ApproveBySupervisor(empid, id);
-
-            return RedirectToAction("ViewAdjustment");
-        }
-
-        [AuthorisePermissions(Permission = "ApproveAdjustment")]
-        public ActionResult SupervisorRejecct(int? id)
-        {
-            int empid = ((Employee)Session["user"]).EmployeeId;
-            ivadjustsvc.RejecteBySupervisor(empid, id);
-            return RedirectToAction("ViewAdjustment");
-        }
-
-        [AuthorisePermissions(Permission = "ApproveAdjustment")]
-        public ActionResult SupervisorPending(int? id)
-        {
-            int empid = ((Employee)Session["user"]).EmployeeId;
-            ivadjustsvc.PendingBySupervisor(empid, id);
-            try //email to notify manager of approval
+            Employee user = (Employee)Session["user"];
+            string role = ivadjustsvc.findRolebyUserID(user.EmployeeId);
+            if (role == "Store Supervisor")
             {
-                List<Employee> storeManagement = deptSvc.GetStoreManagerAndSupervisor();
-                string emailBody = storeManagement.Where(x => x.RoleId == 6).First().EmployeeName + ", you have a new pending inventory adjustment for approval. Please go to http://" + Request.Url.Host + ":23130//Adjustments/ViewAdjustmentDetail/" + id + " to approve the adjustment.";
-                uSvc.SendEmail(new List<string>(new string[] { storeManagement.Where(x => x.RoleId == 6).First().Email }), "New Inventory Adjustment Pending Approval", emailBody);
+                if (result == "Approve")
+                {
+                    ivadjustsvc.ApproveBySupervisor(user.EmployeeId, id);
+
+                    return RedirectToAction("ViewAdjustment");
+                }
+                else if (result == "Reject")
+                {
+                    ivadjustsvc.RejecteBySupervisor(user.EmployeeId, id);
+                    return RedirectToAction("ViewAdjustment");
+                }
+                else
+                {
+                    ivadjustsvc.PendingBySupervisor(user.EmployeeId, id);
+                    try //email to notify manager of approval
+                    {
+                        List<Employee> storeManagement = deptSvc.GetStoreManagerAndSupervisor();
+                        string emailBody = storeManagement.Where(x => x.RoleId == 6).First().EmployeeName + ", you have a new pending inventory adjustment for approval. Please go to http://" + Request.Url.Host + ":23130//Adjustments/ViewAdjustmentDetail/" + id + " to approve the adjustment.";
+                        uSvc.SendEmail(new List<string>(new string[] { storeManagement.Where(x => x.RoleId == 6).First().Email }), "New Inventory Adjustment Pending Approval", emailBody);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+
+                    return RedirectToAction("ViewAdjustment");
+                }
+
             }
-            catch (Exception ex)
+            if (role == "Store Manager")
             {
+                if (result == "Approve")
+                {
+                    ivadjustsvc.ApproveByManager(user .EmployeeId, id);
+                    return RedirectToAction("ViewAdjustment");
+
+                }
+                if (result == "Reject")
+                {
+                    ivadjustsvc.RejectByManager(user.EmployeeId, id);
+                    return RedirectToAction("ViewAdjustment");
+                }
+
             }
-
-            return RedirectToAction("ViewAdjustment");
+            return View();
         }
 
-        [AuthorisePermissions(Permission = "ApproveAdjustment")]
-        public ActionResult ManagerApprove(int? id)
-        {
-            int empid = ((Employee)Session["user"]).EmployeeId;
-            ivadjustsvc.ApproveByManager(empid, id);
-            return RedirectToAction("ViewAdjustment");
-        }
 
-        [AuthorisePermissions(Permission = "ApproveAdjustment")]
-        public ActionResult ManagerRejecct(int? id)
-        {
-            int empid = ((Employee)Session["user"]).EmployeeId;
-            ivadjustsvc.RejectByManager(empid, id);
-            return RedirectToAction("ViewAdjustment");
-        }
+        //[AuthorisePermissions(Permission = "ApproveAdjustment")]
+        //public ActionResult SupervisorApprove(int? id)
+        //{
+        //    int empid = ((Employee)Session["user"]).EmployeeId;
+        //    ivadjustsvc.ApproveBySupervisor(empid, id);
+
+        //    return RedirectToAction("ViewAdjustment");
+        //}
+
+        //[AuthorisePermissions(Permission = "ApproveAdjustment")]
+        //public ActionResult SupervisorRejecct(int? id)
+        //{
+        //    int empid = ((Employee)Session["user"]).EmployeeId;
+        //    ivadjustsvc.RejecteBySupervisor(empid, id);
+        //    return RedirectToAction("ViewAdjustment");
+        //}
+
+        //[AuthorisePermissions(Permission = "ApproveAdjustment")]
+        //public ActionResult SupervisorPending(int? id)
+        //{
+        //    int empid = ((Employee)Session["user"]).EmployeeId;
+        //    ivadjustsvc.PendingBySupervisor(empid, id);
+        //    try //email to notify manager of approval
+        //    {
+        //        List<Employee> storeManagement = deptSvc.GetStoreManagerAndSupervisor();
+        //        string emailBody = storeManagement.Where(x => x.RoleId == 6).First().EmployeeName + ", you have a new pending inventory adjustment for approval. Please go to http://" + Request.Url.Host + ":23130//Adjustments/ViewAdjustmentDetail/" + id + " to approve the adjustment.";
+        //        uSvc.SendEmail(new List<string>(new string[] { storeManagement.Where(x => x.RoleId == 6).First().Email }), "New Inventory Adjustment Pending Approval", emailBody);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+
+        //    return RedirectToAction("ViewAdjustment");
+        //}
+
+        //[AuthorisePermissions(Permission = "ApproveAdjustment")]
+        //public ActionResult ManagerApprove(int? id)
+        //{
+        //    int empid = ((Employee)Session["user"]).EmployeeId;
+        //    ivadjustsvc.ApproveByManager(empid, id);
+        //    return RedirectToAction("ViewAdjustment");
+        //}
+
+        //[AuthorisePermissions(Permission = "ApproveAdjustment")]
+        //public ActionResult ManagerRejecct(int? id)
+        //{
+        //    int empid = ((Employee)Session["user"]).EmployeeId;
+        //    ivadjustsvc.RejectByManager(empid, id);
+        //    return RedirectToAction("ViewAdjustment");
+        //}
 
 
         //protected override void Dispose(bool disposing)
