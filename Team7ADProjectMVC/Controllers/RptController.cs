@@ -1,19 +1,14 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Models;
-using Team7ADProjectMVC.Models.ReportService;
-using Team7ADProjectMVC.Models.UtilityService;
-using Team7ADProjectMVC.Services.DepartmentService;
+using Team7ADProjectMVC.Services;
 
-namespace Team7ADProjectMVC.TestControllers
+namespace Team7ADProjectMVC.Controllers
 {
+    //Author : Zhan Seng
     public class RptController : Controller
     {
         private IReportService rptSvc = new ReportService();
@@ -34,6 +29,7 @@ namespace Team7ADProjectMVC.TestControllers
         }
 
         [HttpPost]
+        [AuthorisePermissions(Permission = "ViewReports")]
         public ActionResult Index(FormCollection form)
         {
 
@@ -47,7 +43,7 @@ namespace Team7ADProjectMVC.TestControllers
 
         }
 
-        // GET: Rpt/SupplierItem
+        [AuthorisePermissions(Permission = "ViewReports")]
         public ActionResult ItemSupplier()
         {
             ViewBag.Categories = invSvc.GetAllCategories();
@@ -58,6 +54,7 @@ namespace Team7ADProjectMVC.TestControllers
         }
 
         [HttpPost]
+        [AuthorisePermissions(Permission = "ViewReports")]
         public ActionResult ItemSupplier(FormCollection f)
         {
             String categorySelected = Request.Form["Categories"];
@@ -70,6 +67,7 @@ namespace Team7ADProjectMVC.TestControllers
 
         }
 
+        [AuthorisePermissions(Permission = "ViewReports")]
         public ActionResult Stocklist()
         {
 
@@ -93,6 +91,7 @@ namespace Team7ADProjectMVC.TestControllers
         }
 
         [HttpPost]
+        [AuthorisePermissions(Permission = "ViewReports")]
         public ActionResult CostByDept(FormCollection form)
         {
 

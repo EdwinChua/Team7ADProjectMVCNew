@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Team7ADProjectMVC.Models.ListAllRequisitionService
+namespace Team7ADProjectMVC.Services
 {
+    //Author : Chunxiao
     public interface IRequisitionService
     {
         List<Requisition> ListAllRequisitionByDept(int? deptId);

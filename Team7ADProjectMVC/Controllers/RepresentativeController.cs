@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Services;
-using Team7ADProjectMVC.Services.DepartmentService;
 using PagedList;
+using System;
+using System.Linq;
+using Team7ADProjectMVC.Exceptions;
 
-namespace Team7ADProjectMVC.TestControllers
+namespace Team7ADProjectMVC.Controllers
 {
+    //Author : Chunxiao
     public class RepresentativeController : Controller
     {
         private IDisbursementService disbursementSvc;
@@ -82,10 +81,13 @@ namespace Team7ADProjectMVC.TestControllers
         [AuthorisePermissions(Permission = "ChangeCollectionPoint")]
         public ActionResult Edit()
         {
-
             int id = (int)((Employee)Session["user"]).DepartmentId;
             Department department = departmentSvc.FindDeptById(id);
             ViewBag.Message = departmentSvc .getAllCollectionPoint();
+            if (TempData["doc"] != null)
+            {
+                ViewBag.Error = TempData["doc"];
+            }
             return View("ChangeCollectionPoint", department);
 
         }
@@ -94,19 +96,25 @@ namespace Team7ADProjectMVC.TestControllers
         [AuthorisePermissions(Permission = "ChangeCollectionPoint")]
         public ActionResult Edit([Bind(Include = "DepartmentId,CollectionPointId")] Department department)
         {
+            Employee employee = (Employee)Session["user"];
+            List<DisbursementList> list = disbursementSvc.GetDisbursementByDeptId(employee.DepartmentId);
 
-            if (ModelState.IsValid)
+            try
             {
-
-                var rid = Request.Form["radio"];
-
-                departmentSvc.changeDeptCp(department, int.Parse(rid));
-
-
+                if (ModelState.IsValid)
+                {
+                    var rid = Request.Form["radio"];
+                    departmentSvc.changeDeptCp(department, int.Parse(rid));
+                    return RedirectToAction("Edit");
+                }
+            }
+            catch (ChangeCollectionPointException e)
+            {
+                TempData["doc"] = e;
                 return RedirectToAction("Edit");
             }
             ViewBag.Message = departmentSvc .getAllCollectionPoint();
-            return View(department);
+            return RedirectToAction("Edit");
 
         }
 

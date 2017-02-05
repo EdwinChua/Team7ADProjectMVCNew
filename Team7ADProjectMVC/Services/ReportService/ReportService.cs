@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using Team7ADProjectMVC.Models;
 
-namespace Team7ADProjectMVC.Models.ReportService
+namespace Team7ADProjectMVC.Services
 {
+    //Author : Zhan Seng
     public class ReportService : IReportService
     {
         public List<string> GetYearValues()

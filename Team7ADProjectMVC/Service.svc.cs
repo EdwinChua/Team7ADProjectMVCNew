@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
 using Team7ADProjectMVC.Models;
-using Team7ADProjectMVC.Models.ListAllRequisitionService;
 using Team7ADProjectMVC.Services;
 using System.Web.Security;
-using Team7ADProjectMVC.Services.DepartmentService;
-using Team7ADProjectMVC.Services.SupplierService;
 
 namespace Team7ADProjectMVC
 {
-	// NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service" in code, svc and config file together.
-	// NOTE: In order to launch WCF Test Client for testing this service, please select Service.svc or Service.svc.cs at the Solution Explorer and start debugging.
-	public class Service : IService
+    //Author: Gogul / Linda
+
+    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service" in code, svc and config file together.
+    // NOTE: In order to launch WCF Test Client for testing this service, please select Service.svc or Service.svc.cs at the Solution Explorer and start debugging.
+    public class Service : IService
 	{
         ProjectEntities db = new ProjectEntities();
 

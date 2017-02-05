@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
+namespace Team7ADProjectMVC.Services
 {
+    //Author : Chunxiao
     interface IInventoryAdjustmentService
     {
         string findRolebyUserID(int userid);

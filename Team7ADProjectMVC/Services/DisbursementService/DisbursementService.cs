@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
 using Team7ADProjectMVC.Models;
-using Team7ADProjectMVC.Models.UtilityService;
 
 namespace Team7ADProjectMVC.Services
 {
+    //Author : Chunxiao
     public class DisbursementService : IDisbursementService
     {
         ProjectEntities db = new ProjectEntities();
@@ -246,7 +243,7 @@ namespace Team7ADProjectMVC.Services
 
             db.SaveChanges();
 
-            foreach(Requisition r in requisitionlist)
+            foreach(Requisition r in requisitionlist.Where(x=>x.DepartmentId==deptid))
             {
                 try
                 {
@@ -278,10 +275,15 @@ namespace Team7ADProjectMVC.Services
             return collectionLocation.ToList();
         }
 
-        public DisbursementDetail UpdateDisbursementStatus(int dId, int dId1, string remarks)
+        public DisbursementDetail UpdateDisbursementStatus(int disbursementDetailId, int updatedDeliveryQuantity, string remarks)
         {
-            DisbursementDetail dd = db.DisbursementDetails.Where(p => p.DisbursementDetailId == dId).First();
-            dd.DeliveredQuantity = dId1;
+            DisbursementDetail dd = db.DisbursementDetails.Where(p => p.DisbursementDetailId == disbursementDetailId).First();
+
+            IInventoryService invSvc = new InventoryService();
+            int updateAmount = updatedDeliveryQuantity - (int)dd.DeliveredQuantity;
+            invSvc.UpdateInventoryQuantity(dd.ItemNo, updateAmount);
+            
+            dd.DeliveredQuantity = updatedDeliveryQuantity;
             dd.Remark = remarks;
             db.SaveChanges();
             return dd;

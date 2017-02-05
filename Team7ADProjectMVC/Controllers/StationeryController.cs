@@ -1,18 +1,15 @@
 ﻿using PagedList;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Exceptions;
 using Team7ADProjectMVC.Models;
-using Team7ADProjectMVC.Models.ListAllRequisitionService;
-using Team7ADProjectMVC.Services.DepartmentService;
-using Team7ADProjectMVC.Models.UtilityService;
+using Team7ADProjectMVC.Services;
 
 namespace Team7ADProjectMVC.Controllers
 {
+    //Author : Edwin
     public class StationeryController : Controller
     {
         IInventoryService invService;

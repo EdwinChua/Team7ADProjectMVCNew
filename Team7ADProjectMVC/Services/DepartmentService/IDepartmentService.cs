@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Team7ADProjectMVC.Services.DepartmentService
+namespace Team7ADProjectMVC.Services
 {
+    //Author: Sandi
     interface IDepartmentService
     {
         List<Employee> GetStoreManagerAndSupervisor();

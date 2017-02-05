@@ -5,8 +5,9 @@ using System.Net;
 using System.Net.Mail;
 using System.Web;
 
-namespace Team7ADProjectMVC.Models.UtilityService
+namespace Team7ADProjectMVC.Services
 {
+    //Author : Zhan Seng
     public class UtilityService : IUtilityService
     {
         public static string baseUrl = "10.10.2.101";

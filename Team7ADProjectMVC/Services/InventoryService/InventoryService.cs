@@ -4,15 +4,16 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Team7ADProjectMVC.Exceptions;
-using Team7ADProjectMVC.Models.UtilityService;
+using Team7ADProjectMVC.Models;
 
-namespace Team7ADProjectMVC.Models
+namespace Team7ADProjectMVC.Services
 {
+    //Author : Edwin
     public class InventoryService : IInventoryService
     {
         ProjectEntities db = new ProjectEntities();
         PushNotification fcm = new PushNotification();
-        IUtilityService utilSvc = new UtilityService.UtilityService();
+        IUtilityService utilSvc = new UtilityService();
 
         public string FindItemIdByName(string itemName)
         {
@@ -425,9 +426,12 @@ namespace Team7ADProjectMVC.Models
             List<DisbursementDetail> returnDisbursementDetailList = new List<DisbursementDetail>();
             foreach (var x in currentDisbursement)
             {
-                foreach (var y in x.DisbursementDetails)
+                if (x.Status != "Completed")
                 {
-                    tempDisbursementDetailList.Add(y);
+                    foreach (var y in x.DisbursementDetails)
+                    {
+                        tempDisbursementDetailList.Add(y);
+                    }
                 }
             }
 

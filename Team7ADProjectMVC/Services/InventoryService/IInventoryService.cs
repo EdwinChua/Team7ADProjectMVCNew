@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Team7ADProjectMVC.Models;
 
-namespace Team7ADProjectMVC.Models
+namespace Team7ADProjectMVC.Services
 {
+    //Author : Edwin
     interface IInventoryService
     {
         string FindItemIdByName(string itemName);

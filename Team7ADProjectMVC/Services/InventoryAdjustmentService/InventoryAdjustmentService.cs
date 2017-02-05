@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
+namespace Team7ADProjectMVC.Services
 {
+    //Author : Chunxiao
     public class InventoryAdjustmentService : IInventoryAdjustmentService
     {
         ProjectEntities db = new ProjectEntities();
-        Team7ADProjectMVC.Models.UtilityService.UtilityService uSvc = new UtilityService.UtilityService();
+        UtilityService uSvc = new UtilityService();
         public string findRolebyUserID(int userid)
         {
             string role = db.Employees.Find(userid).Role.Name;

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Team7ADProjectMVC.Services.DepartmentService;
+using Team7ADProjectMVC.Services;
 
 namespace Team7ADProjectMVC.Models
 {
+    //Author: Seng
+
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
     public class AuthorisePermissions : AuthorizeAttribute
     {

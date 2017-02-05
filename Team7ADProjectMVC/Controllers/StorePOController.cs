@@ -2,17 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Exceptions;
 using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Services;
-using Team7ADProjectMVC.Services.DepartmentService;
-using Team7ADProjectMVC.Services.SupplierService;
-using Team7ADProjectMVC.Models.UtilityService;
 
 namespace Team7ADProjectMVC.Controllers
 {
+    //Author : Edwin
     public class StorePOController : Controller
     {
         private IInventoryService inventorySvc;
@@ -47,7 +44,7 @@ namespace Team7ADProjectMVC.Controllers
             List<Employee> storeManagement = deptSvc.GetStoreManagerAndSupervisor();
             try //email to Store Manager and Supervisor
             {
-                string emailBody = storeManagement[0].EmployeeName + " and " + storeManagement[1].EmployeeName + ", you have new pending purchase orders for approval. Please go to http://"+ utilSvc.GetBaseUrl() + "/Head/ApproveRequisition to approve them.";
+                string emailBody = storeManagement[0].EmployeeName + " and " + storeManagement[1].EmployeeName + ", you have new pending purchase orders for approval. Please go to http://"+ utilSvc.GetBaseUrl() + "StorePO/PurchaseOrderSummary to approve them.";
                 utilSvc.SendEmail(new List<string>(new string[] { storeManagement[0].Email, storeManagement[1].Email }), "New Purchase Orders for Approval", emailBody);
             }
             catch (Exception ex)

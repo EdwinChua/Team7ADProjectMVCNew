@@ -4,17 +4,18 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Web;
 using System.Web.Script.Serialization;
-using Team7ADProjectMVC.Services.DepartmentService;
+using Team7ADProjectMVC.Services;
 
 namespace Team7ADProjectMVC.Models
 {
+
+    //Author: Gogul / Linda
     public class PushNotification
     {
         //IDepartmentService deptSvc;
         ProjectEntities db = new ProjectEntities();
-        UtilityService.UtilityService uSvc = new UtilityService.UtilityService();
+        UtilityService uSvc = new UtilityService();
         public PushNotification()
         {
             // TODO: Add constructor logic here

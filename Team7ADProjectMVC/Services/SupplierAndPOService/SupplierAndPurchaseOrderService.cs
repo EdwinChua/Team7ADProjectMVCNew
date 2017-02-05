@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
-using Team7ADProjectMVC.Models.UtilityService;
 
-namespace Team7ADProjectMVC.Services.SupplierService
+namespace Team7ADProjectMVC.Services
 {
+    //Author : Edwin
     public class SupplierAndPurchaseOrderService : ISupplierAndPurchaseOrderService
     {
         ProjectEntities db = new ProjectEntities();
-        UtilityService uSvc = new UtilityService();
+        IUtilityService uSvc = new UtilityService();
         public List<Supplier> GetAllSuppliers()
         {
             return (db.Suppliers.ToList());
@@ -251,6 +250,12 @@ namespace Team7ADProjectMVC.Services.SupplierService
                 deliveryDetail.Quantity = quantity[i];
                 deliveryDetail.Remarks = remarks[i];
                 db.Entry(deliveryDetail).State = EntityState.Modified;
+                db.SaveChanges();
+
+                Inventory inventory = db.Inventories.Find(deliveryDetail.ItemNo);
+                inventory.Quantity += quantity[i];
+                inventory.HoldQuantity -= quantity[i];
+                db.Entry(inventory).State = EntityState.Modified;
                 db.SaveChanges();
             }
             Delivery delivery = db.Deliveries.Find(deliveryId);
