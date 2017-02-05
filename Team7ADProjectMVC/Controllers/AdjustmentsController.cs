@@ -198,7 +198,7 @@ namespace Team7ADProjectMVC.Controllers
                     try //email to notify manager of approval
                     {
                         List<Employee> storeManagement = deptSvc.GetStoreManagerAndSupervisor();
-                        string emailBody = storeManagement.Where(x => x.RoleId == 6).First().EmployeeName + ", you have a new pending inventory adjustment for approval. Please go to http://" + Request.Url.Host + ":23130//Adjustments/ViewAdjustmentDetail/" + id + " to approve the adjustment.";
+                        string emailBody = storeManagement.Where(x => x.RoleId == 6).First().EmployeeName + ", you have a new pending inventory adjustment for approval. Please go to http://" + uSvc.GetBaseUrl() + "/Adjustments/ViewAdjustmentDetail/" + id + " to approve the adjustment.";
                         uSvc.SendEmail(new List<string>(new string[] { storeManagement.Where(x => x.RoleId == 6).First().Email }), "New Inventory Adjustment Pending Approval", emailBody);
                     }
                     catch (Exception ex)
@@ -317,7 +317,7 @@ namespace Team7ADProjectMVC.Controllers
                 try //email to notify supervisor of approval
                 {
                     List<Employee> storeManagement = deptSvc.GetStoreManagerAndSupervisor();
-                    string emailBody = storeManagement.Where(x => x.RoleId == 5).First().EmployeeName + ", you have a new pending inventory adjustment for approval. Please go to http://" + Request.Url.Host + ":23130//Adjustments/ViewAdjustmentDetail/" + adjust.AdjustmentId + " to approve the adjustment.";
+                    string emailBody = storeManagement.Where(x => x.RoleId == 5).First().EmployeeName + ", you have a new pending inventory adjustment for approval. Please go to http://" + uSvc.GetBaseUrl() + "/Adjustments/ViewAdjustmentDetail/" + adjust.AdjustmentId + " to approve the adjustment.";
                     uSvc.SendEmail(new List<string>(new string[] { storeManagement.Where(x => x.RoleId == 5).First().Email }), "New Inventory Adjustment Pending Approval", emailBody);
                 }
                 catch (Exception ex)
