@@ -79,7 +79,7 @@ else
                     @{ disbursementListId = item.DisbursementListId;}
                     <input type="hidden" value="@item.ItemNo" name="itemNo" />
                     <input type="hidden" value="@item.PreparedQuantity" name="originalPreparedQty" />
-                    <input type="number" class="form-control" name="adjustedQuantity" value="@item.PreparedQuantity" max="@item.PreparedQuantity"/>
+                    <input type="number" class="form-control" name="adjustedQuantity" value="@item.DeliveredQuantity" max="@item.PreparedQuantity"/>
                 </td>
                 <td>
                     <input type="text" class="form-control" name="remarks" />
