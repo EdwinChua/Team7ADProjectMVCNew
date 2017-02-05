@@ -314,6 +314,7 @@ namespace Team7ADProjectMVC.Controllers
                 if (!ivadjustsvc.IsValidAdjustment(adjust))
                 {
                     ViewBag.ErrorMsg = "Inventory quantity cannot be less than 0. Please check quantity for adjustments.";
+                    ViewBag.ItemNo = new SelectList(invSvc.GetAllInventory(), "ItemNo", "Description");
                     return View(adjust);
                 }
                 ivadjustsvc.createAdjustment(adjust);

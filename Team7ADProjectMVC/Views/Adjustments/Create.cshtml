@@ -20,6 +20,11 @@
         @Html.EditorFor(x => x)
     </div>
     <h3>Adjustment Details </h3>
+    if (ViewBag.ErrorMsg != null)
+    {
+      @Html.Raw(@ViewBag.ErrorMsg)
+    }
+
 
 
     <table class="table">
