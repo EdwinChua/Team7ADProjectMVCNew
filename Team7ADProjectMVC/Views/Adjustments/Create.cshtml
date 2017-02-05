@@ -22,7 +22,8 @@
     <h3>Adjustment Details </h3>
     if (ViewBag.ErrorMsg != null)
     {
-      @Html.Raw(@ViewBag.ErrorMsg)
+        <h5 style="color :red">@ViewBag.ErrorMsg</h5>
+
     }
 
 
@@ -46,20 +47,20 @@
         <thead />
     </table>
 
-    <div id="detail-list">
-        @Html.EditorForMany(x => x.AdjustmentDetails)
-    </div>
-            <hr />
-            @Html.Raw("*For adjustments that reduce the inventory totals, please include a negative sign '-' before the adjustment quantity.")
-            <div class="row">
-                <div class="form-group">
-                    <div class="col-md-12 text-right">
+        <div id="detail-list">
+            @Html.EditorForMany(x => x.AdjustmentDetails)
+        </div>
+        <hr />
+        <h5 style="color :red"> *For adjustments that reduce the inventory totals, please include a negative sign '-' before the adjustment quantity.</h5>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-12 text-right">
 
-                        <button type="button" id="add-detail" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Another Item</button>
-                        <input type="submit" value="Submit For Approval" class="btn btn-success" />
-                    </div>
+                    <button type="button" id="add-detail" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Another Item</button>
+                    <input type="submit" value="Submit For Approval" class="btn btn-success" />
                 </div>
             </div>
+        </div>
 }
 
 <br />
