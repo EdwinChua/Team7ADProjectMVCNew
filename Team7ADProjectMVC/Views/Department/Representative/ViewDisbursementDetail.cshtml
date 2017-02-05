@@ -6,6 +6,7 @@
     Page.Title = "Disbursement List for " + @ViewBag.DisbursementList.Department.DepartmentName;
     Employee currentEmployee = (Employee)Session["User"];
     Page.Employee = currentEmployee;
+    //Author: Chun Xiao
 }
 
 <h3>Collection Point: @ViewBag.Cpname (@ViewBag.Cptime)</h3>
