@@ -1187,15 +1187,11 @@
     <Compile Include="Supplier.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="TestControllers\EmployeesController.cs" />
     <Compile Include="TestControllers\FCMController.cs" />
     <Compile Include="Controllers\HeadController.cs" />
-    <Compile Include="TestControllers\InventoriesController.cs" />
     <Compile Include="Controllers\RepresentativeController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\RptController.cs" />
-    <Compile Include="TestControllers\SuppliersController.cs" />
-    <Compile Include="TestControllers\TESTPurchaseOrdersController.cs" />
     <Compile Include="ReportViewer.aspx.cs">
       <DependentUpon>ReportViewer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
