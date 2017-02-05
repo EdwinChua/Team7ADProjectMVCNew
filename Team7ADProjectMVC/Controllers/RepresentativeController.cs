@@ -4,6 +4,9 @@ using System.Web.Mvc;
 using Team7ADProjectMVC.Models;
 using Team7ADProjectMVC.Services;
 using PagedList;
+using System;
+using System.Linq;
+using Team7ADProjectMVC.Exceptions;
 
 namespace Team7ADProjectMVC.Controllers
 {
@@ -78,10 +81,13 @@ namespace Team7ADProjectMVC.Controllers
         [AuthorisePermissions(Permission = "ChangeCollectionPoint")]
         public ActionResult Edit()
         {
-
             int id = (int)((Employee)Session["user"]).DepartmentId;
             Department department = departmentSvc.FindDeptById(id);
             ViewBag.Message = departmentSvc .getAllCollectionPoint();
+            if (TempData["doc"] != null)
+            {
+                ViewBag.Error = TempData["doc"];
+            }
             return View("ChangeCollectionPoint", department);
 
         }
@@ -90,19 +96,34 @@ namespace Team7ADProjectMVC.Controllers
         [AuthorisePermissions(Permission = "ChangeCollectionPoint")]
         public ActionResult Edit([Bind(Include = "DepartmentId,CollectionPointId")] Department department)
         {
-
-            if (ModelState.IsValid)
+            Employee employee = (Employee)Session["user"];
+            List<DisbursementList> list = disbursementSvc.GetDisbursementByDeptId(employee.DepartmentId);
+            var q = (from x in list
+                    where x.DeliveryDate == DateTime.Today
+                    select x).ToList();
+            try
             {
-
-                var rid = Request.Form["radio"];
-
-                departmentSvc.changeDeptCp(department, int.Parse(rid));
-
-
+                if (q.Count == 0)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        var rid = Request.Form["radio"];
+                        departmentSvc.changeDeptCp(department, int.Parse(rid));
+                        return RedirectToAction("Edit");
+                    }
+                }
+                else
+                {
+                    throw new ChangeCollectionPointException("You have a collection due today. Please try again tomorrow.");
+                }
+            }
+            catch (ChangeCollectionPointException e)
+            {
+                TempData["doc"] = e;
                 return RedirectToAction("Edit");
             }
             ViewBag.Message = departmentSvc .getAllCollectionPoint();
-            return View(department);
+            return RedirectToAction("Edit");
 
         }
 

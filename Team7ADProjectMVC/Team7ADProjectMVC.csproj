@@ -1025,6 +1025,7 @@
     </Compile>
     <Compile Include="Controllers\AdjustmentsController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Exceptions\ChangeCollectionPointException.cs" />
     <Compile Include="Controllers\StationeryController.cs" />
     <Compile Include="Controllers\StorePOController.cs" />
     <Compile Include="CreateUserWizard.aspx.cs">

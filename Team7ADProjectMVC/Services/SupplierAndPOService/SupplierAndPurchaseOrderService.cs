@@ -251,6 +251,12 @@ namespace Team7ADProjectMVC.Services
                 deliveryDetail.Remarks = remarks[i];
                 db.Entry(deliveryDetail).State = EntityState.Modified;
                 db.SaveChanges();
+
+                Inventory inventory = db.Inventories.Find(deliveryDetail.ItemNo);
+                inventory.Quantity += quantity[i];
+                inventory.HoldQuantity -= quantity[i];
+                db.Entry(inventory).State = EntityState.Modified;
+                db.SaveChanges();
             }
             Delivery delivery = db.Deliveries.Find(deliveryId);
             delivery.DeliveredDate = DateTime.Today;
