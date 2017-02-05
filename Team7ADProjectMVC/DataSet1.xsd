@@ -71,6 +71,28 @@
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="CostAnalysisTableAdapter" GeneratorDataComponentClassName="CostAnalysisTableAdapter" Name="CostAnalysis" UserDataComponentName="CostAnalysisTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ProjectConnectionString (Web.config)" DbObjectName="Project.dbo.CostAnalysis" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select * from costanalysis</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="DepartmentName" DataSetColumn="DepartmentName" />
+              <Mapping SourceColumn="Description" DataSetColumn="Description" />
+              <Mapping SourceColumn="ItemNo" DataSetColumn="ItemNo" />
+              <Mapping SourceColumn="DeliveredQuantity" DataSetColumn="DeliveredQuantity" />
+              <Mapping SourceColumn="Cost" DataSetColumn="Cost" />
+              <Mapping SourceColumn="CategoryName" DataSetColumn="CategoryName" />
+              <Mapping SourceColumn="DeliveryDate" DataSetColumn="DeliveryDate" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources />
       </DataSource>
@@ -79,7 +101,7 @@
   <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="disbAnalysis" msprop:Generator_TableClassName="disbAnalysisDataTable" msprop:Generator_TableVarName="tabledisbAnalysis" msprop:Generator_TablePropName="disbAnalysis" msprop:Generator_RowDeletingName="disbAnalysisRowDeleting" msprop:Generator_RowChangingName="disbAnalysisRowChanging" msprop:Generator_RowEvHandlerName="disbAnalysisRowChangeEventHandler" msprop:Generator_RowDeletedName="disbAnalysisRowDeleted" msprop:Generator_UserTableName="disbAnalysis" msprop:Generator_RowChangedName="disbAnalysisRowChanged" msprop:Generator_RowEvArgName="disbAnalysisRowChangeEvent" msprop:Generator_RowClassName="disbAnalysisRow">
+        <xs:element name="disbAnalysis" msprop:Generator_TableClassName="disbAnalysisDataTable" msprop:Generator_TableVarName="tabledisbAnalysis" msprop:Generator_RowChangedName="disbAnalysisRowChanged" msprop:Generator_TablePropName="disbAnalysis" msprop:Generator_RowDeletingName="disbAnalysisRowDeleting" msprop:Generator_RowChangingName="disbAnalysisRowChanging" msprop:Generator_RowEvHandlerName="disbAnalysisRowChangeEventHandler" msprop:Generator_RowDeletedName="disbAnalysisRowDeleted" msprop:Generator_RowClassName="disbAnalysisRow" msprop:Generator_UserTableName="disbAnalysis" msprop:Generator_RowEvArgName="disbAnalysisRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="DepartmentName" msprop:Generator_ColumnVarNameInTable="columnDepartmentName" msprop:Generator_ColumnPropNameInRow="DepartmentName" msprop:Generator_ColumnPropNameInTable="DepartmentNameColumn" msprop:Generator_UserColumnName="DepartmentName" minOccurs="0">
@@ -115,7 +137,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="PurchaseAnalysis" msprop:Generator_TableClassName="PurchaseAnalysisDataTable" msprop:Generator_TableVarName="tablePurchaseAnalysis" msprop:Generator_RowChangedName="PurchaseAnalysisRowChanged" msprop:Generator_TablePropName="PurchaseAnalysis" msprop:Generator_RowDeletingName="PurchaseAnalysisRowDeleting" msprop:Generator_RowChangingName="PurchaseAnalysisRowChanging" msprop:Generator_RowEvHandlerName="PurchaseAnalysisRowChangeEventHandler" msprop:Generator_RowDeletedName="PurchaseAnalysisRowDeleted" msprop:Generator_RowClassName="PurchaseAnalysisRow" msprop:Generator_UserTableName="PurchaseAnalysis" msprop:Generator_RowEvArgName="PurchaseAnalysisRowChangeEvent">
+        <xs:element name="PurchaseAnalysis" msprop:Generator_TableClassName="PurchaseAnalysisDataTable" msprop:Generator_TableVarName="tablePurchaseAnalysis" msprop:Generator_TablePropName="PurchaseAnalysis" msprop:Generator_RowDeletingName="PurchaseAnalysisRowDeleting" msprop:Generator_RowChangingName="PurchaseAnalysisRowChanging" msprop:Generator_RowEvHandlerName="PurchaseAnalysisRowChangeEventHandler" msprop:Generator_RowDeletedName="PurchaseAnalysisRowDeleted" msprop:Generator_UserTableName="PurchaseAnalysis" msprop:Generator_RowChangedName="PurchaseAnalysisRowChanged" msprop:Generator_RowEvArgName="PurchaseAnalysisRowChangeEvent" msprop:Generator_RowClassName="PurchaseAnalysisRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="SupplierName" msprop:Generator_ColumnVarNameInTable="columnSupplierName" msprop:Generator_ColumnPropNameInRow="SupplierName" msprop:Generator_ColumnPropNameInTable="SupplierNameColumn" msprop:Generator_UserColumnName="SupplierName" minOccurs="0">
@@ -144,7 +166,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Stocklist" msprop:Generator_TableClassName="StocklistDataTable" msprop:Generator_TableVarName="tableStocklist" msprop:Generator_TablePropName="Stocklist" msprop:Generator_RowDeletingName="StocklistRowDeleting" msprop:Generator_RowChangingName="StocklistRowChanging" msprop:Generator_RowEvHandlerName="StocklistRowChangeEventHandler" msprop:Generator_RowDeletedName="StocklistRowDeleted" msprop:Generator_UserTableName="Stocklist" msprop:Generator_RowChangedName="StocklistRowChanged" msprop:Generator_RowEvArgName="StocklistRowChangeEvent" msprop:Generator_RowClassName="StocklistRow">
+        <xs:element name="Stocklist" msprop:Generator_TableClassName="StocklistDataTable" msprop:Generator_TableVarName="tableStocklist" msprop:Generator_RowChangedName="StocklistRowChanged" msprop:Generator_TablePropName="Stocklist" msprop:Generator_RowDeletingName="StocklistRowDeleting" msprop:Generator_RowChangingName="StocklistRowChanging" msprop:Generator_RowEvHandlerName="StocklistRowChangeEventHandler" msprop:Generator_RowDeletedName="StocklistRowDeleted" msprop:Generator_RowClassName="StocklistRow" msprop:Generator_UserTableName="Stocklist" msprop:Generator_RowEvArgName="StocklistRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ItemNo" msprop:Generator_ColumnVarNameInTable="columnItemNo" msprop:Generator_ColumnPropNameInRow="ItemNo" msprop:Generator_ColumnPropNameInTable="ItemNoColumn" msprop:Generator_UserColumnName="ItemNo">
@@ -179,6 +201,43 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="HoldQuantity" msprop:Generator_ColumnVarNameInTable="columnHoldQuantity" msprop:Generator_ColumnPropNameInRow="HoldQuantity" msprop:Generator_ColumnPropNameInTable="HoldQuantityColumn" msprop:Generator_UserColumnName="HoldQuantity" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CostAnalysis" msprop:Generator_TableClassName="CostAnalysisDataTable" msprop:Generator_TableVarName="tableCostAnalysis" msprop:Generator_TablePropName="CostAnalysis" msprop:Generator_RowDeletingName="CostAnalysisRowDeleting" msprop:Generator_RowChangingName="CostAnalysisRowChanging" msprop:Generator_RowEvHandlerName="CostAnalysisRowChangeEventHandler" msprop:Generator_RowDeletedName="CostAnalysisRowDeleted" msprop:Generator_UserTableName="CostAnalysis" msprop:Generator_RowChangedName="CostAnalysisRowChanged" msprop:Generator_RowEvArgName="CostAnalysisRowChangeEvent" msprop:Generator_RowClassName="CostAnalysisRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="DepartmentName" msprop:Generator_ColumnVarNameInTable="columnDepartmentName" msprop:Generator_ColumnPropNameInRow="DepartmentName" msprop:Generator_ColumnPropNameInTable="DepartmentNameColumn" msprop:Generator_UserColumnName="DepartmentName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_UserColumnName="Description" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ItemNo" msprop:Generator_ColumnVarNameInTable="columnItemNo" msprop:Generator_ColumnPropNameInRow="ItemNo" msprop:Generator_ColumnPropNameInTable="ItemNoColumn" msprop:Generator_UserColumnName="ItemNo">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DeliveredQuantity" msprop:Generator_ColumnVarNameInTable="columnDeliveredQuantity" msprop:Generator_ColumnPropNameInRow="DeliveredQuantity" msprop:Generator_ColumnPropNameInTable="DeliveredQuantityColumn" msprop:Generator_UserColumnName="DeliveredQuantity" type="xs:int" minOccurs="0" />
+              <xs:element name="Cost" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnCost" msprop:Generator_ColumnPropNameInRow="Cost" msprop:Generator_ColumnPropNameInTable="CostColumn" msprop:Generator_UserColumnName="Cost" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CategoryName" msprop:Generator_ColumnVarNameInTable="columnCategoryName" msprop:Generator_ColumnPropNameInRow="CategoryName" msprop:Generator_ColumnPropNameInTable="CategoryNameColumn" msprop:Generator_UserColumnName="CategoryName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DeliveryDate" msprop:Generator_ColumnVarNameInTable="columnDeliveryDate" msprop:Generator_ColumnPropNameInRow="DeliveryDate" msprop:Generator_ColumnPropNameInTable="DeliveryDateColumn" msprop:Generator_UserColumnName="DeliveryDate" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -129,5 +129,48 @@ namespace Team7ADProjectMVC.Models.ReportService
             return dt.AsDataView();
         }
 
+        public DataView GetDataForCostAnalysis(List<YrMth> yrMthList, List<string> depts, List<string> categoriesSelected)
+        {
+            DataSet1TableAdapters.CostAnalysisTableAdapter da = new DataSet1TableAdapters.CostAnalysisTableAdapter();
+            DataSet1.CostAnalysisDataTable dt = new DataSet1.CostAnalysisDataTable();
+            da.Fill(dt);
+            List<DataSet1.CostAnalysisRow> filteredList;
+            if (categoriesSelected.Contains("All"))
+            {
+                filteredList = dt.Where(x => depts.Contains(x.DepartmentName)).ToList<DataSet1.CostAnalysisRow>();
+            }
+            else filteredList = dt.Where(x => categoriesSelected.Contains(x.CategoryName) && depts.Contains(x.DepartmentName)).ToList<DataSet1.CostAnalysisRow>();
+
+            DataSet1.CostAnalysisDataTable filteredDT = new DataSet1.CostAnalysisDataTable();
+            foreach (DataSet1.CostAnalysisRow r in filteredList)
+            {
+                filteredDT.ImportRow(r);
+            }
+            EnumerableRowCollection<Team7ADProjectMVC.DataSet1.CostAnalysisRow> query;
+            if (yrMthList.Count == 3)
+            {
+                query = from row in filteredDT.AsEnumerable()
+                        where row.Field<DateTime>("DeliveryDate").Month == yrMthList[0].mth && row.Field<DateTime>("DeliveryDate").Year == yrMthList[0].yr
+                        || row.Field<DateTime>("DeliveryDate").Month == yrMthList[1].mth && row.Field<DateTime>("DeliveryDate").Year == yrMthList[1].yr
+                        || row.Field<DateTime>("DeliveryDate").Month == yrMthList[2].mth && row.Field<DateTime>("DeliveryDate").Year == yrMthList[2].yr
+                        select row;
+            }
+            else if (yrMthList.Count == 2)
+            {
+                query = from row in filteredDT.AsEnumerable()
+                        where row.Field<DateTime>("DeliveryDate").Month == yrMthList[0].mth && row.Field<DateTime>("DeliveryDate").Year == yrMthList[0].yr
+                        || row.Field<DateTime>("DeliveryDate").Month == yrMthList[1].mth && row.Field<DateTime>("DeliveryDate").Year == yrMthList[1].yr
+                        select row;
+            }
+            else
+            {
+                query = from row in filteredDT.AsEnumerable()
+                        where row.Field<DateTime>("DeliveryDate").Month == yrMthList[0].mth && row.Field<DateTime>("DeliveryDate").Year == yrMthList[0].yr
+                        select row;
+            }
+            DataView data = query.AsDataView();
+            return data;
+        }
+
     }
 }

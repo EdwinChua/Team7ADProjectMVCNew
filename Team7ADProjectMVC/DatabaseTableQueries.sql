@@ -975,6 +975,12 @@ Create View Stocklist as
 select i.ItemNo,I.Description,I.BinNo,I.ReorderLevel,I.ReorderQuantity,I.Quantity,m.UnitOfMeasurement,i.HoldQuantity from inventory i, Category c, measurement m where i.CategoryId=c.CategoryId and m.MeasurementId=i.MeasurementId
 
 
+-------------------------------------- CrystalReports Views Cost Analysis----------------------------------------
+create view CostAnalysis as
+select d.DepartmentName,i.Description,i.ItemNo,dd.DeliveredQuantity,dd.DeliveredQuantity*i.Price1 as Cost,c.CategoryName,dl.DeliveryDate
+from DisbursementDetail dd, DisbursementList dl, Inventory i,Department d, Category c
+where dd.DisbursementListId=dl.DisbursementListId and dl.DepartmentId=d.DepartmentId and dd.ItemNo=i.ItemNo and i.CategoryId=c.CategoryId
+
 ---------------------------------------Utility query to list out employees and their roles---------------------------------
 select e.EmployeeId,e.EmployeeName,d.DepartmentName,r.Name from Employee e, role r, Department d
 where e.RoleId=r.RoleId and e.DepartmentId=d.DepartmentId
