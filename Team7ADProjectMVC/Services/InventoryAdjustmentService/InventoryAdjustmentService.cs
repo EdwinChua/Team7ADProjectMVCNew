@@ -23,7 +23,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
                                   || x.Status == "Rejected"
                                   orderby x.AdjustmentDate
                                   select x
-                                   ).ToList();
+                                   ).OrderByDescending(x => x.AdjustmentDate).ToList();
 
 
             return (adjustmentlist);
@@ -36,7 +36,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
                                   || x.Status == "Rejected"
                                   orderby x.AdjustmentDate
                                   select x
-                      ).ToList();
+                      ).OrderByDescending(x=>x.AdjustmentDate).ToList();
 
             return (adjustmentlist);
         }
@@ -45,7 +45,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
             var adjustmentlist = (from x in db.Adjustments
                                   orderby x.AdjustmentDate
                                   select x
-                                  ).ToList();
+                                  ).OrderByDescending (x=>x.AdjustmentDate).ToList();
             return adjustmentlist;
 
         }
@@ -65,7 +65,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
                 var resultlist = (from x in searchlist
                                   where x.Status.Equals(status)
                                   orderby x.AdjustmentDate
-                                  select x).ToList();
+                                  select x).OrderByDescending(x=>x.AdjustmentDate).ToList();
                 return resultlist;
             }
             else if ((status == null || status == "") && (date == null || date == ""))//only select employee
@@ -74,7 +74,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
                 var resultlist = (from x in searchlist
                                   where x.EmployeeId == epyid
                                   orderby x.AdjustmentDate
-                                  select x).ToList();
+                                  select x).OrderByDescending(x => x.AdjustmentDate).ToList();
                 return resultlist;
 
             }
@@ -85,7 +85,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
                 var resultlist = (from x in searchlist
                                   where x.AdjustmentDate == selectedate
                                   orderby x.Status
-                                  select x).ToList();
+                                  select x).OrderByDescending(x => x.AdjustmentDate).ToList();
                 return resultlist;
             }
             else if ((date == null || date == ""))//select employee and status
@@ -95,7 +95,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
                                   where x.EmployeeId == epyid
                                   && x.Status.Equals(status)
                                   orderby x.AdjustmentDate
-                                  select x).ToList();
+                                  select x).OrderByDescending(x => x.AdjustmentDate).ToList();
                 return resultlist;
             }
             else if ((status == null || status == ""))//select emp and date
@@ -107,7 +107,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
                                   where x.AdjustmentDate == selectedate
                                   && x.EmployeeId == epyid
                                   orderby x.Status
-                                  select x).ToList();
+                                  select x).OrderByDescending(x => x.AdjustmentDate).ToList();
                 return resultlist;
             }
             else if ((employee == null || employee == ""))//select date and status
@@ -118,7 +118,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
                                   where x.AdjustmentDate == selectedate
                                   && x.Status.Equals(status)
                                   orderby x.EmployeeId
-                                  select x).ToList();
+                                  select x).OrderByDescending(x => x.AdjustmentDate).ToList();
                 return resultlist;
             }
             else
@@ -131,7 +131,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
                                   && x.Status.Equals(status)
                                   && x.EmployeeId == epyid
                                   orderby x.Status
-                                  select x).ToList();
+                                  select x).OrderByDescending(x => x.AdjustmentDate).ToList();
                 return resultlist;
             }
         }
@@ -155,7 +155,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
             {
                 var price = Math.Abs(Convert.ToInt32(item.Quantity)) * item.Inventory.Price1;
 
-                total +=  price;
+                total += price;
             }
             return total;
         }
@@ -164,10 +164,10 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
             db.Adjustments.Find(adjid).SupervisorAuthorizedDate = DateTime.Today;
             db.Adjustments.Find(adjid).SupervisorId = empid;
             db.Adjustments.Find(adjid).Status = "Approved";
-            var adjdtlist =db.AdjustmentDetails.Where(x => x.AdjustmentId == adjid).ToList();
+            var adjdtlist = db.AdjustmentDetails.Where(x => x.AdjustmentId == adjid).ToList();
             foreach (var adjdt in adjdtlist)
             {
-                var ivquantity=db.Inventories.Find(adjdt.ItemNo).Quantity;
+                var ivquantity = db.Inventories.Find(adjdt.ItemNo).Quantity;
                 db.Inventories.Find(adjdt.ItemNo).Quantity = ivquantity + adjdt.Quantity;
             }
             db.SaveChanges();
@@ -221,7 +221,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
         {
             try //email to notify approval
             {
-                string emailBody = adj.Employee.EmployeeName + ", your request for an inventory adjustment dated " + adj.AdjustmentDate.Value.Date.ToString("dd/MM/YYYY") + " is approved.";
+                string emailBody = adj.Employee.EmployeeName + ", your request for an inventory adjustment dated " + adj.AdjustmentDate.Value.Date.ToString("dd/MM/yyyy") + " is approved.";
                 uSvc.SendEmail(new List<string>(new string[] { adj.Employee.Email }), "Inventory Adjustment Approved", emailBody);
             }
             catch (Exception ex)
@@ -232,7 +232,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
         {
             try //email to notify approval
             {
-                string emailBody = adj.Employee.EmployeeName + ", your request for an inventory adjustment dated " + adj.AdjustmentDate.Value.Date.ToString("dd/MM/YYYY") + " is rejected.";
+                string emailBody = adj.Employee.EmployeeName + ", your request for an inventory adjustment dated " + adj.AdjustmentDate.Value.Date.ToString("dd/MM/yyyy") + " is rejected.";
                 uSvc.SendEmail(new List<string>(new string[] { adj.Employee.Email }), "Inventory Adjustment Rejected", emailBody);
             }
             catch (Exception ex)

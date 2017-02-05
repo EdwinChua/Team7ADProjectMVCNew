@@ -13,9 +13,9 @@
 
     <h2>Generate Reports</h2>
     <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="/Rpt"><h4>Item Consumption by Departments</h4></a></li>
+        <li role="presentation"><a href="/Rpt"><h4>Item Consumption by Departments</h4></a></li>
         <li role="presentation"><a href="/Rpt/ItemSupplier"><h4>Item Supply by Suppliers</h4></a></li>
-        <li role="presentation"><a href="/Rpt/CostByDept"><h4>Item Costs by Departments</h4></a></li>
+        <li role="presentation" class="active"><a href="/Rpt/CostByDept"><h4>Item Costs by Departments</h4></a></li>
         <li role="presentation"><a href="/Rpt/Stocklist"><h4>Stock List</h4></a></li>
     </ul>
     <div class="form-horizontal">
@@ -47,8 +47,8 @@
             <div class="col-md-5">
                 <select id="Categories" name="Categories"
                         class="selectpicker show-tick form-control"
-                        data-live-search="true" required>
-                    <option></option>
+                        data-live-search="true" multiple required>
+                    <option>All</option>
                     @foreach (var item in ViewBag.Categories)
                     {
                         <option data-subtext="">@item.CategoryName</option>
