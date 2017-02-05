@@ -426,9 +426,12 @@ namespace Team7ADProjectMVC.Services
             List<DisbursementDetail> returnDisbursementDetailList = new List<DisbursementDetail>();
             foreach (var x in currentDisbursement)
             {
-                foreach (var y in x.DisbursementDetails)
+                if (x.Status != "Completed")
                 {
-                    tempDisbursementDetailList.Add(y);
+                    foreach (var y in x.DisbursementDetails)
+                    {
+                        tempDisbursementDetailList.Add(y);
+                    }
                 }
             }
 
