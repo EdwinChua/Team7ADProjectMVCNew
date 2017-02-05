@@ -11,5 +11,6 @@ namespace Team7ADProjectMVC.Models.ReportService
         DataView GetDataForDisbAnalysis(List<YrMth> yrMthList, List<string> depts, string categorySelected);
         DataView GetDataForSupplierAnalysis(List<YrMth> yrMthList, string categorySelected);
         DataView GetDataForStocklist();
+        DataView GetDataForCostAnalysis(List<YrMth> yrMthList, List<string> depts, List<string> categoriesSelected);
     }
 }

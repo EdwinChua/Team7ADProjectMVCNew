@@ -1140,6 +1140,13 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Reports\CrystalReport4.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrystalReport4.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Requisition.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1205,8 +1212,6 @@
     <Content Include="Views\Department\Head\DelegateRole.cshtml" />
     <Content Include="Views\Department\Head\ListAllRequisition.cshtml" />
     <Content Include="Views\Department\Representative\ChangeCollectionPoint.cshtml" />
-    <Content Include="Views\Store\Adjustment\CreateNewAdjustment.cshtml" />
-    <Content Include="Views\Store\Adjustment\InventoryAdjustment.cshtml" />
     <Content Include="Views\Store\Disbursement\ViewDisbursements.cshtml" />
     <Content Include="Views\Store\Inventory\NewStockCard.cshtml" />
     <Content Include="Views\Store\Inventory\UpdateStockCard.cshtml" />
@@ -1218,7 +1223,6 @@
     <Content Include="Views\Store\Resupply\GeneratePO.cshtml" />
     <Content Include="Views\Store\Resupply\PurchaseOrderSummary.cshtml" />
     <Content Include="Views\Store\Resupply\ViewReceiveOrder.cshtml" />
-    <Content Include="Views\Store\Dashboard.cshtml" />
     <Content Include="Views\Store\GenerateReports.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Store\Disbursement\ViewDisbursement.cshtml" />
@@ -1248,6 +1252,7 @@
     <Content Include="Views\Stationery\DepartmentRequisitions.cshtml" />
     <Content Include="Views\Stationery\Requisition.cshtml" />
     <Content Include="Views\Store\Resupply\CreateAdhocPurchaseOrder.cshtml" />
+    <Content Include="Views\Rpt\CostDeptRpt.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1260,7 +1265,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Services\WCFService\" />
-    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -1280,6 +1284,13 @@
     <Content Include="Reports\CrystalReport3.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CrystalReport3.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reports\CrystalReport4.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReport4.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

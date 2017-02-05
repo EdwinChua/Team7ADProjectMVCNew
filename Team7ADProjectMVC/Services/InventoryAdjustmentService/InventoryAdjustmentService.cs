@@ -221,7 +221,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
         {
             try //email to notify approval
             {
-                string emailBody = adj.Employee.EmployeeName + ", your request for an inventory adjustment dated " + adj.AdjustmentDate.Value.Date.ToString("dd/MM/YYYY") + " is approved.";
+                string emailBody = adj.Employee.EmployeeName + ", your request for an inventory adjustment dated " + adj.AdjustmentDate.Value.Date.ToString("dd/MM/yyyy") + " is approved.";
                 uSvc.SendEmail(new List<string>(new string[] { adj.Employee.Email }), "Inventory Adjustment Approved", emailBody);
             }
             catch (Exception ex)
@@ -232,7 +232,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
         {
             try //email to notify approval
             {
-                string emailBody = adj.Employee.EmployeeName + ", your request for an inventory adjustment dated " + adj.AdjustmentDate.Value.Date.ToString("dd/MM/YYYY") + " is rejected.";
+                string emailBody = adj.Employee.EmployeeName + ", your request for an inventory adjustment dated " + adj.AdjustmentDate.Value.Date.ToString("dd/MM/yyyy") + " is rejected.";
                 uSvc.SendEmail(new List<string>(new string[] { adj.Employee.Email }), "Inventory Adjustment Rejected", emailBody);
             }
             catch (Exception ex)

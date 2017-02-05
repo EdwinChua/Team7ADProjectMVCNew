@@ -18,10 +18,10 @@ namespace Team7ADProjectMVC.TestControllers
     {
         private IReportService rptSvc = new ReportService();
         private IInventoryService invSvc = new InventoryService();
-        private IDepartmentService  deptSvc= new DepartmentService();
+        private IDepartmentService deptSvc = new DepartmentService();
         // GET: Rpt
 
-        [AuthorisePermissions(Permission="ViewReports")]
+        [AuthorisePermissions(Permission = "ViewReports")]
         public ActionResult Index()
         {
 
@@ -80,18 +80,32 @@ namespace Team7ADProjectMVC.TestControllers
 
         }
 
-        public ActionResult Email()
+        [AuthorisePermissions(Permission = "ViewReports")]
+        public ActionResult CostByDept()
         {
-            UtilityService uSvc = new UtilityService();
-            List<string> emailaddress = new List<string>();
-            emailaddress.Add("sumzhanseng@hotmail.com");
-            emailaddress.Add("sumzhanseng@hotmail.com");
-            uSvc.SendEmail(emailaddress,"HELLO","Welcome",emailaddress);
-            
-            return Content("ok");
+
+            ViewBag.Departments = deptSvc.ListAllDepartments();
+            ViewBag.Categories = invSvc.GetAllCategories();
+            ViewBag.Months = rptSvc.GetMonthValues();
+            ViewBag.Years = rptSvc.GetYearValues();
+
+            return View("CostDeptRpt");
+        }
+
+        [HttpPost]
+        public ActionResult CostByDept(FormCollection form)
+        {
+
+            List<YrMth> yrMthList = rptSvc.GetListOfYrMthFromUI(Request.Form["Year"], Request.Form["Month"], Request.Form["Year2"], Request.Form["Month2"], Request.Form["Year3"], Request.Form["Month3"]);
+            List<string> depts = Request.Form["Departments"].Split(',').ToList<string>();
+            List<string> categoriesSelected = Request.Form["Categories"].Split(',').ToList<string>();
+            DataView data = rptSvc.GetDataForCostAnalysis(yrMthList, depts, categoriesSelected);
+            Session["rptData"] = data;
+            Session["rptPath"] = "~/Reports/CrystalReport4.rpt";
+            return Redirect("/ReportViewer.aspx");
 
         }
-    }
 
-  
+
+    }
 }
