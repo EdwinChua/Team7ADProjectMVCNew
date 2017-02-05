@@ -6,13 +6,15 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Team7ADProjectMVC.Models;
+using Team7ADProjectMVC.Models.UtilityService;
 
 namespace Team7ADProjectMVC.Services
 {
     public class DisbursementService : IDisbursementService
     {
         ProjectEntities db = new ProjectEntities();
-        PushNotification notify = new PushNotification(); 
+        PushNotification notify = new PushNotification();
+        UtilityService uSvc = new UtilityService();
 
         public List<DisbursementList> GetAllDisbursements()
         {
@@ -243,6 +245,26 @@ namespace Team7ADProjectMVC.Services
             }
 
             db.SaveChanges();
+
+            foreach(Requisition r in requisitionlist)
+            {
+                try
+                {
+                    if (r.RequisitionStatus == "Completed")
+                    {
+                        string emailBody = r.Employee.EmployeeName + ", your requisition dated " + r.OrderedDate.Value.Date.ToString("dd/MM/yyyy") + " has been fulfilled and delivered. Please see http://" + uSvc.GetBaseUrl() + "/Stationery/Requisition/" + r.RequisitionId + " for more details.";
+                        uSvc.SendEmail(new List<string>(new string[] { r.Employee.Email }), "Requisition Fulfilled", emailBody);
+                    }
+                    else
+                    {
+                        string emailBody = r.Employee.EmployeeName + ", your requisition dated " + r.OrderedDate.Value.Date.ToString("dd/MM/yyyy") + " has been processed with outstanding items remaining. Outstanding items will be disbursed in the next disbursement cycle when they are in stock. Please see http://" + uSvc.GetBaseUrl() + "/Stationery/Requisition/" + r.RequisitionId + " for more details.";
+                        uSvc.SendEmail(new List<string>(new string[] { r.Employee.Email }), "Requisition Processed", emailBody);
+                    }
+                } catch(Exception e)
+                {
+                }
+                
+            }
 
             string disbID = disburseid.ToString(); 
             notify.RepAcceptRequisition(disbID);
