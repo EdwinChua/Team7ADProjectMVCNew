@@ -125,7 +125,7 @@ namespace Team7ADProjectMVC
         {
             List<wcfApproveRequisitions> approvalList = new List<wcfApproveRequisitions>();
             int did = Convert.ToInt32(deptid);
-            List<Requisition> aList = reqService.GetAllRequisition(did);
+            List<Requisition> aList = reqService.GetAllPendingRequisitionByDept(did);
 
             String beforesplit = "";
             String aftersplit = "";

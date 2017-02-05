@@ -10,14 +10,19 @@ namespace Team7ADProjectMVC.Models.ListAllRequisitionService
     {
         ProjectEntities db = new ProjectEntities();
         PushNotification notify = new PushNotification();
+        UtilityService.UtilityService uSvc = new UtilityService.UtilityService();
 
+        public List<Requisition> ListAllRequisitionByDept(int? deptId)
+        {
 
+            return (db.Requisitions.Where(x=>x.DepartmentId==deptId).OrderByDescending(x=>x.OrderedDate).ToList());
+        }
         public List<Requisition> ListAllRequisition()
         {
 
             return (db.Requisitions.ToList());
         }
-        public List<Requisition> GetAllRequisition(int? depId)
+        public List<Requisition> GetAllPendingRequisitionByDept(int? depId)
         {
             var queryByStatus = from t in db.Requisitions 
                                   where t.RequisitionStatus == "Pending Approval" && t.DepartmentId == depId
@@ -45,6 +50,16 @@ namespace Team7ADProjectMVC.Models.ListAllRequisitionService
 
             string reqListId = requisition.RequisitionId.ToString();
             notify.NewRequisitonMade(reqListId);
+            //mailing
+            try
+            {
+                string emailBody = requisition.Employee.EmployeeName + ", your requisition dated " + requisition.OrderedDate.Value.Date.ToString("dd/MM/yyyy") + " has been approved. Please go to http://" + uSvc.GetBaseUrl() + "/Stationery/Requisition/" + requisition.RequisitionId + " for more information.";
+                uSvc.SendEmail(new List<string>(new string[] { requisition.Employee.Email }), "Approved Requisition", emailBody);
+            }
+            catch (Exception e)
+            {
+            }
+            
         }
         public void UpdateRejectStatus(Requisition requisition, string comments, int? approvedbyId)
         {
@@ -56,6 +71,15 @@ namespace Team7ADProjectMVC.Models.ListAllRequisitionService
 
             db.Entry(requisition).State = EntityState.Modified;
             db.SaveChanges();
+            //mailing
+            try
+            {
+                string emailBody = requisition.Employee.EmployeeName + ", your requisition dated " + requisition.OrderedDate.Value.Date.ToString("dd/MM/yyyy") + " has been rejected. Please go to http://" + uSvc.GetBaseUrl() + "/Stationery/Requisition/" + requisition.RequisitionId + " for more information.";
+                uSvc.SendEmail(new List<string>(new string[] { requisition.Employee.Email }), "Rejected Requisition", emailBody);
+            }
+            catch (Exception e)
+            {
+            }
         }
          public List<Requisition> getDataForPagination(string searchString)
         {

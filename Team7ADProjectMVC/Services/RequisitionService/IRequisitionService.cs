@@ -7,10 +7,10 @@ namespace Team7ADProjectMVC.Models.ListAllRequisitionService
 {
     public interface IRequisitionService
     {
+        List<Requisition> ListAllRequisitionByDept(int? deptId);
         List<Requisition> ListAllRequisition();
-        List<Requisition> GetAllRequisition(int? depId);       
-        Requisition FindById(int? requisitionId);
-      
+        List<Requisition> GetAllPendingRequisitionByDept(int? depId);       
+        Requisition FindById(int? requisitionId);    
         void UpdateApproveStatus(Requisition requisition,string comments,int? approvedbyId);
         void UpdateRejectStatus(Requisition requisition, string comments, int? approvedbyId);
         List<Requisition> getDataForPagination(string searchString);

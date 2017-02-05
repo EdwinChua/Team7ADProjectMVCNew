@@ -38,7 +38,7 @@ namespace Team7ADProjectMVC.Controllers
             ViewBag.Employees = deptService.GetEverySingleEmployeeInDepartment(currentEmployee.DepartmentId);
             
 
-            List<Requisition> resultList = reqService.GetAllRequisition(currentEmployee.DepartmentId);
+            List<Requisition> resultList = reqService.ListAllRequisitionByDept(currentEmployee.DepartmentId);
 
             if(employeeId != null)
             {
@@ -120,11 +120,11 @@ namespace Team7ADProjectMVC.Controllers
 
                     try
                     {
-                        string emailBody = requisition.Employee.Department.Head.EmployeeName + ", You have a pending requisition from " + requisition.Employee.EmployeeName + ". Please go to http://" + Request.Url.Host + ":23130/Head/EmployeeRequisition/" + requisition.RequisitionId+" to approve the request.";
+                        string emailBody = requisition.Employee.Department.Head.EmployeeName + ", You have a pending requisition from " + requisition.Employee.EmployeeName + ". Please go to http://" + uSvc.GetBaseUrl() + "/Head/EmployeeRequisition/" + requisition.RequisitionId+" to approve the request.";
                         Delegate delegateRecord = deptService.getDelegatedEmployee(requisition.DepartmentId);
                         if (delegateRecord != null) //if there is a delegate for the department, email will be addressed to the delegate and CC to the head.
                         {
-                            emailBody = delegateRecord.Employee.EmployeeName + ", You have a pending requisition from " + requisition.Employee.EmployeeName + ". Please go to http://" + Request.Url.Host + ":23130/Head/EmployeeRequisition/" + requisition.RequisitionId + " to approve the request.";
+                            emailBody = delegateRecord.Employee.EmployeeName + ", You have a pending requisition from " + requisition.Employee.EmployeeName + ". Please go to http://" + uSvc.GetBaseUrl() + "/Head/EmployeeRequisition/" + requisition.RequisitionId + " to approve the request.";
                             uSvc.SendEmail(new List<string>(new string[] { delegateRecord.Employee.Email }), "New Requisition Pending Approval", emailBody, new List<string>(new string[] { requisition.Employee.Department.Head.Email }));
                         } 
                         else uSvc.SendEmail(new List<string>(new string[] { requisition.Employee.Department.Head.Email }), "New Requisition Pending Approval", emailBody);

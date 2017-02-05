@@ -26,8 +26,7 @@ namespace Team7ADProjectMVC.TestControllers
         }
         // GET: Representative
 
-        //[AuthorisePermissions(Permission="")]
-
+        [AuthorisePermissions(Permission="ConfirmDisbursement")]
         public ActionResult Viewdisbursements(int? page)
         {
 
@@ -41,6 +40,8 @@ namespace Team7ADProjectMVC.TestControllers
 
 
         }
+
+        [AuthorisePermissions(Permission = "ConfirmDisbursement")]
         public ActionResult Searchdisbursements(int? page,string date, string status)
         {
             int pageSize = 10;
@@ -48,6 +49,8 @@ namespace Team7ADProjectMVC.TestControllers
             var disbursementlist = (List<DisbursementList>)TempData.Peek("list");
             return View("Viewdisbursements", disbursementSvc.FindDisbursementsBySearch(disbursementlist,date, status).ToPagedList(pageNumber,pageSize));
         }
+
+        [AuthorisePermissions(Permission = "ConfirmDisbursement")]
         public ActionResult ViewDisbursementDetail(int? id)
         {
             if (id == null)
@@ -67,6 +70,7 @@ namespace Team7ADProjectMVC.TestControllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorisePermissions(Permission = "ConfirmDisbursement")]
         public ActionResult ViewDisbursementDetail(int id)
         {
 
@@ -75,7 +79,7 @@ namespace Team7ADProjectMVC.TestControllers
         }
 
 
-
+        [AuthorisePermissions(Permission = "ChangeCollectionPoint")]
         public ActionResult Edit()
         {
 
@@ -87,7 +91,7 @@ namespace Team7ADProjectMVC.TestControllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-
+        [AuthorisePermissions(Permission = "ChangeCollectionPoint")]
         public ActionResult Edit([Bind(Include = "DepartmentId,CollectionPointId")] Department department)
         {
 

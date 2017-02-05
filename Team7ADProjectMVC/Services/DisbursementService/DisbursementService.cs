@@ -163,6 +163,10 @@ namespace Team7ADProjectMVC.Services
             foreach (var total in itlist)
 
             {
+                if(db.DisbursementLists.Find(disburseid).DisbursementDetails.Where(x=>x.ItemNo==total.ItemNo).ToList().Count==0)
+                {
+                    continue;
+                }
                 //var total = (from x in rdlist
                 //             where x.ItemNo == item.ItemNo
                 //             select x.OutstandingQuantity).Sum();
