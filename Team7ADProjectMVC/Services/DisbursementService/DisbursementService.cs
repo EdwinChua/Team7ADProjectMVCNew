@@ -166,11 +166,6 @@ namespace Team7ADProjectMVC.Services
                 {
                     continue;
                 }
-                //var total = (from x in rdlist
-                //             where x.ItemNo == item.ItemNo
-                //             select x.OutstandingQuantity).Sum();
-
-                //var total = rdlist.Where(x => x.ItemNo == item.ItemNo).Sum(y => y.OutstandingQuantity);
                 var deliveryquantity = db.DisbursementLists.Find(disburseid).DisbursementDetails.Single(model => model.ItemNo == total.ItemNo).DeliveredQuantity;
 
                 var samelist = (from x in rdlist
@@ -178,9 +173,7 @@ namespace Team7ADProjectMVC.Services
                                 orderby x.Requisition.RequisitionId
                                 select x
                                 ).ToList();
-
-
-                // var deliveryquantity = db.DisbursementLists.Find(disburseid).DisbursementDetails.Single(model => model.ItemNo == item.ItemNo).DeliveredQuantity;
+                  
                 if (total.OutstandingQuantity <= deliveryquantity)
                 {
                     foreach (var item in samelist)
@@ -191,12 +184,6 @@ namespace Team7ADProjectMVC.Services
                 else
 
                 {
-                    //var samelist = (from x in rdlist
-                    //                where x.ItemNo == item.ItemNo
-                    //                orderby x.Requisition.RequisitionId
-                    //                select x
-                    //                ).ToList();
-
                     for (int i = 0; i < samelist.Count(); i++)
                     {
 
