@@ -24,6 +24,7 @@ namespace Team7ADProjectMVC.Services
         void RejectByManager(int? empid, int? adjid);
         void PendingBySupervisor(int? empid, int? adjid);
         void createAdjustment(Adjustment adjustment);
+        bool IsValidAdjustment(Adjustment adj);
 
     }
 }
