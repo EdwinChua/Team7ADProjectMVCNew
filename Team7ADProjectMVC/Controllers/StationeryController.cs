@@ -49,7 +49,7 @@ namespace Team7ADProjectMVC.Controllers
                 DateTime dateOrdered = uSvc.GetDateTimeFromPicker(dateOrderedString);
                 resultList.RemoveAll(x => x.OrderedDate != dateOrdered);
             }
-            if (status != null)
+            if (status != null && status.Length > 2)
             {
                 resultList.RemoveAll(x => x.RequisitionStatus != status);
             }
