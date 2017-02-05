@@ -23,6 +23,7 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
         void RejectByManager(int? empid, int? adjid);
         void PendingBySupervisor(int? empid, int? adjid);
         void createAdjustment(Adjustment adjustment);
+        bool IsValidAdjustment(Adjustment adj);
 
     }
 }

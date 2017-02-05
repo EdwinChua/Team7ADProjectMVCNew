@@ -239,6 +239,19 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
             {
             }
         }
+
+        public bool IsValidAdjustment(Adjustment adj)
+        {
+            foreach(AdjustmentDetail ad in adj.AdjustmentDetails)
+            {
+                Inventory item = db.Inventories.Where(x => x.ItemNo == ad.ItemNo).FirstOrDefault();
+                if ((item.Quantity + ad.Quantity) < 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         //private void SendPendingAdjEmail(Adjustment adj,int? id)
         //{
         //    try //email to notify manager of approval

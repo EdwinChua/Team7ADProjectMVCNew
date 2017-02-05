@@ -313,6 +313,11 @@ namespace Team7ADProjectMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!ivadjustsvc.IsValidAdjustment(adjust))
+                {
+                    ViewBag.ErrorMsg = "Inventory quantity cannot be less than 0. Please check quantity for adjustments.";
+                    return View(adjust);
+                }
                 ivadjustsvc.createAdjustment(adjust);
                 try //email to notify supervisor of approval
                 {
