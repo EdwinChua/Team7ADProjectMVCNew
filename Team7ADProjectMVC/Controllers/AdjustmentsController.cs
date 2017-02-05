@@ -226,66 +226,6 @@ namespace Team7ADProjectMVC.Controllers
         }
 
 
-        //[AuthorisePermissions(Permission = "ApproveAdjustment")]
-        //public ActionResult SupervisorApprove(int? id)
-        //{
-        //    int empid = ((Employee)Session["user"]).EmployeeId;
-        //    ivadjustsvc.ApproveBySupervisor(empid, id);
-
-        //    return RedirectToAction("ViewAdjustment");
-        //}
-
-        //[AuthorisePermissions(Permission = "ApproveAdjustment")]
-        //public ActionResult SupervisorRejecct(int? id)
-        //{
-        //    int empid = ((Employee)Session["user"]).EmployeeId;
-        //    ivadjustsvc.RejecteBySupervisor(empid, id);
-        //    return RedirectToAction("ViewAdjustment");
-        //}
-
-        //[AuthorisePermissions(Permission = "ApproveAdjustment")]
-        //public ActionResult SupervisorPending(int? id)
-        //{
-        //    int empid = ((Employee)Session["user"]).EmployeeId;
-        //    ivadjustsvc.PendingBySupervisor(empid, id);
-        //    try //email to notify manager of approval
-        //    {
-        //        List<Employee> storeManagement = deptSvc.GetStoreManagerAndSupervisor();
-        //        string emailBody = storeManagement.Where(x => x.RoleId == 6).First().EmployeeName + ", you have a new pending inventory adjustment for approval. Please go to http://" + Request.Url.Host + ":23130//Adjustments/ViewAdjustmentDetail/" + id + " to approve the adjustment.";
-        //        uSvc.SendEmail(new List<string>(new string[] { storeManagement.Where(x => x.RoleId == 6).First().Email }), "New Inventory Adjustment Pending Approval", emailBody);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //    }
-
-        //    return RedirectToAction("ViewAdjustment");
-        //}
-
-        //[AuthorisePermissions(Permission = "ApproveAdjustment")]
-        //public ActionResult ManagerApprove(int? id)
-        //{
-        //    int empid = ((Employee)Session["user"]).EmployeeId;
-        //    ivadjustsvc.ApproveByManager(empid, id);
-        //    return RedirectToAction("ViewAdjustment");
-        //}
-
-        //[AuthorisePermissions(Permission = "ApproveAdjustment")]
-        //public ActionResult ManagerRejecct(int? id)
-        //{
-        //    int empid = ((Employee)Session["user"]).EmployeeId;
-        //    ivadjustsvc.RejectByManager(empid, id);
-        //    return RedirectToAction("ViewAdjustment");
-        //}
-
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
         [AuthorisePermissions(Permission = "MakeAdjustment")]
         [HttpGet]
         public ActionResult Create()

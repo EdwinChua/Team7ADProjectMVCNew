@@ -1,6 +1,5 @@
-﻿<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+﻿
+
 @model Team7ADProjectMVC.Adjustment
 @{
     ViewBag.Title = "Create";
@@ -62,10 +61,39 @@
             </div>
         </div>
 }
-
 <br />
 
+@*<div>
+    @if (ViewBag.ErrorMsg != null)
+    {
+     Show warning message 
+        <div id="ErrorMessage" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Failed to create New Adjustment</h4>
+                    </div>
 
+                    <div class="modal-body">
+                        <h5>@ViewBag.ErrorMsg</h5>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(function ShowModal() {
+                $('#ErrorMessage').modal('toggle');
+            });
+        </script>
+    }
+</div>*@
 <script>
     jQuery(document).ready(function ($) {
         $('#add-detail').on('click', function () {
