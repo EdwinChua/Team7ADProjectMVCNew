@@ -34,6 +34,7 @@ namespace Team7ADProjectMVC.TestControllers
         }
 
         [HttpPost]
+        [AuthorisePermissions(Permission = "ViewReports")]
         public ActionResult Index(FormCollection form)
         {
 
@@ -47,7 +48,7 @@ namespace Team7ADProjectMVC.TestControllers
 
         }
 
-        // GET: Rpt/SupplierItem
+        [AuthorisePermissions(Permission = "ViewReports")]
         public ActionResult ItemSupplier()
         {
             ViewBag.Categories = invSvc.GetAllCategories();
@@ -58,6 +59,7 @@ namespace Team7ADProjectMVC.TestControllers
         }
 
         [HttpPost]
+        [AuthorisePermissions(Permission = "ViewReports")]
         public ActionResult ItemSupplier(FormCollection f)
         {
             String categorySelected = Request.Form["Categories"];
@@ -70,6 +72,7 @@ namespace Team7ADProjectMVC.TestControllers
 
         }
 
+        [AuthorisePermissions(Permission = "ViewReports")]
         public ActionResult Stocklist()
         {
 
@@ -93,6 +96,7 @@ namespace Team7ADProjectMVC.TestControllers
         }
 
         [HttpPost]
+        [AuthorisePermissions(Permission = "ViewReports")]
         public ActionResult CostByDept(FormCollection form)
         {
 
