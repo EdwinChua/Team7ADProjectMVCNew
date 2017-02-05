@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using Team7ADProjectMVC.Exceptions;
 using Team7ADProjectMVC.Models;
 
 namespace Team7ADProjectMVC.Services
@@ -12,6 +13,7 @@ namespace Team7ADProjectMVC.Services
         ProjectEntities db = new ProjectEntities();
         PushNotification notify = new PushNotification();
         IUtilityService uSvc = new UtilityService();
+        IDisbursementService disbursementService = new DisbursementService();
 
         public List<Employee> GetStoreManagerAndSupervisor()
         {
@@ -47,12 +49,25 @@ namespace Team7ADProjectMVC.Services
 
         public void changeDeptCp(Department department,int cpId)
         {
-            
-            int id = department.DepartmentId;
-            db.Departments.Single(model => model.DepartmentId == id).CollectionPointId = cpId;
-            db.SaveChanges();
-            
-            notify.CollectionPointChanged(id);
+             
+            List<DisbursementList> list = disbursementService.GetDisbursementByDeptId(department.DepartmentId);
+            var q = (from x in list
+                     where x.DeliveryDate == DateTime.Today
+                     select x).ToList();
+
+            if (q.Count() == 0)
+            {
+
+                int id = department.DepartmentId;
+                db.Departments.Single(model => model.DepartmentId == id).CollectionPointId = cpId;
+                db.SaveChanges();
+
+                notify.CollectionPointChanged(id);
+            }
+            else
+            {
+                throw new ChangeCollectionPointException("You have a collection due today. Please try again tomorrow.");
+            }
         }
 
 

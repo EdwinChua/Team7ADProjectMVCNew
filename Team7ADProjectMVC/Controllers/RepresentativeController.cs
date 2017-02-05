@@ -98,23 +98,14 @@ namespace Team7ADProjectMVC.Controllers
         {
             Employee employee = (Employee)Session["user"];
             List<DisbursementList> list = disbursementSvc.GetDisbursementByDeptId(employee.DepartmentId);
-            var q = (from x in list
-                    where x.DeliveryDate == DateTime.Today
-                    select x).ToList();
+
             try
             {
-                if (q.Count == 0)
+                if (ModelState.IsValid)
                 {
-                    if (ModelState.IsValid)
-                    {
-                        var rid = Request.Form["radio"];
-                        departmentSvc.changeDeptCp(department, int.Parse(rid));
-                        return RedirectToAction("Edit");
-                    }
-                }
-                else
-                {
-                    throw new ChangeCollectionPointException("You have a collection due today. Please try again tomorrow.");
+                    var rid = Request.Form["radio"];
+                    departmentSvc.changeDeptCp(department, int.Parse(rid));
+                    return RedirectToAction("Edit");
                 }
             }
             catch (ChangeCollectionPointException e)
