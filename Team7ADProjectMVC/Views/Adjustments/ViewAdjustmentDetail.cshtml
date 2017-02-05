@@ -44,36 +44,37 @@
 </table>
 <h3>Total Sum: <u>$ @ViewBag.sum </u></h3>
 <hr />
-<div class="row">
-    <div class="col-md-7"></div><div class="col-md-5 text-right">
-        @if (currentEmployee.Role.Name == "Store Supervisor" && @ViewBag.status == "Pending Approval")
-        {
-            if (@ViewBag.sum < 250)
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-7"></div><div class="col-md-5 text-right">
+            @if (currentEmployee.Role.Name == "Store Supervisor" && @ViewBag.status == "Pending Approval")
             {
-                <button class="btn btn-success" type="button" onclick="window.location.href='/Adjustments/SupervisorApprove/@ViewBag.Adjid' ">Approve</button>
-                <button class="btn btn-danger" type="button" onclick="return confirm('Are you sure?') ,window.location.href='/Adjustments/SupervisorRejecct/@ViewBag.Adjid'">Reject</button>
+                if (@ViewBag.sum < 250)
+                {
+                    <input type="submit" value="Approve" name="result" class="btn btn-success" onclick="return confirm('Are you sure to Approve?');" />
+                    <input type="submit" value="Reject" name="result" class="btn btn-danger" onclick="return confirm('Are you sure to Reject?');" />
 
+                }
+                else
+                {
+                    <input type="submit" value="Forward To Manager" class="btn btn-danger" />
+
+                }
+            }
+            @if (currentEmployee.Role.Name == "Store Manager" && @ViewBag.status == "Pending Final Approval")
+            {
+
+                <input type="submit" value="Approve" name="result" class="btn btn-success" onclick="return confirm('Are you sure to Approve?');" />
+                <input type="submit" value="Reject" name="result" class="btn btn-danger" onclick="return confirm('Are you sure to Reject?');" />
 
             }
-            else
-            {
+            <button class="btn btn-default" type="button" onclick="window.history.back()">Back</button>
+        </div>
 
-                <button class="btn btn-danger" type="button" onclick="window.location.href='/Adjustments/SupervisorPending/@ViewBag.Adjid'">Forward To Manager</button>
-
-
-            }
-        }
-        @if (currentEmployee.Role.Name == "Store Manager" && @ViewBag.status == "Pending Final Approval")
-        {
-            <button class="btn btn-success" type="button" onclick="window.location.href='/Adjustments/ManagerApprove/@ViewBag.Adjid'">Approve</button>
-            <button class="btn btn-danger" type="button" onclick="window.location.href='/Adjustments/ManagerRejecct/@ViewBag.Adjid'">Reject</button>
-
-
-        }
-        <button class="btn btn-default" type="button" onclick="window.history.back()">Back</button>
     </div>
-
-</div>
+}
 <script>
     $(document).ready(function () {
         document.getElementById("menu8").className += "active";

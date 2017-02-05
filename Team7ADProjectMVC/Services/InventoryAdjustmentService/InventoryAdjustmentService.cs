@@ -239,5 +239,18 @@ namespace Team7ADProjectMVC.Models.InventoryAdjustmentService
             {
             }
         }
+        //private void SendPendingAdjEmail(Adjustment adj,int? id)
+        //{
+        //    try //email to notify manager of approval
+        //    {
+        //        Employee storeManagement = db.Employees.Where(x => x.RoleId == 6).First();
+        //        string emailBody =storeManagement.EmployeeName + ", you have a new pending inventory adjustment for approval. Please go to http://" + Request.Url.Host + ":23130//Adjustments/ViewAdjustmentDetail/" + id + " to approve the adjustment.";
+        //        uSvc.SendEmail(new List<string>(new string[] { storeManagement.Email }), "New Inventory Adjustment Pending Approval", emailBody);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //}
+
     }
 }
