@@ -57,6 +57,7 @@ namespace Team7ADProjectMVC.Controllers
         public ActionResult PurchaseOrderSummary()
         {
             List<PurchaseOrder> poList = supplierAndPOSvc.GetAllPOOrderByApproval();
+            poList.OrderByDescending(x => x.OrderDate);
             
             return View(poList);
         }

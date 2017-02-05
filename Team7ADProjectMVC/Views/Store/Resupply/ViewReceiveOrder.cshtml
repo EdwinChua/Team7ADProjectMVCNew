@@ -19,8 +19,8 @@
                 <label>Delivery Order No.</label>
             </div>
             <div class="col-md-4">
-                <input type="hidden" name="deliveryId" value="@Model.DeliveryOrderNo" />
-                <input type="text" class="form-control" name="deliveryRefNo" placeholder="Delivery Order No. (Required)" value="@Model.DeliveryId" required />
+                <input type="hidden" name="deliveryId" value="@Model.DeliveryId" />
+                <input type="text" class="form-control" name="deliveryRefNo" placeholder="Delivery Order No. (Required)" value="@Model.DeliveryOrderNo" required />
             </div>
         </div>
     </div>
@@ -74,7 +74,7 @@
                     <td>
                         <input type="hidden" name="deliveryDetailId" value="@item.DeliveryDetailid" />
                         <input type="hidden" name="itemNo" value="@item.ItemNo"/>
-                        <input type="number" class="form-control" name="quantity" value="@item.Quantity" />
+                        <input type="number" class="form-control" name="quantity" value="@q.Quantity" />
                     </td>
                     <td>
                         <input type="text" name="remarks" class="form-control" value="@item.Remarks" />
