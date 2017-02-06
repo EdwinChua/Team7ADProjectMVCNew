@@ -88,8 +88,8 @@
     }
 </div>
 
-<script>
-    jQuery(document).ready(function ($) {
+<script>    //add a new row
+    jQuery(document).ready(function ($) {                           
         $('#add-detail').on('click', function () {
             jQuery.get('/Adjustments/AddDetail').done(function (html) {
                 $('#detail-list').append(html);
@@ -99,7 +99,7 @@
         document.getElementById("menu8").className += "active";
     });
 </script>
-<script type="text/javascript">
+<script type="text/javascript">//deleted a row
     $(document).ready(function () {
         $('#detail-list').on('click', '.delete-detail', function () {
             var EntryToRemove = $(this).closest('.editorRow');

@@ -229,7 +229,7 @@ namespace Team7ADProjectMVC.Controllers
 
         [AuthorisePermissions(Permission = "MakeAdjustment")]
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create()                          //create new adjustment
         {
             Employee currentEmployee = (Employee)Session["User"];
             var adjust = new Adjustment
@@ -252,7 +252,7 @@ namespace Team7ADProjectMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!ivadjustsvc.IsValidAdjustment(adjust))
+                if (!ivadjustsvc.IsValidAdjustment(adjust))//check if adjustment quantity entered greater than inventory quantity 
                 {
                     ViewBag.ErrorMsg = "Inventory quantity cannot be less than 0. Please check quantity for adjustments.";
                     ViewBag.ItemNo = new SelectList(invSvc.GetAllInventory(), "ItemNo", "Description");
@@ -279,7 +279,7 @@ namespace Team7ADProjectMVC.Controllers
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         [AuthorisePermissions(Permission = "MakeAdjustment")]
-        public ActionResult AddDetail()
+        public ActionResult AddDetail()      //click 'Add new item button' to add new adjustment details
         {
             Adjustment currentAdjustment = (Adjustment)Session["adjustment"];
             Session["adjustment"] = new Adjustment();
