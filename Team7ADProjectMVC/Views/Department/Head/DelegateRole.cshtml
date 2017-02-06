@@ -75,9 +75,9 @@
             <h5>
 
                
-                <input type="hidden" name="startDate" id="startDate" />
+                <input type="hidden" name="startDate" id="startDate" value="@ViewBag.autoStartdate" />
                 <input type="hidden" name="DelegateId" id="delegateId" value="0" />
-                <input type="hidden" name="endDate" id="endDate" />
+                <input type="hidden" name="endDate" id="endDate" value="@ViewBag.autoEnddate" />
 
 
             </h5>
@@ -123,8 +123,10 @@
             format: 'DD/MM/YYYY',
             inline: true,
             sideBySide: false,
-            minDate: new Date()
+            minDate: new Date(),
+            date: '@ViewBag.endDate'
         });
+
 
         $("#datetimepicker2").on("dp.change", function (date, e) {
             console.log($('#datetimepicker2').data("DateTimePicker").date());

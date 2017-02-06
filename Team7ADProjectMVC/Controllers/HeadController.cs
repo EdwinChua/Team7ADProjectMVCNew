@@ -138,14 +138,14 @@ namespace Team7ADProjectMVC.Controllers
             if (delegatedEmployee == null)
             {
                 string[] startdate = DateTime.Today.ToString().Split(' ');
-                string[] enddate = DateTime.Today.ToString().Split(' ');
+                string[] enddate = DateTime.Today.AddDays(7).ToString().Split(' ');
                 string[] sd = startdate[0].Split('/');
                 string[] ed = enddate[0].Split('/');
 
                 ViewBag.autoStartdate = sd[1] + "/" + sd[0] + "/" + sd[2];
                 ViewBag.autoEnddate = ed[1] + "/" + ed[0] + "/" + ed[2];
                 ViewBag.empList = depsvc.GetAllEmployeebyDepId(depIdofLoginUser);
-
+                ViewBag.endDate = DateTime.Today.AddDays(7);
                 return View("DelegateRole");
 
             }

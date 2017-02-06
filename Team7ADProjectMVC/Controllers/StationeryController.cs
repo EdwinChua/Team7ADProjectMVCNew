@@ -33,7 +33,18 @@ namespace Team7ADProjectMVC.Controllers
         {
             Employee currentEmployee = (Employee)Session["User"];
             ViewBag.Employees = deptService.GetEverySingleEmployeeInDepartment(currentEmployee.DepartmentId);
-            
+            bool canCreate = true;
+
+            if (currentEmployee.Role.Name == "Department Head")
+            {
+                canCreate = false;
+            }
+            else
+            {
+                canCreate = !(deptService.IsDelegate(currentEmployee));
+            }
+
+            ViewBag.canCreate = canCreate;
 
             List<Requisition> resultList = reqService.ListAllRequisitionByDept(currentEmployee.DepartmentId);
 

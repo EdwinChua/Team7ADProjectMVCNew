@@ -285,11 +285,14 @@ namespace Team7ADProjectMVC.Services
             if (e.RoleId != 6 && e.RoleId != 2)
             {
                 Delegate approvedRecord = getDelegatedEmployee(e.DepartmentId);
+                
+                
                 if (approvedRecord != null)
                 {
-                    if (e.EmployeeId == approvedRecord.EmployeeId)
+                    if (e.EmployeeId == approvedRecord.EmployeeId && approvedRecord.StartDate <= DateTime.Today)
                     {
-                        return true;
+
+                            return true;
                     }
                 }
             }

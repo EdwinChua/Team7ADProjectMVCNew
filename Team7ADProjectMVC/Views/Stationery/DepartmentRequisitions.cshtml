@@ -36,9 +36,10 @@
                         class="selectpicker show-tick form-control"
                         data-live-search="true" title="Status">
                     <option>Pending Approval</option>
-                    <option>Approved</option>
-                    <option>Rejected</option>
                     <option>Processing</option>
+                    <option>Approved</option>
+                    <option>Outstanding</option>
+                    <option>Rejected</option>
                     <option>Completed</option>
 
                 </select>
@@ -47,9 +48,12 @@
             <button class="btn btn-success" type="submit">
                 Search
             </button>
+            @if (ViewBag.canCreate)
+            {
             <button class="btn btn-primary" type="button" onclick="window.location.href='/Stationery/EmployeeRequisition'">
                 Create
             </button>
+            }
             <button class="btn btn-default" type="button" onclick="window.location.href = '/Stationery/DepartmentRequisitions'">
                 Show All
             </button>
