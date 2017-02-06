@@ -40,8 +40,8 @@ namespace Team7ADProjectMVC.Controllers
             
             var requisitions = reqsvc.GetAllPendingRequisitionByDept(depIdofLoginUser);
 
-          
-                if (searchString != null)
+
+            if (searchString != null)
 
                 {
                     page = 1;
@@ -83,7 +83,7 @@ namespace Team7ADProjectMVC.Controllers
             depIdofLoginUser = user.DepartmentId;
             depHeadId = user.EmployeeId;
 
-            Requisition r = reqsvc.FindById(id);
+            Requisition r = reqsvc.FindById(id);//Retrieve the selected requisition by requisition id
             if (r == null)
             {
                 return HttpNotFound();
@@ -133,7 +133,7 @@ namespace Team7ADProjectMVC.Controllers
             depIdofLoginUser = user.DepartmentId;
             depHeadId = user.EmployeeId;
 
-            Delegate delegatedEmployee = depsvc.getDelegatedEmployee(depIdofLoginUser);
+            Delegate delegatedEmployee = depsvc.getDelegatedEmployee(depIdofLoginUser);//Check delegate database whether there is delegated employee or not
 
             if (delegatedEmployee == null)
             {
@@ -145,11 +145,11 @@ namespace Team7ADProjectMVC.Controllers
                 ViewBag.autoStartdate = sd[1] + "/" + sd[0] + "/" + sd[2];
                 ViewBag.autoEnddate = ed[1] + "/" + ed[0] + "/" + ed[2];
                 ViewBag.empList = depsvc.GetAllEmployeebyDepId(depIdofLoginUser);
-                ViewBag.endDate = DateTime.Today.AddDays(7);
+                ViewBag.endDate = DateTime.Today.AddDays(7);//to auto populate the end date 7 days after the start date(current date) when the page is load
                 return View("DelegateRole");
 
             }
-            return RedirectToAction("fill");
+            return RedirectToAction("fill");//If there is someone already delegated,to show the details 
 
         }
 
@@ -176,7 +176,7 @@ namespace Team7ADProjectMVC.Controllers
                     DateTime sdate = DateTime.Today;
 
                     depsvc.manageDelegate(emp, sdate, edate, depHeadId);
-                    return RedirectToAction("fill");
+                    return RedirectToAction("fill");//to populate data after processing to the database
                 }
                 else if (startDate.Equals("") && (endDate.Equals("")))
                 {
@@ -203,7 +203,7 @@ namespace Team7ADProjectMVC.Controllers
             //update-----------------------------------------------------------------------------------------------------------------------  
             else if (status.Equals("Update"))
             {
-                if (startDate.Equals("") && !(endDate.Equals("")))
+                if (startDate.Equals("") && !(endDate.Equals("")))//if click  button after updating only enddate
                 {
                     String[] e = endDate.Split('/');
                     DateTime edate = new DateTime(Int32.Parse(e[2]), Int32.Parse(e[1]), Int32.Parse(e[0]));
@@ -213,7 +213,7 @@ namespace Team7ADProjectMVC.Controllers
 
                     return RedirectToAction("show");
                 }
-                else if (endDate.Equals("") && !(startDate.Equals("")))
+                else if (endDate.Equals("") && !(startDate.Equals("")))//if click  button after updating only start date
                 {
                     String[] s = startDate.Split('/');
                     DateTime sdate = new DateTime(Int32.Parse(s[2]), Int32.Parse(s[1]), Int32.Parse(s[0]));
@@ -223,7 +223,7 @@ namespace Team7ADProjectMVC.Controllers
 
                     return RedirectToAction("show");
                 }
-                else if (endDate.Equals("") && (startDate.Equals("")))
+                else if (endDate.Equals("") && (startDate.Equals("")))//if click  button without updating new start date and end date
                 {
                     ViewBag.s1 = d.StartDate;
                     ViewBag.e1 = d.EndDate;
@@ -250,7 +250,7 @@ namespace Team7ADProjectMVC.Controllers
         }
 
         [AuthorisePermissions(Permission = "DelegateRole")]
-        public ActionResult fill()
+        public ActionResult fill()//to show the delegated data from database
         {
             user = (Employee)Session["user"];
             depIdofLoginUser = user.DepartmentId;
