@@ -79,7 +79,7 @@ namespace Team7ADProjectMVC.Controllers
 
 
         [AuthorisePermissions(Permission = "ChangeCollectionPoint")]
-        public ActionResult Edit()
+        public ActionResult Edit()//change collection point 
         {
             int id = (int)((Employee)Session["user"]).DepartmentId;
             Department department = departmentSvc.FindDeptById(id);
@@ -108,7 +108,7 @@ namespace Team7ADProjectMVC.Controllers
                     return RedirectToAction("Edit");
                 }
             }
-            catch (ChangeCollectionPointException e)
+            catch (ChangeCollectionPointException e)// if there is a disbursement delivered due today ,collection point can't be changed
             {
                 TempData["doc"] = e;
                 return RedirectToAction("Edit");
