@@ -32,7 +32,8 @@
 
         @foreach (var item in Model)
         {
-
+            if (item.PreparedQuantity != 0)
+            {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.ItemNo)
@@ -44,6 +45,7 @@
                     @Html.DisplayFor(modelItem => item.DeliveredQuantity)
                 </td>
             </tr>
+            }
         }
 
     </table>

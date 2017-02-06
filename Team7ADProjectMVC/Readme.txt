@@ -36,4 +36,3 @@
 
 5. The user will be redirected to the correct page based on their roles.
 6. Refer to Android Project folder for Android setup instructions.
-7. Enjoy the best project in SA43.

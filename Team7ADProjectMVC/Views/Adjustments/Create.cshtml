@@ -19,14 +19,7 @@
         @Html.EditorFor(x => x)
     </div>
     <h3>Adjustment Details </h3>
-    if (ViewBag.ErrorMsg != null)
-    {
-        <h5 style="color :red">@ViewBag.ErrorMsg</h5>
-
-    }
-
-
-
+    
     <table class="table">
         <thead>
             <tr>
@@ -63,10 +56,10 @@
 }
 <br />
 
-@*<div>
+<div>
     @if (ViewBag.ErrorMsg != null)
     {
-     Show warning message 
+     //Show warning message 
         <div id="ErrorMessage" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -93,7 +86,8 @@
             });
         </script>
     }
-</div>*@
+</div>
+
 <script>
     jQuery(document).ready(function ($) {
         $('#add-detail').on('click', function () {
