@@ -4,10 +4,10 @@
 
 
 1. Run the queries in DatabaseTableQueries.sql / run the backup of the database provided
-2. Run the aspnetdb.bak to add the user accounts for Windows Authentication
+2. Run the aspnetdb.bak to add the user accounts for Windows Authentication. The password for all accounts are: 'password!'
 3. Run/Deploy the project
 	- It is recommended to publish to C:\inetpub\wwwroot
-3. Go to localhost/login.aspx and login with the user name and password. The users and their roles are listed below.
+4. Go to localhost/login.aspx and login with the user name and password. The users and their roles are listed below.
 
 	UserId	Name						Department				Role
 		1	Jenny Wong Mei Lin			STORE					Store Representative
@@ -32,6 +32,8 @@
 		20	Ms Eve						Zoology Department		Employee
 		21	Mr Joe Alan					English Department		Store Supervisor
 
-4. The user will be redirected to the correct page based on their roles.
-5. Refer to Android Project folder for Android setup instructions.
-6. Enjoy the best project in SA43.
+		Password: password!
+
+5. The user will be redirected to the correct page based on their roles.
+6. Refer to Android Project folder for Android setup instructions.
+7. Enjoy the best project in SA43.
