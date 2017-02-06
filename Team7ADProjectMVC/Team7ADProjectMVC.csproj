@@ -976,6 +976,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Readme.txt" />
     <Content Include="Resources\bbb.jpg" />
     <Content Include="Resources\dashboard.css" />
     <Content Include="Resources\errorpage.css" />
