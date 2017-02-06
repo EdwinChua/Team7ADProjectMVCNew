@@ -330,7 +330,7 @@ namespace Team7ADProjectMVC
             {
                
                 int empid = Convert.ToInt32(userid);
-                bool result = Membership.ValidateUser(userid, "password!");
+                bool result = Membership.ValidateUser(userid, password);
                 if (result == true)
                 {
                     Employee emp = deptSvc.FindEmployeeById(empid);
@@ -381,7 +381,7 @@ namespace Team7ADProjectMVC
                 int cpoint = Convert.ToInt32(collectionptid);
                 Department wcfItem = deptSvc.FindDeptById(dId);
                 deptSvc.changeDeptCp(wcfItem, cpoint);                
-                return collectionptid;
+                return "true";
             }
             catch (Exception e)
             {

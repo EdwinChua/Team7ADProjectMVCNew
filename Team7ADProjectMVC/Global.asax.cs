@@ -58,18 +58,18 @@ namespace Team7ADProjectMVC
 
         protected void Application_Error(Object sender, EventArgs e)
         {
-            Exception exception = Server.GetLastError();
-            Server.ClearError();
-            Employee currentEmployee = (Employee)Session["user"];
-            if (currentEmployee.EmployeeId != 0)
-            {
-                HttpException httpException = exception as HttpException;
-                Response.Redirect("/Home/Error?message=" + exception.Message);
-            }
-            else
-            {
-                Response.Redirect("/Login.aspx");
-            }
+            //Exception exception = Server.GetLastError();
+            //Server.ClearError();
+            //Employee currentEmployee = (Employee)Session["user"];
+            //if (currentEmployee.EmployeeId != 0)
+            //{
+            //    HttpException httpException = exception as HttpException;
+            //    Response.Redirect("/Home/Error?message=" + exception.Message);
+            //}
+            //else
+            //{
+            //    Response.Redirect("/Login.aspx");
+            //}
 
         }
         protected void Session_Start()

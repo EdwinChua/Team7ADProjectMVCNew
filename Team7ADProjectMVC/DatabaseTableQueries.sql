@@ -145,7 +145,7 @@ CONSTRAINT CollectionPointId FOREIGN KEY(CollectionPointId) REFERENCES Collectio
 
 ----------------------------------------- Add Collection Points-----------------------------------------
 INSERT INTO CollectionPoints
-VALUES ('Stationert Store','9:30 am',1)
+VALUES ('Stationery Store','9:30 am',1)
 INSERT INTO CollectionPoints
 VALUES ('Management School','11:00 am',1)
 INSERT INTO CollectionPoints

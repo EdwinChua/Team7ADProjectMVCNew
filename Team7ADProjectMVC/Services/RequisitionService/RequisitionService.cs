@@ -6,7 +6,7 @@ using Team7ADProjectMVC.Models;
 
 namespace Team7ADProjectMVC.Services
 {
-    //Author : Chunxiao
+    //Author : Chunxiao & Sandi
     public class RequisitionService : IRequisitionService
     {
         ProjectEntities db = new ProjectEntities();

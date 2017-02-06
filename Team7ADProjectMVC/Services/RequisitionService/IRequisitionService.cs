@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Team7ADProjectMVC.Services
 {
-    //Author : Chunxiao
+    //Author : Chunxiao && Sandi
     public interface IRequisitionService
     {
         List<Requisition> ListAllRequisitionByDept(int? deptId);

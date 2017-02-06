@@ -252,7 +252,13 @@ namespace Team7ADProjectMVC.Services
             {
                 UpdateInventoryQuantity(itemsCollected.itemNo, itemsCollected.collectedQuantity);
             }
-            fcm.CheckForStockReorder();
+            try
+            {
+                fcm.CheckForStockReorder();
+
+            }
+            catch (Exception e) { }
+          
 
             List < Requisition > requisitionListFromRList = retrievalList.requisitionList;
             DisbursementList dList = new DisbursementList();

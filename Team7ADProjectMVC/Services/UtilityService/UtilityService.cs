@@ -10,7 +10,7 @@ namespace Team7ADProjectMVC.Services
     //Author : Zhan Seng
     public class UtilityService : IUtilityService
     {
-        public static string baseUrl = "10.10.2.101";
+        public static string baseUrl = "172.17.254.183";
 
         public string GetBaseUrl()
         {
