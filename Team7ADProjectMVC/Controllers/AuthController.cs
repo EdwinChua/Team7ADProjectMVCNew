@@ -8,8 +8,12 @@ namespace Team7ADProjectMVC.Controllers
     //Author : Zhan Seng
     public class AuthController : Controller
     {
-        ProjectEntities db = new ProjectEntities();
-        IDepartmentService deptSvc = new DepartmentService();
+        IDepartmentService deptSvc;
+        public AuthController()
+        {
+            deptSvc = new DepartmentService();
+        }
+
         // GET: Auth
         public ActionResult Index()
         {

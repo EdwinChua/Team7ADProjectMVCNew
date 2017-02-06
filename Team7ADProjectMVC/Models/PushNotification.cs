@@ -165,6 +165,7 @@ namespace Team7ADProjectMVC.Models
                 }
                 catch (Exception ex)
                 {
+                    System.Diagnostics.Debug.WriteLine(ex.ToString());
                 }
             }
         }

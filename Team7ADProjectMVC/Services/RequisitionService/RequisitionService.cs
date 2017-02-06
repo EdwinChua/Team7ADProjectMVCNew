@@ -51,7 +51,6 @@ namespace Team7ADProjectMVC.Services
 
             string reqListId = requisition.RequisitionId.ToString();
             notify.NewRequisitonMade(reqListId);
-            //mailing
             try
             {
                 string emailBody = requisition.Employee.EmployeeName + ", your requisition dated " + requisition.OrderedDate.Value.Date.ToString("dd/MM/yyyy") + " has been approved. Please go to http://" + uSvc.GetBaseUrl() + "/Stationery/Requisition/" + requisition.RequisitionId + " for more information.";
@@ -59,6 +58,7 @@ namespace Team7ADProjectMVC.Services
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
             }
             
         }
@@ -72,7 +72,7 @@ namespace Team7ADProjectMVC.Services
 
             db.Entry(requisition).State = EntityState.Modified;
             db.SaveChanges();
-            //mailing
+
             try
             {
                 string emailBody = requisition.Employee.EmployeeName + ", your requisition dated " + requisition.OrderedDate.Value.Date.ToString("dd/MM/yyyy") + " has been rejected. Please go to http://" + uSvc.GetBaseUrl() + "/Stationery/Requisition/" + requisition.RequisitionId + " for more information.";
@@ -80,6 +80,7 @@ namespace Team7ADProjectMVC.Services
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
             }
         }
          public List<Requisition> getDataForPagination(string searchString)

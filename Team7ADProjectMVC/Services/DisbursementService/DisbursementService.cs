@@ -68,7 +68,6 @@ namespace Team7ADProjectMVC.Services
                                    select d;
                 return (queryResults.ToList());
             }
-
         }
 
         public void UpdateDisbursementList(DisbursementList disbursementList)
@@ -78,9 +77,6 @@ namespace Team7ADProjectMVC.Services
         }
         public List<DisbursementList> FindDisbursementsBySearch(List<DisbursementList> disbursementlist,string date, string status)
         {
-
-
-
             if ((status == null || status == "") && (date == null || date == ""))
             {
                 return (disbursementlist);
@@ -114,17 +110,12 @@ namespace Team7ADProjectMVC.Services
                                    select d;
                 return (queryResults.ToList());
             }
-
-
-
-
         }
 
         public List<DisbursementDetail> GetdisbursementdetailById(int? id)
         {
             var disbursementDetails = db.DisbursementDetails.Where(model => model.DisbursementListId == id).Include(d => d.DisbursementList);
             return (disbursementDetails.ToList());
-
         }
         public string findCpnameByDisburse(int? id)
         {
@@ -143,7 +134,6 @@ namespace Team7ADProjectMVC.Services
             var deptid = db.DisbursementLists.Find(disburseid).DepartmentId;
             int rid = db.DisbursementLists.Find(disburseid).Retrieval.RetrievalId;
             List<Requisition> requisitionlist = db.Requisitions.Where(model => model.RetrievalId == rid).ToList();
-
 
             List<RequisitionDetail> rdlist = (from x in db.RequisitionDetails
                                               where x.Requisition.RetrievalId == rid
@@ -182,7 +172,6 @@ namespace Team7ADProjectMVC.Services
                     }
                 }
                 else
-
                 {
                     for (int i = 0; i < samelist.Count(); i++)
                     {
@@ -198,33 +187,22 @@ namespace Team7ADProjectMVC.Services
                             db.RequisitionDetails.Find(samelist[i].RequisitionDetailId).OutstandingQuantity = 0;
 
                         }
-
-
                     }
-
-
                 }
-
-
             }
             db.DisbursementLists.Find(disburseid).Status = "Completed";
 
             foreach (var item in requisitionlist)
             {
-
                 item.RequisitionStatus = "Completed";
-
             }
 
             foreach (var item in rdlist)
             {
-
-
                 if (item.OutstandingQuantity != 0)
                 {
                     item.Requisition.RequisitionStatus = "Outstanding";
                     break;
-
                 }
             }
 
@@ -246,10 +224,9 @@ namespace Team7ADProjectMVC.Services
                     }
                 } catch(Exception e)
                 {
+                    System.Diagnostics.Debug.WriteLine(e.ToString());
                 }
-                
             }
-
             string disbID = disburseid.ToString(); 
             notify.RepAcceptRequisition(disbID);
         }
@@ -265,11 +242,9 @@ namespace Team7ADProjectMVC.Services
         public DisbursementDetail UpdateDisbursementStatus(int disbursementDetailId, int updatedDeliveryQuantity, string remarks)
         {
             DisbursementDetail dd = db.DisbursementDetails.Where(p => p.DisbursementDetailId == disbursementDetailId).First();
-
             IInventoryService invSvc = new InventoryService();
             int updateAmount = updatedDeliveryQuantity - (int)dd.DeliveredQuantity;
             invSvc.UpdateInventoryQuantity(dd.ItemNo, updateAmount);
-            
             dd.DeliveredQuantity = updatedDeliveryQuantity;
             dd.Remark = remarks;
             db.SaveChanges();

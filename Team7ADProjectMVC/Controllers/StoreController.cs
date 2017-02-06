@@ -41,6 +41,7 @@ namespace Team7ADProjectMVC.Controllers
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 inventories = inventorySvc.GetAllInventory();
             }
 
@@ -193,6 +194,7 @@ namespace Team7ADProjectMVC.Controllers
             catch (Exception e)
             {
                 disbursementList = disbursementSvc.GetAllDisbursements();
+                System.Diagnostics.Debug.WriteLine(e.ToString());
             }
             disbursementList = disbursementList.OrderByDescending(x => x.DeliveryDate).ToList();
             ViewBag.Id = id;

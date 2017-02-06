@@ -252,8 +252,6 @@ namespace Team7ADProjectMVC.Controllers
         [AuthorisePermissions(Permission = "DelegateRole")]
         public ActionResult fill()
         {
-
-
             user = (Employee)Session["user"];
             depIdofLoginUser = user.DepartmentId;
             depHeadId = user.EmployeeId;
@@ -283,12 +281,9 @@ namespace Team7ADProjectMVC.Controllers
         [AuthorisePermissions(Permission = "ChangeRepresentative")]
         public ActionResult ChangeRepresentive()
         {
-
             user = (Employee)Session["user"];
             depIdofLoginUser = user.DepartmentId;
             depHeadId = user.EmployeeId;
-
-
 
             Employee currentRep = depsvc.GetCurrentRep(depIdofLoginUser);
             ViewBag.currentRep = currentRep;
@@ -300,7 +295,6 @@ namespace Team7ADProjectMVC.Controllers
 
         [AuthorisePermissions(Permission = "ChangeRepresentative")]
         public ActionResult ManageCangeRep(int? empId)
-
         {
             user = (Employee)Session["user"];
             depIdofLoginUser = user.DepartmentId;

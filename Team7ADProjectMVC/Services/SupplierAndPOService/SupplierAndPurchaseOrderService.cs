@@ -198,6 +198,7 @@ namespace Team7ADProjectMVC.Services
                 }
                 catch (Exception ex)
                 {
+                    System.Diagnostics.Debug.WriteLine(ex.ToString());
                 }
             }
             else if (approve=="Rejected")
@@ -215,6 +216,7 @@ namespace Team7ADProjectMVC.Services
                     }
                     catch (Exception ex)
                     {
+                        System.Diagnostics.Debug.WriteLine(ex.ToString());
                     }
                 }
             }

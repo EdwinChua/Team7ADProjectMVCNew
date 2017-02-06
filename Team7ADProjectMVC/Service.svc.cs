@@ -290,6 +290,7 @@ namespace Team7ADProjectMVC
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
             }
         }
 
@@ -306,6 +307,7 @@ namespace Team7ADProjectMVC
             }
             catch(Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 rt = "false";
             }
             return rt;
@@ -369,6 +371,7 @@ namespace Team7ADProjectMVC
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 dDetail.Authenticate = "false";
                 return dDetail;
             }
@@ -385,6 +388,7 @@ namespace Team7ADProjectMVC
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 return "false";
             }
         }
@@ -411,6 +415,7 @@ namespace Team7ADProjectMVC
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 result = "False";
             }
             return result;
@@ -429,6 +434,7 @@ namespace Team7ADProjectMVC
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 result = "False";
             }
             return result;
@@ -484,6 +490,7 @@ namespace Team7ADProjectMVC
             }
             catch(Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 return "false";
             }
         }
@@ -497,6 +504,7 @@ namespace Team7ADProjectMVC
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 return "false";
             }
         }
@@ -510,6 +518,7 @@ namespace Team7ADProjectMVC
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 return "false";
             }
         }
@@ -537,6 +546,7 @@ namespace Team7ADProjectMVC
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 return "false";
             }
         }
@@ -553,6 +563,7 @@ namespace Team7ADProjectMVC
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
                 return "false";
             }
         }

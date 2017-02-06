@@ -17,11 +17,9 @@ namespace Team7ADProjectMVC.Controllers
         IRequisitionService reqService;
         IUtilityService uSvc;
         PushNotification pushSvc;
-        //ProjectEntities db;
         public StationeryController()
         {
             invService = new InventoryService();
-            //db = new ProjectEntities();
             deptService = new DepartmentService();
             reqService = new RequisitionService();
             uSvc = new UtilityService();
@@ -139,7 +137,7 @@ namespace Team7ADProjectMVC.Controllers
                     }
                     catch (Exception e)
                     {
-                        //return Content("bademail");
+                        System.Diagnostics.Debug.WriteLine(e.ToString());
                     }
                     return RedirectToAction("DepartmentRequisitions");
                 }

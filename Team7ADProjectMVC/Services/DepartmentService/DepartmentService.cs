@@ -58,7 +58,6 @@ namespace Team7ADProjectMVC.Services
 
             if (q.Count() == 0)
             {
-
                 int id = department.DepartmentId;
                 db.Departments.Single(model => model.DepartmentId == id).CollectionPointId = cpId;
                 db.SaveChanges();
@@ -74,27 +73,15 @@ namespace Team7ADProjectMVC.Services
 
         public void UpdateRequi(Requisition requisition,Requisition req, int idd,int eid,int? deid)
         {
-
             requisition.RequisitionId = idd;
             req.RequisitionStatus = "Pending Approval";
             req.EmployeeId = eid;
             req.DepartmentId = deid;
             req.OrderedDate = DateTime.Today;
-           
         }
-        //public void UpdateRequiDetail(RequisitionDetail rd, int iter, int idd, int eid, int deid)
-        //{
 
-        //    requisition.RequisitionId = idd;
-        //    req.RequisitionStatus = "Pending Approval";
-        //    req.EmployeeId = 1;
-        //    req.DepartmentId = 2;
-        //    req.OrderedDate = DateTime.Today;
-
-        //}
-
-        public string FinditemByName(string descibe) {
-
+        public string FinditemByName(string descibe)
+        {
             string itemid = db.Inventories.Where(x => x.Description == descibe).FirstOrDefault().ItemNo.ToString();
             return itemid;
         }
@@ -213,8 +200,6 @@ namespace Team7ADProjectMVC.Services
             db.Delegates.Add(d);
             db.SaveChanges();
 
-
-
             db.Entry(e).State = EntityState.Modified;
             db.SaveChanges();
 
@@ -225,6 +210,7 @@ namespace Team7ADProjectMVC.Services
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
 
         }
@@ -245,6 +231,7 @@ namespace Team7ADProjectMVC.Services
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
         }
 
@@ -261,17 +248,15 @@ namespace Team7ADProjectMVC.Services
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
         }
 
         public List<Delegate> getDelegate()
         {
-
             var query = from t in db.Delegates
                         orderby t.DelegateId ascending
                         select t;
-
-
             return (query.ToList());
         }
         public Delegate FinddelegaterecordById(int? delegateId)

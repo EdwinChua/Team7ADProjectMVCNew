@@ -11,11 +11,17 @@ namespace Team7ADProjectMVC.Controllers
     //Author : Zhan Seng
     public class RptController : Controller
     {
-        private IReportService rptSvc = new ReportService();
-        private IInventoryService invSvc = new InventoryService();
-        private IDepartmentService deptSvc = new DepartmentService();
+        private IReportService rptSvc;
+        private IInventoryService invSvc;
+        private IDepartmentService deptSvc;
+        public RptController()
+        {
+            rptSvc = new ReportService();
+            invSvc = new InventoryService();
+            deptSvc = new DepartmentService();
+        }
+        
         // GET: Rpt
-
         [AuthorisePermissions(Permission = "ViewReports")]
         public ActionResult Index()
         {

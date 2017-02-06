@@ -201,6 +201,7 @@ namespace Team7ADProjectMVC.Controllers
                     }
                     catch (Exception ex)
                     {
+                        System.Diagnostics.Debug.WriteLine(ex.ToString());
                     }
 
                     return RedirectToAction("ViewAdjustment");
@@ -266,6 +267,7 @@ namespace Team7ADProjectMVC.Controllers
                 }
                 catch (Exception ex)
                 {
+                    System.Diagnostics.Debug.WriteLine(ex.ToString());
                 }
                 return RedirectToAction("ViewAdjustment");
             }

@@ -17,7 +17,6 @@ namespace Team7ADProjectMVC.Services
         }
         public List<Adjustment> findSupervisorAdjustmentList()
         {
-
             var adjustmentlist = (from x in db.Adjustments
                                   where x.Status == "Pending Approval"
                                   || x.Status == "Approved"
@@ -25,8 +24,6 @@ namespace Team7ADProjectMVC.Services
                                   orderby x.AdjustmentDate
                                   select x
                                    ).OrderByDescending(x => x.AdjustmentDate).ToList();
-
-
             return (adjustmentlist);
         }
         public List<Adjustment> findManagerAdjustmentList()
@@ -38,7 +35,6 @@ namespace Team7ADProjectMVC.Services
                                   orderby x.AdjustmentDate
                                   select x
                       ).OrderByDescending(x=>x.AdjustmentDate).ToList();
-
             return (adjustmentlist);
         }
         public List<Adjustment> findClerkAdjustmentList()
@@ -53,10 +49,6 @@ namespace Team7ADProjectMVC.Services
 
         public List<Adjustment> FindAdjustmentBySearch(List<Adjustment> searchlist, string employee, string status, string date)
         {
-
-            //int epyid = Int32.Parse(employee);
-            //List<String> datesplit = date.Split('/').ToList<String>();
-            //DateTime selectedate = new DateTime(Int32.Parse((datesplit[2])), Int32.Parse((datesplit[1])), Int32.Parse((datesplit[0])));
             if ((status == null || status == "") && (date == null || date == "") && (employee == null || employee == ""))
             {
                 return searchlist;
@@ -138,7 +130,6 @@ namespace Team7ADProjectMVC.Services
         }
         public Adjustment findAdjustmentByID(int? id)
         {
-
             return (db.Adjustments.Find(id));
         }
         public List<AdjustmentDetail> findDetailByAdjustment(Adjustment adjust)
@@ -227,6 +218,7 @@ namespace Team7ADProjectMVC.Services
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
         }
         private void SendRejectedAdjEmail(Adjustment adj)
@@ -238,6 +230,7 @@ namespace Team7ADProjectMVC.Services
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
         }
 
@@ -253,6 +246,5 @@ namespace Team7ADProjectMVC.Services
             }
             return true;
         }
-
     }
 }

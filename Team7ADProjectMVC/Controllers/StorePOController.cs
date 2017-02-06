@@ -13,7 +13,6 @@ namespace Team7ADProjectMVC.Controllers
     public class StorePOController : Controller
     {
         private IInventoryService inventorySvc;
-        //private IDisbursementService disbursementSvc;
         private IDepartmentService deptSvc;
         private ISupplierAndPurchaseOrderService supplierAndPOSvc;
         private IUtilityService utilSvc;
@@ -21,7 +20,6 @@ namespace Team7ADProjectMVC.Controllers
         public StorePOController()
         {
             inventorySvc = new InventoryService();
-            //disbursementSvc = new DisbursementService();
             deptSvc = new DepartmentService();
             supplierAndPOSvc = new SupplierAndPurchaseOrderService();
             utilSvc = new UtilityService();
@@ -39,7 +37,6 @@ namespace Team7ADProjectMVC.Controllers
         {
             Employee currentEmployee = (Employee)Session["User"];
             supplierAndPOSvc.GeneratePurchaseOrders(currentEmployee,itemNo, supplier, orderQuantity);
-            //List<Inventory> itemsToResupply = supplierAndPOSvc.GetAllItemsToResupply();
             Session["inventoryToResupply"] = new List<Inventory>();
             List<Employee> storeManagement = deptSvc.GetStoreManagerAndSupervisor();
             try //email to Store Manager and Supervisor
@@ -49,6 +46,7 @@ namespace Team7ADProjectMVC.Controllers
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
             return RedirectToAction("PurchaseOrderSummary");
         }

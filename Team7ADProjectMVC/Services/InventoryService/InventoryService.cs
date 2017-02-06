@@ -125,9 +125,9 @@ namespace Team7ADProjectMVC.Services
                             temp.RemoveAll(x => x.RequisitionId == item.RequisitionId);
                         }
                     }
-                    catch
+                    catch (Exception e)
                     {
-
+                        System.Diagnostics.Debug.WriteLine(e.ToString());
                     }
                 }
             }
@@ -257,7 +257,10 @@ namespace Team7ADProjectMVC.Services
                 fcm.CheckForStockReorder();
 
             }
-            catch (Exception e) { }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+            }
           
 
             List < Requisition > requisitionListFromRList = retrievalList.requisitionList;
@@ -407,6 +410,7 @@ namespace Team7ADProjectMVC.Services
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
 
             return currentDisbursementListId;
@@ -757,7 +761,7 @@ namespace Team7ADProjectMVC.Services
             }
             catch(Exception ex)
             {
-
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
             }
         }
     }
